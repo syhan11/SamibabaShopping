@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Wk7BullhornWithSecurity {
+public class Samibaba {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Wk7BullhornWithSecurity.class, args);
+		SpringApplication.run(Samibaba.class, args);
 	}
 
 }

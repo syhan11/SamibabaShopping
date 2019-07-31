@@ -43,34 +43,48 @@ public class User {
     @Size(min=3, max=30)
     private String username;
 
+    @Column(name="address")
+    private String address;
+
+    @Column(name="city")
+    private String city;
+
+    @Column(name="state")
+    @Size(min=2, max=2)
+    private String state;
+
+    @Column(name="zipcode")
+    private int zipcode;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(joinColumns = @JoinColumn(name="user_id"),
                inverseJoinColumns = @JoinColumn(name="role_id"))
     private Collection<Role> roles;
 
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    public Set<Message> messages;
-
     @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
-    private Collection<Message> messages;
+    private Collection<Product> products;
 
     public User() {
     }
 
-    public User(String email,
-                String password,
-                String firstName,
-                String lastName,
+    public User(@Size(min = 3, max = 30) String email,
+                @Size(min = 8) String password,
+                @Size(min = 3, max = 30) String firstName,
+                @Size(min = 3, max = 30) String lastName,
                 boolean enabled,
-                String username
-                ) {
-        this.setEmail(email);
-        this.setPassword(password);
-        this.setFirstName(firstName);
-        this.setLastName(lastName);
-        this.setEnabled(enabled);
-        this.setUsername(username);
-        this.setMessages(null);
+                @Size(min = 3, max = 30) String username) {
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.enabled = enabled;
+        this.username = username;
+        this.address = null;
+        this.city = null;
+        this.state = null;
+        this.zipcode = 0;
+        this.roles = null;
+        this.products = null;
     }
 
     public long getId() {
@@ -144,11 +158,43 @@ public class User {
         this.roles = roles;
     }
 
-    public Collection<Message> getMessages() {
-        return messages;
+    public String getAddress() {
+        return address;
     }
 
-    public void setMessages(Collection<Message> messages) {
-        this.messages = messages;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public int getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(int zipcode) {
+        this.zipcode = zipcode;
+    }
+
+    public Collection<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Collection<Product> products) {
+        this.products = products;
     }
 }
