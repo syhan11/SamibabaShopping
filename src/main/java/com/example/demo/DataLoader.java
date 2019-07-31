@@ -18,6 +18,11 @@ public class DataLoader implements CommandLineRunner{
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
 
     @Override
     public void run(String... strings) throws Exception {
@@ -46,6 +51,13 @@ public class DataLoader implements CommandLineRunner{
                 "User", true, "admin");
         user.setRoles(Arrays.asList(adminRole));
         userRepository.save(user);
+
+        /*
+         * initialze category table
+         */
+        Category category = new Category("Books", "https://res.cloudinary.com/dpvaq7u3d/image/upload/v1564595589/shutterstock_1068141515.jpg");
+        categoryRepository.save(category);
+
 
 
     }

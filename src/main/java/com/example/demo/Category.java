@@ -10,11 +10,20 @@ public class Category {
     private long id;
 
     private String title;
+    private String img;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public Set<Product> products;
 
     public Category() {
+        this.setImg("");
+        this.setProducts(null);
+    }
+
+    public Category(String title, String img) {
+        this.title = title;
+        this.img = img;
+        this.setProducts(null);
     }
 
     public long getId() {
@@ -39,5 +48,13 @@ public class Category {
 
     public void setProducts(Set<Product> products) {
         this.products = products;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }
