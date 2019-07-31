@@ -73,16 +73,16 @@ public class User {
                 @Size(min = 3, max = 30) String lastName,
                 boolean enabled,
                 @Size(min = 3, max = 30) String username) {
-        this.email = email;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.enabled = enabled;
-        this.username = username;
-        this.address = null;
-        this.city = null;
-        this.state = null;
-        this.zipcode = 0;
+        this.setEmail(email);
+        this.setPassword(password);
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
+        this.setEnabled(enabled);
+        this.setUsername(username);
+        this.setAddress(null);
+        this.setCity(null);
+        this.setState(null);
+        this.setZipcode(0);
         this.roles = null;
         this.products = null;
     }

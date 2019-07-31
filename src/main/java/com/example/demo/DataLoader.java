@@ -16,20 +16,14 @@ public class DataLoader implements CommandLineRunner{
     @Autowired
     RoleRepository roleRepository;
 
-    /*
-    * **Added by: Jacob** Adding additional repositories for product and category
-    */
-
-    @Autowired
-    ProductRepository productRepository;
-
-    @Autowired
-    CategoryRepository categoryRepository;
-
-
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
 
     @Override
     public void run(String... strings) throws Exception {
@@ -60,9 +54,8 @@ public class DataLoader implements CommandLineRunner{
         userRepository.save(user);
 
         /*
-        * **Added by: Jacob** Load category/product data for test purposes **
-        * */
-
+         * Load category/product data **
+         */
 
 
         Category tempcategory = new Category("Books");
@@ -78,9 +71,6 @@ public class DataLoader implements CommandLineRunner{
         tempproduct.setImg ("https://images-na.ssl-images-amazon.com/images/I/514axA2lwpL.jpg");
         productRepository.save(tempproduct);
 
-
-        /*End of addition from Jacob
-        * */
 
     }
 }

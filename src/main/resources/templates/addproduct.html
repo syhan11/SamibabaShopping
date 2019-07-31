@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <div th:insert="basicfrag :: headerFrag"></div>
+    <title>AddProduct</title>
+</head>
+
+<body>
+<div th:insert="basicfrag :: navFrag"></div>
+
+<div style="width: 100%; alignment: center">
+
+    <h3>Add New Product</h3>
+    <form class="productform"
+          th:action="@{/processproduct}"
+          th:object="${newprod}"
+          method="post">
+        <input th:field="*{id}" type="hidden">
+        Name:<br>
+        <input th:field="*{name}" type="text" placeholder="Enter product's name"><br/><br/>
+        Description:<br>
+        <input th:field="*{description}" textarea placeholder="Enter product's description"><br/><br/>
+
+        Price:<br>
+        <input th:field="*{price}" type="number"><br/><br/>
+
+        Quantiy:<br>
+        <input th:field="*{qty}" type="number"><br/><br/>
+
+        Image:<br>
+        <input th:field="*{img}" type="text"
+               placeholder="Enter url of an image"><br/>
+        <input th:field="*{img}" type="file"
+               accept="file_extension|image/*"><br/><br/>
+
+        Category:<br>
+        <select th:field="*{category}" multiple>
+        <option th:each="item:${allcategories}"
+                th:text="${item.title}"
+                th:value="${item.id}">
+        </option>
+        </select>
+
+
+        <input type="submit" value="Submit">
+        <input type="reset" value="Reset">
+    </form>
+
+</div>
+
+
+<div th:insert="basicfrag :: scriptFrag"></div>
+</body>
+</html>
