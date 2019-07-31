@@ -110,3 +110,17 @@ button:disabled {
     word-wrap: break-word;
 }
 
+/*This css changes the product info dislay format*/
+
+.product-info{
+    width: 70%;
+    align: center;
+    /*margin-left: 20%;*/
+    /*margin-right: 20%;*/
+    display: flex;
+}
+
+.item-container{
+    width: 80%;
+}
+

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="basicfrag :: headerFrag"></div>
+    <meta charset="UTF-8">
+    <title>List Products</title>
+</head>
+<div th:replace="basicfrag :: navFrag"></div>
+
+<body>
+
+
+<div class="category-jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4"></h1>
+        <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+    </div>
+</div>
+
+<div class="item-container" style="width: 100%">
+    <table class="item-iterator" style="align-items: center;">
+        <tr style="width: 100%">
+            <th>Category</th>
+        </tr>
+        <tr th:each="product: ${allproducts}" class="product-info">
+            <td>
+                <img th:src="${product.img}" alt="product image"/>
+            </td>
+            <td>
+                <h2 th:text="${product.name}"></h2>
+                <h4 th:text="${product.description}"></h4>
+                <h3 th:text="${product.price}"></>
+                <h3 th:text="${product.qty}"></h3>
+            </td>
+            <br/>
+            <button href="#" th:action="@{/addtocart}" method="post" th:type="" th:field="*{product.id}"></button>
+        </tr>
+
+    </table>
+</div>
+>
+
+
+<div th:replace="basicfrag :: footerFrag"></div>
+<div th:replace="basicfrag :: scriptFrag"></div>
+</body>
+</html>

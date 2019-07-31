@@ -17,6 +17,15 @@ public class Category {
     public Category() {
     }
 
+    //**Added By: Jacob ** Adding overloaded constructor for text purposes //May keep upon merge
+
+
+    public Category(String title) {
+        this.title = title;
+    }
+
+    //**End of Jacobs addition**
+
     public long getId() {
         return id;
     }

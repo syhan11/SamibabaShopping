@@ -2,6 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
+//***This fragment (headerFrag) links bootstrap link and stylesheet.css***/
+
 <th:block th:fragment="headerFrag">
 
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
@@ -15,6 +17,8 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/basicstyle.css}">
 
 </th:block>
+
+//***This fragment (navFrag)creates an interactive navigation bar utilizing Bootstrap***/
 
 <th:block th:fragment="navFrag">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -62,6 +66,8 @@
 </th:block>
 
 
+/***This fragment (scriptFrag) links the javascript links for bootstrap animation and other features***/
+
 <th:block th:fragment="scriptFrag">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -77,6 +83,8 @@
 
 
 </th:block>
+
+/***This is fragment (footerFrag) links the footer***/
 
 <div th:fragment="footerFrag">
     <div class="footer-margin">

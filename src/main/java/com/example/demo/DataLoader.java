@@ -5,6 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 @Component
@@ -14,6 +15,17 @@ public class DataLoader implements CommandLineRunner{
 
     @Autowired
     RoleRepository roleRepository;
+
+    /*
+    * **Added by: Jacob** Adding additional repositories for product and category
+    */
+
+    @Autowired
+    ProductRepository productRepository;
+
+    @Autowired
+    CategoryRepository categoryRepository;
+
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -47,6 +59,28 @@ public class DataLoader implements CommandLineRunner{
         user.setRoles(Arrays.asList(adminRole));
         userRepository.save(user);
 
+        /*
+        * **Added by: Jacob** Load category/product data for test purposes **
+        * */
+
+
+
+        Category tempcategory = new Category("Books");
+        categoryRepository.save(tempcategory);
+
+        Product tempproduct = new Product("Learn HTML5", "Learn the fundamentals of HTML5 within 24 hours", 25.67, 10);
+        tempproduct.setCategory(tempcategory);
+        tempproduct.setImg ("https://images-na.ssl-images-amazon.com/images/I/514axA2lwpL.jpg");
+        productRepository.save (tempproduct);
+
+        tempproduct = new Product("Java Fundamentals", "Learn the fundamentals of Java programming within 24 hours",20.99, 6);
+        tempproduct.setCategory (tempcategory);
+        tempproduct.setImg ("https://images-na.ssl-images-amazon.com/images/I/514axA2lwpL.jpg");
+        productRepository.save(tempproduct);
+
+
+        /*End of addition from Jacob
+        * */
 
     }
 }

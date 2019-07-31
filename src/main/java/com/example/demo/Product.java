@@ -39,6 +39,21 @@ public class Product {
     public Product() {
     }
 
+    /*
+    * Added by: Jacob. Creating an overloading constructor to create a Product object within the dataloader
+    **/
+
+    public Product(String name, String description, double price, int qty) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.qty = qty;
+    }
+
+    /*End of addition from Jacob
+    * */
+
+
     public long getId() {
         return id;
     }
