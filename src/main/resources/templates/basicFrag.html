@@ -132,6 +132,11 @@
                     <a class="nav-link" href="/logout">Logout</a>
                 </li>
             </ul>
+
+            <form action="#" th:action="@{/search}" class="form-inline my-2 my-lg-0 ml-auto" style="float: right;">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
         </div>
         <a class="navbar-brand" href="#">Welcome <span sec:authentication="name"></span></a>
         <button class="navbar-toggler no-click-button" type="button" ></button>

@@ -37,30 +37,30 @@ public class HomeController {
     @Autowired
     OrderHistoryRepository orderHistoryRepository;
 
-    @GetMapping("/register")
-    public String showRegistrationPage(Model model){
-        model.addAttribute("user", new User());
-        return "registration";
-    }
+//    @GetMapping("/register")
+//    public String showRegistrationPage(Model model){
+//        model.addAttribute("user", new User());
+//        return "registration";
+//    }
+//
+//    @PostMapping("/register")
+//    public String processRegistrationPage(@Valid @ModelAttribute("user") User user, BindingResult result, Model model){
+//            model.addAttribute("user", user);
+//        if(result.hasErrors()){
+//            return "registration";
+//        }
+//
+//        else {
+//            userService.saveUser(user);
+//            model.addAttribute("message", "User Account Created");
+//        }
+//        return "redirect:/";
+//    }
 
-    @PostMapping("/register")
-    public String processRegistrationPage(@Valid @ModelAttribute("user") User user, BindingResult result, Model model){
-            model.addAttribute("user", user);
-        if(result.hasErrors()){
-            return "registration";
-        }
-
-        else {
-            userService.saveUser(user);
-            model.addAttribute("message", "User Account Created");
-        }
-        return "redirect:/";
-    }
-
-    @RequestMapping("/login")
-    public String login() {
-        return "login";
-    }
+//    @RequestMapping("/login")
+//    public String login() {
+//        return "login";
+//    }
 
     /*
      * after login has been validated, it will come here
