@@ -37,17 +37,19 @@ public class AdminController {
     @GetMapping("/addcategory")
     public String adminCategory(Model model) {
         model.addAttribute("newcat", new Category());
+        model.addAttribute("user", userService.getUser());
         model.addAttribute("allcats", categoryRepository.findAll());
 
         return "addcategory";
     }
 
     @PostMapping("/processcategory")
-    public String processCategory(@Valid @ModelAttribute("newcat") Category newcat, BindingResult result, Model model) {
+    public String processCategory(@Valid @ModelAttribute("category") Category newcat, BindingResult result, Model model) {
 
         if (result.hasErrors())
             return "/addcategory";
         else {
+
             categoryRepository.save(newcat);
             return "redirect:/";
         }

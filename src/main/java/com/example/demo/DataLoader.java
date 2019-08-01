@@ -58,9 +58,14 @@ public class DataLoader implements CommandLineRunner{
          */
 
 
-        Category tempcategory = new Category("Books");
+//        Category tempcategory = new Category("Books");
+//        categoryRepository.save(tempcategory);
+        Category tempcategory = new Category();
+        tempcategory.setImg("https://res.cloudinary.com/dgmyjncc8/image/upload/v1564604637/codyxktifpfte3f6sbrq.jpg");
+        tempcategory.setTitle("Books");
         categoryRepository.save(tempcategory);
 
+        // products for Books categroy
         Product tempproduct = new Product("Learn HTML5", "Learn the fundamentals of HTML5 within 24 hours", 25.67, 10);
         tempproduct.setCategory(tempcategory);
         tempproduct.setImg ("https://images-na.ssl-images-amazon.com/images/I/514axA2lwpL.jpg");
@@ -70,6 +75,29 @@ public class DataLoader implements CommandLineRunner{
         tempproduct.setCategory (tempcategory);
         tempproduct.setImg ("https://images-na.ssl-images-amazon.com/images/I/514axA2lwpL.jpg");
         productRepository.save(tempproduct);
+
+        // new category
+        tempcategory = new Category();
+        tempcategory.setImg("https://res.cloudinary.com/dgmyjncc8/image/upload/v1564598654/kvsr95fpwgemhnlm2tg0.jpg");
+        tempcategory.setTitle("Clothing");
+        categoryRepository.save(tempcategory);
+
+        tempcategory = new Category();
+        tempcategory.setImg("https://res.cloudinary.com/dgmyjncc8/image/upload/v1564600350/nuzmblh8kkujazuim02j.jpg");
+        tempcategory.setTitle("Home Appliances ");
+        categoryRepository.save(tempcategory);
+
+        tempcategory = new Category();
+        tempcategory.setImg("https://res.cloudinary.com/dgmyjncc8/image/upload/v1564671180/zeswg50joazsfqvpz8ul.jpg");
+        tempcategory.setTitle("Electronic Devices");
+        categoryRepository.save(tempcategory);
+
+
+
+
+
+
+
 
 
     }
