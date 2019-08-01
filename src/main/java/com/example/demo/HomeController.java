@@ -1,10 +1,15 @@
 package com.example.demo;
 
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /*
  * This controller will deal with all but security (login & register)
@@ -13,6 +18,9 @@ import org.springframework.web.bind.annotation.*;
 public class HomeController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     RoleRepository roleRepository;
@@ -29,21 +37,45 @@ public class HomeController {
     @Autowired
     OrderHistoryRepository orderHistoryRepository;
 
+//    @GetMapping("/register")
+//    public String showRegistrationPage(Model model){
+//        model.addAttribute("user", new User());
+//        return "registration";
+//    }
+//
+//    @PostMapping("/register")
+//    public String processRegistrationPage(@Valid @ModelAttribute("user") User user, BindingResult result, Model model){
+//            model.addAttribute("user", user);
+//        if(result.hasErrors()){
+//            return "registration";
+//        }
+//
+//        else {
+//            userService.saveUser(user);
+//            model.addAttribute("message", "User Account Created");
+//        }
+//        return "redirect:/";
+//    }
+
+//    @RequestMapping("/login")
+//    public String login() {
+//        return "login";
+//    }
+
     /*
      * after login has been validated, it will come here
      */
     @RequestMapping("/")
-    public String homepg(Model model) {
-
-
-        User crntuser = userService.getUser();
-        if (crntuser != null)
-            model.addAttribute("loginuser", crntuser.getUsername());
-        else
-            model.addAttribute("loginuser", "none");
-        return "index";
-
+    public String homepage(Model model) {
+        model.addAttribute("categories", categoryRepository.findAll());
+        if (userService.getUser() != null) {
+            model.addAttribute("user_id", userService.getUser().getId());
+        }
+        return "homepage";
     }
+
+    @GetMapping()
+
 
     @RequestMapping("/admin")
     public String admin(Model model) {
