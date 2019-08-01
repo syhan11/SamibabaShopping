@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 
 @Entity
@@ -13,6 +14,7 @@ public class Product {
     private String name;
 
     @Column(name="description")
+    @Size(max=255)
     private String description;
 
     @Column(name="price")
@@ -22,6 +24,7 @@ public class Product {
     private int qty;
 
     @Column(name="img")
+    @Size(max=255)
     private String img;
 
 
