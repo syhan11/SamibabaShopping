@@ -134,10 +134,6 @@ public class User {
         return enabled;
     }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
     public String getUsername() {
         return username;
     }
@@ -148,6 +144,10 @@ public class User {
 
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public Collection<Role> getRoles() {
@@ -196,5 +196,18 @@ public class User {
 
     public void setProducts(Collection<Product> products) {
         this.products = products;
+    }
+
+    public boolean hasAuthority(String privilage) {
+        boolean found = false;
+
+        for (Role tmp : getRoles()) {
+            if (tmp.getRole().equalsIgnoreCase(privilage)) {
+                    found = true;
+                    break;
+            }
+         }
+
+        return found;
     }
 }

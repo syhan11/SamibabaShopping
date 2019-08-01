@@ -41,53 +41,39 @@ public class HomeController {
     @Autowired
     OrderHistoryRepository orderHistoryRepository;
 
-//    @GetMapping("/register")
-//    public String showRegistrationPage(Model model){
-//        model.addAttribute("user", new User());
-//        return "registration";
-//    }
-//
-//    @PostMapping("/register")
-//    public String processRegistrationPage(@Valid @ModelAttribute("user") User user, BindingResult result, Model model){
-//            model.addAttribute("user", user);
-//        if(result.hasErrors()){
-//            return "registration";
-//        }
-//
-//        else {
-//            userService.saveUser(user);
-//            model.addAttribute("message", "User Account Created");
-//        }
-//        return "redirect:/";
-//    }
-
-//    @RequestMapping("/login")
-//    public String login() {
-//        return "login";
-//    }
-
     /*
      * after login has been validated, it will come here
      */
     @RequestMapping("/")
     public String homepage(Model model) {
         model.addAttribute("categories", categoryRepository.findAll());
-        if (userService.getUser() != null) {
-            model.addAttribute("user_id", userService.getUser().getId());
+
+        /*
+         * FOR ADMIN
+         *     number of items on the cart menu is the total number of all OPEN orders
+         * FOR OTHERS (like USER)
+         *     number of items on the cart menu is the total number of user's OPEN orders
+         *
+         * number of items on the cart menu needs to be passed as 'nocartitems' to html
+         *
+         */
+        User current = userService.getUser();
+
+        if (current != null) {
+            Long userid = current.getId();
+
+            if (current.hasAuthority("ADMIN")) {
+                model.addAttribute("nocartitems", orderHistoryRepository.countByStatusEquals(1));
+
+            }
+            else
+                model.addAttribute("nocartitems", orderHistoryRepository.countByUserIdEqualsAndStatusEquals(userid, 1));
         }
         return "homepage";
     }
 
-
-
-
     @RequestMapping("/admin")
     public String admin(Model model) {
-
-        //pass currently logged-in user information to index.html
-        User crntuser = userService.getUser();
-        if (crntuser != null)
-            model.addAttribute("crntuser", crntuser);
 
         return "admin";
     }

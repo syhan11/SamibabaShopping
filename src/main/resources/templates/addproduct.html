@@ -4,46 +4,61 @@
 
 <head>
     <div th:insert="basicfrag :: headerFrag"></div>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/adminstyle.css}">
     <title>AddProduct</title>
 </head>
 
 <body>
 <div th:insert="basicfrag :: navFrag"></div>
 
-<div style="width: 100%; alignment: center">
 
+<div class="admincontain">
     <h3>Add New Product</h3>
     <form class="productform"
           th:action="@{/processproduct}"
           th:object="${newprod}"
           method="post">
         <input th:field="*{id}" type="hidden">
-        Name:<br>
-        <input th:field="*{name}" type="text" placeholder="Enter product's name"><br/><br/>
-        Description:<br>
-        <input th:field="*{description}" textarea placeholder="Enter product's description"><br/><br/>
+        <div><label>Name:<br>
+        <input th:field="*{name}" type="text" placeholder="Enter product's name"></label></div><br/>
+        <div><label>Description:<br>
+        <input th:field="*{description}"
+               textarea rows="4" cols="50"
+               placeholder="Enter product's description">
+            <span th:if="${#fields.hasErrors('description')}"
+                  th:errors="*{description}"></span><br/>
+        </label></div><br/>
 
-        Price:<br>
-        <input th:field="*{price}" type="number"><br/><br/>
+        <div><label>Price:<br>
+        <input th:field="*{price}" type="text">
+            <span th:if="${#fields.hasErrors('price')}"
+                  th:errors="*{price}"></span><br/>
+        </label>
+        </div><br/>
 
-        Quantiy:<br>
-        <input th:field="*{qty}" type="number"><br/><br/>
+        <div><label>Quantiy:<br>
+        <input th:field="*{qty}" type="number"></label></div><br/>
 
-        Image:<br>
+        <div><lable>Image:<br>
         <input th:field="*{img}" type="text"
-               placeholder="Enter url of an image"><br/>
-        <input th:field="*{img}" type="file"
-               accept="file_extension|image/*"><br/><br/>
+               placeholder="Enter url of an image">
+            <span th:if="${#fields.hasErrors('img')}"
+                  th:errors="*{img}"></span><br/>
+            <br/>
+        <!--<input th:field="*{img}" type="file"-->
+               <!--accept="file_extension|image/*"></lable>-->
+        </div><br/>
 
-        Category:<br>
+        <div><label>Category:<br>
         <select th:field="*{category}" multiple>
         <option th:each="item:${allcategories}"
                 th:text="${item.title}"
-                th:value="${item.id}">
+                th:value="${item.id}" size="50">
         </option>
         </select>
 
-
+        </label></div>
+        <br/>
         <input type="submit" value="Submit">
         <input type="reset" value="Reset">
     </form>

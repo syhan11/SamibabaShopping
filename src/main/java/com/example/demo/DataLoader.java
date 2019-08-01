@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,6 +25,9 @@ public class DataLoader implements CommandLineRunner{
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private OrderHistoryRepository orderHistoryRepository;
 
     @Override
     public void run(String... strings) throws Exception {
@@ -76,6 +80,7 @@ public class DataLoader implements CommandLineRunner{
         tempproduct.setImg ("https://images-na.ssl-images-amazon.com/images/I/514axA2lwpL.jpg");
         productRepository.save(tempproduct);
 
+
         // new category
         tempcategory = new Category();
         tempcategory.setImg("https://res.cloudinary.com/dgmyjncc8/image/upload/v1564598654/kvsr95fpwgemhnlm2tg0.jpg");
@@ -94,10 +99,32 @@ public class DataLoader implements CommandLineRunner{
 
 
 
+        // create test order history: open status for user 3
+        OrderHistory tmp = new OrderHistory();
+        tmp.setOrderId("testing001");
+        tmp.setProductId(123);
+        tmp.setQty(99);
+        tmp.setStatus(1);
+        tmp.setUserId(3);
+        orderHistoryRepository.save(tmp);
 
+        // create test order history: non-open status for user 3
+        tmp = new OrderHistory();
+        tmp.setOrderId("testing002");
+        tmp.setProductId(321);
+        tmp.setQty(11);
+        tmp.setStatus(2);
+        tmp.setUserId(3);
+        orderHistoryRepository.save(tmp);
 
-
-
+        // create test order history: open status for user 4
+        tmp = new OrderHistory();
+        tmp.setOrderId("testing003");
+        tmp.setProductId(987);
+        tmp.setQty(1);
+        tmp.setStatus(1);
+        tmp.setUserId(4);
+        orderHistoryRepository.save(tmp);
 
 
     }
