@@ -21,62 +21,6 @@
 //***This fragment (navFrag)creates an interactive navigation bar utilizing Bootstrap***/
 
 <th:block th:fragment="navFrag">
-    <!--<nav class="navbar navbar-expand-lg navbar-dark bg-danger">-->
-        <!--<a class="navbar-brand" href="#">BullHorn</a>-->
-        <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
-            <!--<span class="navbar-toggler-icon"></span>-->
-        <!--</button>-->
-
-        <!--<div class="collapse navbar-collapse" id="navbarSupportedContent">-->
-            <!--<ul class="navbar-nav mr-auto">-->
-                <!--<li class="nav-item active">-->
-                    <!--<a class="nav-link" href="/login">Login <span class="sr-only">(current)</span></a>-->
-                <!--</li>-->
-
-                <!--<li class="nav-item active">-->
-                    <!--<a class="nav-link" href="/register">Register <span class="sr-only">(current)</span></a>-->
-                <!--</li>-->
-
-                <!--&lt;!&ndash;<li class="nav-item active">&ndash;&gt;-->
-                <!--&lt;!&ndash;<a class="nav-link" href="/login">Logout <span class="sr-only">(current)</span></a>&ndash;&gt;-->
-                <!--&lt;!&ndash;</li>&ndash;&gt;-->
-
-                <!--<div sec:authorize="hasAuthority('USER')">-->
-                    <!--<li class="nav-item active">-->
-                        <!--<a class="nav-link" href="/login">Logout <span class="sr-only">(current)</span></a>-->
-                    <!--</li>-->
-                <!--</div>-->
-
-
-                <!--<li class="nav-item dropdown">-->
-                    <!--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-                        <!--Links-->
-                    <!--</a>-->
-                    <!--<div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
-                        <!--<a class="dropdown-item" href="#">New</a>-->
-                        <!--<a class="dropdown-item" href="#">Edit</a>-->
-                        <!--<div class="dropdown-divider"></div>-->
-                        <!--<a class="dropdown-item" href="#">Delete</a>-->
-                    <!--</div>-->
-                <!--</li>-->
-
-            <!--</ul>-->
-            <!--<form class="form-inline my-2 my-lg-0">-->
-                <!--<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
-                <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
-            <!--</form>-->
-        <!--</div>-->
-    <!--</nav>-->
-
-
-
-
-
-
-
-
-
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">Samibaba</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -88,38 +32,36 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Login</a>
-                </li>
-
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Category</a>
+                    <a class="nav-link" href="/viewcart">View Cart</a>
                 </li>
+
                 <li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Admin
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <!--<a class="dropdown-item" href="/addcategory">Add Category</a>-->
-                        <a class="dropdown-item" href="/addproduct">Add Product</a>
+                    <div class="nav-item dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/adminorder">Process Order</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-
-
-                        <div class="btn-group dropright">
-                            <a role="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Category
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="/addcategory">Show All</a>
+                        <a class="dropdown-item dropdown-toggle" href="#" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                           style="color:#212529">Category</a>
+                        <div class="nav-item dropright" aria-labelledby="navbarDropdown">
+                            <div class="dropdown-menu" x-placement="right-start">
+                                <a class="dropdown-item" href="/showcategory">Show All</a>
                                 <a class="dropdown-item" href="/addcategory">Add</a>
                             </div>
                         </div>
-
-
+                        <a class="dropdown-item dropdown-toggle" href="#" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                           style="color:#212529">Product</a>
+                        <div class="nav-item dropright" aria-labelledby="navbarDropdown">
+                            <div class="dropdown-menu" x-placement="right-start">
+                                <a class="dropdown-item" href="/showproducts">Show All</a>
+                                <a class="dropdown-item" href="/addproduct">Add</a>
+                            </div>
+                        </div>
 
                     </div>
                 </li>
