@@ -1,30 +1,3 @@
-.msgtable {
-    font-family: arial, sans-serif;
-    font-size: larger;
-    border-collapse: collapse;
-    width: 100%;
-    padding: 15px;
-    background-color: whitesmoke;
-    table-layout: fixed;
-}
-
-.msgth {
-    border: 1px solid azure;
-    text-align: center;
-    height: 25px;
-}
-
-.msgtd {
-    border: 1px solid azure;
-    text-align: center;
-    padding: 5px;
-    word-wrap: break-word;
-    }
-
-.msgtr:nth-child(even) {
-    background-color: azure;
-}
-
 .footer-margin{
     width:100%;
     left: 0;
@@ -54,6 +27,29 @@
 
 button:disabled {
     cursor: not-allowed;
+}
+
+.item-container{
+    padding: 10%;
+    margin: 0;
+    image: url("https://thumbs.dreamstime.com/b/white-marble-texture-abstract-background-pattern-high-resolution-detailed-real-genuine-nature-90469860.jpg");
+    background-size: 40rem;
+}
+
+.product-image{
+    max-height: 400px;
+    width: auto;
+}
+
+.item-iterator{
+    border-radius: 10px;
+    margin: 0px;
+    padding: 10px;
+}
+
+.table-row-item{
+    margin: 5px;
+    padding: 0;
 }
 
 .loginContainer {

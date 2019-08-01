@@ -9,7 +9,6 @@
 
 <body>
 
-//jacob
 <div class="category-jumbotron jumbotron-fluid">
     <div class="container">
         <h1 class="display-4"></h1>
@@ -19,26 +18,25 @@
 
 <div class="item-container" style="width: 100%">
     <table class="item-iterator" style="align-items: center;">
-        <tr style="width: 100%">
+        <tr class="table-row-item" style="width: 100%">
             <th>Category</th>
         </tr>
         <tr th:each="product: ${allproducts}" class="product-info">
             <td>
-                <img th:src="${product.img}" alt="product image"/>
+                <img class="product-image" th:src="${product.img}" alt="product image"/>
             </td>
             <td>
                 <h2 th:text="${product.name}"></h2>
                 <h4 th:text="${product.description}"></h4>
-                <h3 th:text="${product.price}"></>
+                <h3 th:text="${product.price}"></h3>
                 <h3 th:text="${product.qty}"></h3>
             </td>
             <br/>
-            <button href="#" th:action="@{/addtocart}" method="post" th:type="" th:field="*{product.id}"></button>
         </tr>
-
     </table>
+    <!--<button th:action="@{/addtocart}" method="post" type="button" th:field="*{product.id}">Add to cart</button>-->
 </div>
->
+
 
 
 <div th:replace="basicfrag :: footerFrag"></div>
