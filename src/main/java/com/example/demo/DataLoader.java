@@ -58,8 +58,32 @@ public class DataLoader implements CommandLineRunner{
          */
 
 
-        Category tempcategory = new Category("Books");
+//        Category tempcategory = new Category("Books");
+//        categoryRepository.save(tempcategory);
+        Category tempcategory = new Category();
+        tempcategory.setImg("https://res.cloudinary.com/dgmyjncc8/image/upload/v1564604637/codyxktifpfte3f6sbrq.jpg");
+        tempcategory.setTitle("Books");
         categoryRepository.save(tempcategory);
+
+        tempcategory = new Category();
+        tempcategory.setImg("https://res.cloudinary.com/dgmyjncc8/image/upload/v1564598654/kvsr95fpwgemhnlm2tg0.jpg");
+        tempcategory.setTitle("Clothing");
+        categoryRepository.save(tempcategory);
+
+        tempcategory = new Category();
+        tempcategory.setImg("https://res.cloudinary.com/dgmyjncc8/image/upload/v1564600350/nuzmblh8kkujazuim02j.jpg");
+        tempcategory.setTitle("Home Appliances ");
+        categoryRepository.save(tempcategory);
+
+        tempcategory = new Category();
+        tempcategory.setImg("https://res.cloudinary.com/dgmyjncc8/image/upload/v1564671180/zeswg50joazsfqvpz8ul.jpg");
+        tempcategory.setTitle("Electronic Devices");
+        categoryRepository.save(tempcategory);
+
+
+
+
+
 
         Product tempproduct = new Product("Learn HTML5", "Learn the fundamentals of HTML5 within 24 hours", 25.67, 10);
         tempproduct.setCategory(tempcategory);

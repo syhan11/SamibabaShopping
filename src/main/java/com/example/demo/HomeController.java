@@ -8,8 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
 
 /*
  * This controller will deal with all but security (login & register)
@@ -30,9 +34,9 @@ public class HomeController {
 
     @Autowired
     ProductRepository productRepository;
-
     @Autowired
     CategoryRepository categoryRepository;
+
 
     @Autowired
     OrderHistoryRepository orderHistoryRepository;
@@ -74,7 +78,7 @@ public class HomeController {
         return "homepage";
     }
 
-    @GetMapping()
+
 
 
     @RequestMapping("/admin")
@@ -87,6 +91,7 @@ public class HomeController {
 
         return "admin";
     }
+
 
 
 }
