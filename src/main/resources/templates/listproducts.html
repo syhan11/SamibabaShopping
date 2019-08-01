@@ -7,38 +7,41 @@
 </head>
 <div th:replace="basicfrag :: navFrag"></div>
 
-<body>
+<body class="listproducts-background">
 
-//jacob
 <div class="category-jumbotron jumbotron-fluid">
-    <div class="container">
         <h1 class="display-4"></h1>
-        <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
-    </div>
+        <p class="lead"><h2 style="text-align: center">[[${category.title}]]</h2></p>
 </div>
 
-<div class="item-container" style="width: 100%">
-    <table class="item-iterator" style="align-items: center;">
-        <tr style="width: 100%">
-            <th>Category</th>
-        </tr>
-        <tr th:each="product: ${allproducts}" class="product-info">
-            <td>
-                <img th:src="${product.img}" alt="product image"/>
-            </td>
-            <td>
-                <h2 th:text="${product.name}"></h2>
-                <h4 th:text="${product.description}"></h4>
-                <h3 th:text="${product.price}"></>
-                <h3 th:text="${product.qty}"></h3>
-            </td>
+<div class="item-container">
+    <form class="item-iterator" style="align-items: center;"
+          action="#"
+          th:action="@{addtocart}"
+          th:object="${orderhist}"
+          method="post">
+        <table>
+            <tr th:each="product: ${allproducts}" class="product-info">
+                <td id="item-image-td">
+                    <img class="product-image" th:src="${product.img}" alt="product image"/>
+                </td>
+                <td id="item-data-td">
+                    <div class="listing-right-column pl-xs-2">
+                        <h2 th:text="${product.name}" style="text-align: center"></h2>
+                        <hr/>
+                        <h4 th:text="${product.description}"></h4>
+                        <hr/>
+                        <h3 th:text="${product.price}"></h3>
+                        <select th:type="number"></select>
+                        <button type="submit" value="Add to Cart">Add to Cart</button>
+                    </div>
+                </td>
+            </tr>
             <br/>
-            <button href="#" th:action="@{/addtocart}" method="post" th:type="" th:field="*{product.id}"></button>
-        </tr>
-
-    </table>
+        </table>
+    </form>
+    <!--<button th:action="@{/addtocart}" method="post" type="button" th:field="*{product.id}">Add to cart</button>-->
 </div>
->
 
 
 <div th:replace="basicfrag :: footerFrag"></div>

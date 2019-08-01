@@ -8,6 +8,8 @@ public class OrderHistory {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    //Testing a different generated type - Jacob
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name="order_id")
     private String orderId;
 
@@ -25,6 +27,8 @@ public class OrderHistory {
 
     public OrderHistory() {
     }
+
+
 
     public long getId() {
         return id;
