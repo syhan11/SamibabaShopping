@@ -30,21 +30,73 @@ button:disabled {
 }
 
 .item-container{
-    padding: 10%;
-    margin: 0;
-    image: url("https://thumbs.dreamstime.com/b/white-marble-texture-abstract-background-pattern-high-resolution-detailed-real-genuine-nature-90469860.jpg");
+
+    padding: 50px;
+    background-image: url("https://thumbs.dreamstime.com/b/white-marble-texture-abstract-background-pattern-high-resolution-detailed-real-genuine-nature-90469860.jpg");
     background-size: 40rem;
+    border-radius: 20px;
+    align-items: center;
+    width: 80%;
+    min-width: 500px;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 20px;
+    display: flex;
+    position: center;
+}
+
+/****Login Video CSS***/
+
+.bodyhomepage {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.loginContainer {
+    text-align: center;
+    padding: 20px;
+    margin: 15px;
+    z-index: 1;
+    opacity: 0.7;
+}
+
+.video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+}
+
+#item-data-td{
+    padding-left: 20px;
+}
+
+.listproducts-background{
+    background-image: url("https://www.belfontedairy.com/wp-content/uploads/2017/03/light-blue-background-wallpaper-1.jpg");
+    background-size: cover;
 }
 
 .product-image{
     max-height: 400px;
     width: auto;
+    max-width: 300px;
 }
 
 .item-iterator{
     border-radius: 10px;
-    margin: 0px;
     padding: 10px;
+    margin-bottom: 20px;
+}
+
+.product-info{
+    padding-bottom: 20px;
+    padding-top: 20px;
 }
 
 .table-row-item{
@@ -81,6 +133,14 @@ button:disabled {
     text-align: center;
     -webkit-border-radius: 0 0 10px 10px;
     border-radius: 0 0 10px 10px;
+}
+
+.navbar{
+    margin-bottom: 0;
+}
+
+.navbar-brand{
+    text-align: center;
 }
 
 #inputtext, #firstName, #lastName, #email, #username, #password {

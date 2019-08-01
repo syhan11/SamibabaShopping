@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <div th:insert="basicfrag :: headerFrag"></div>
+    <div th:replace="basicfrag :: headerFrag"></div>
     <title>Login</title>
 </head>
 <body>
+<div th:replace="basicfrag :: navFrag"></div>
 <div class="bodyhomepage">
-    <div th:insert="basicfrag :: navFrag"></div>
     <div class="container loginContainer">
         <div class="container loginContentForm">
             <h1>Please login</h1>
@@ -34,9 +34,18 @@
 
         </div>
     </div>
+
+    <div class="video-container">
+        <div class="color-overlay"></div>
+        <video autoplay loop muted>
+            <source src="https://res.cloudinary.com/jleplerwt/video/upload/v1564622166/Samibaba%20Test%20Images/Spring_Cloud_Time_Lapse_1_ou7by7.mp4">
+        </video>
+    </div>
+
+
 </div>
-<div th:insert="basicfrag :: footerFrag"></div>
-<div th:insert="basicfrag :: scriptFrag"></div>
+<div th:replace="basicfrag :: footerFrag"></div>
+<div th:replace="basicfrag :: scriptFrag"></div>
 
 </body>
 </html>
