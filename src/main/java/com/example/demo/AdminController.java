@@ -32,6 +32,9 @@ public class AdminController {
     @Autowired
     CategoryRepository categoryRepository;
 
+    @Autowired
+    OrderHistoryRepository orderHistoryRepository;
+
 
 
     @GetMapping("/addcategory")
