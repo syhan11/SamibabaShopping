@@ -9,7 +9,7 @@ public class OrderHistory {
     private long id;
 
     //Testing a different generated type - Jacob
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="order_id")
     private String orderId;
 
@@ -23,8 +23,8 @@ public class OrderHistory {
 
 //    @Column(name="product_id")
 //    private long productId;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
+    @OneToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinTable(name = "product_id")
     private Product product;
 
     @Column(name="qty")

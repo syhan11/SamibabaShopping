@@ -6,5 +6,5 @@ public interface OrderHistoryRepository extends CrudRepository<OrderHistory, Lon
     Long countByUserIdEqualsAndStatusEquals(long userid, int status);
     Long countByStatusEquals(int status);
 
-
+    OrderHistory findByUserEqualsAndStatusEquals(User user, int status);
 }

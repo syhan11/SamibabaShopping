@@ -73,8 +73,12 @@ button:disabled {
     height: auto;
 }
 
+#item-image-td{
+    margin-right: 20px;
+}
+
 #item-data-td{
-    padding-left: 20px;
+    padding-left: 40px;
 }
 
 .listproducts-background{

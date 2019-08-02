@@ -8,6 +8,7 @@ import java.util.Collection;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private long id;
 
     @Column(name="name")
@@ -34,10 +35,10 @@ public class Product {
     private Collection<User> users;
 
 
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="category_id")
     private Category category;
+
 
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, optional = true)
