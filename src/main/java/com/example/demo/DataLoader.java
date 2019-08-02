@@ -102,28 +102,28 @@ public class DataLoader implements CommandLineRunner{
         // create test order history: open status for user 3
         OrderHistory tmp = new OrderHistory();
         tmp.setOrderId("testing001");
-        tmp.setProduct(tempproduct);
+        tmp.setOrdproduct(tempproduct);
         tmp.setQty(99);
-        tmp.setStatus(3);
-        tmp.setUser(tuser);
+        tmp.setStatus(2);
+        tmp.setOrduser(tuser);
         orderHistoryRepository.save(tmp);
 
         // create test order history: non-open status for user 3
         tmp = new OrderHistory();
         tmp.setOrderId("testing002");
-        tmp.setProduct(tempproduct2);
+        tmp.setOrdproduct(tempproduct2);
         tmp.setQty(11);
-        tmp.setStatus(2);
-        tmp.setUser(tuser);
+        tmp.setStatus(3);
+        tmp.setOrduser(tuser);
         orderHistoryRepository.save(tmp);
 
         // create test order history: open status for user 4
         tmp = new OrderHistory();
         tmp.setOrderId("testing003");
-        tmp.setProduct(tempproduct2);
+        tmp.setOrdproduct(tempproduct2);
         tmp.setQty(1);
         tmp.setStatus(3);
-        tmp.setUser(user);
+        tmp.setOrduser(user);
         orderHistoryRepository.save(tmp);
 
 

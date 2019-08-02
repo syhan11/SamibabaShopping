@@ -41,6 +41,14 @@ public class HomeController {
     @Autowired
     OrderHistoryRepository orderHistoryRepository;
 
+    // FOR ORDER STATUS: cancel=1; standby=2; ordered=3; shipped=4; wish = 5; cancelAdmin=6
+    static int ORDCANCEL = 1;
+    static int ORDSTANDBY = 2;
+    static int ORDORDERED = 3;
+    static int ORDSHIPPED = 4;
+    static int ORDWISH = 5;
+    static int ORDADMCANCEL = 6;
+
     /*
      * after login has been validated, it will come here
      */
@@ -58,16 +66,21 @@ public class HomeController {
          *
          */
         User current = userService.getUser();
+        Long userid;
 
         if (current != null) {
-            Long userid = current.getId();
+            userid = current.getId();
+            String name = current.getUsername();
 
             if (current.hasAuthority("ADMIN")) {
-                model.addAttribute("nocartitems", orderHistoryRepository.countByStatusEquals(1));
+                model.addAttribute("nocartitems", orderHistoryRepository.countByStatusEquals(ORDORDERED));
 
             }
-            else
-                model.addAttribute("nocartitems", orderHistoryRepository.countByUserIdEqualsAndStatusEquals(userid, 1));
+            else {
+                //model.addAttribute("nocartitems", orderHistoryRepository.countByUserIdEqualsAndStatusEquals(userid, 1));
+                User tmpuser = userRepository.findByUsername(name);
+                model.addAttribute("nocartitems",orderHistoryRepository.countByOrduserEqualsAndStatusEquals(tmpuser, ORDSTANDBY));
+            }
         }
         return "homepage";
     }
@@ -75,7 +88,7 @@ public class HomeController {
     @RequestMapping("/admin")
     public String admin(Model model) {
 
-        return "admin";
+        return "sendemail";
     }
 
 

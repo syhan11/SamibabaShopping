@@ -43,15 +43,15 @@ public class ProductController {
     public String showProducts(@PathVariable("id") long id, Model model){
 
         //This statement instantiates a category object based on the id of the category chosen.
-        Category category = categoryRepository.findById (id).get();
+        Category category = categoryRepository.findById(id).get();
         model.addAttribute("category", category);
 
 
         //This populates a Model object with all the products to be displayed to the user.
-        model.addAttribute ( "allproducts", category.getProducts ());
+        //model.addAttribute ( "allproducts", category.getProducts());
 
 
-        model.addAttribute ("orderhist", new OrderHistory());
+        //model.addAttribute ("orderhist", new OrderHistory());
         return "listproducts";          /*Will change names later*/
     }
 
@@ -70,7 +70,8 @@ public class ProductController {
 //        else {
 //            orderHistoryRepository.save (orderhist);
 //        }
-        return "listproducts";
+//        return "listproducts";
+        return "/";
     }
 
 

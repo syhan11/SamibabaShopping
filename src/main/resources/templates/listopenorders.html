@@ -21,33 +21,34 @@
 
 
 <div class="item-container">
-    <form class="item-iterator" style="align-items: center;"
-          action="#"
-          th:action="@{sendemail}"
-          th:object="${orderhist}"
-          method="post">
-        <table>
-            <tr th:each="openorder: ${allopenorders}" class="product-info">
-                <td id="item-image-td">
-                    <!--<img class="product-image" th:src="${product.img}" alt="product image"/>-->
-                    <img class="product-image" th:src="" alt="product image"/>
 
+        <table class="item-iterator">
+            <tr th:each="openorder: ${allopenorders}" class="product-info">
+                <td id="item-user-td">
+                    <div class="listing-right-column pl-xs-2">
+                        <h2 th:text="${openorder.getOrduser().getFirstName() + ' '
+                                       + openorder.getOrduser().getLastName()}"></h2>
+                        <h3 th:text="${'Email: ' + openorder.getOrduser().getEmail()}" ></h3>
+                    </div>
+                </td>
+                <td id="item-image-td" style="width: 25%; align-content: center">
+                    <img style="width: 50px; alignment: center" class="product-image" th:src="${openorder.getOrdproduct().img}" alt="product image"/>
                 </td>
                 <td id="item-data-td">
                     <div class="listing-right-column pl-xs-2">
-                        <h2 th:text="${product.name}" style="text-align: center"></h2>
+                        <h2 th:text="${'Product Name: ' + openorder.getOrdproduct().name}" style="text-align: center"></h2>
                         <hr/>
-                        <h4 th:text="${product.description}"></h4>
-                        <hr/>
-                        <h3 th:text="${product.price}"></h3>
-                        <select th:type="number"></select>
-                        <button type="submit" value="Send Confirm Email">Send Confirm Email</button>
+                        <h3 th:text="${'Price:' + openorder.getOrdproduct().price}"></h3>
+                        <h3 th:text="${'Ordered Qty:' + openorder.getQty()}"></h3>
+
+                        <a class="btn btn-default" th:href="@{/sendemail/{id}(id=${openorder.getOrderId()})}">Send Confirm Email</a>
+
                     </div>
                 </td>
             </tr>
             <br/>
         </table>
-    </form>
+
 </div>
 
 

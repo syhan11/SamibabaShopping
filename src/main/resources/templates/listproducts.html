@@ -18,20 +18,20 @@
     <form class="item-iterator" style="align-items: center;"
           action="#"
           th:action="@{addtocart}"
-          th:object="${orderhist}"
+          th:object="${category}"
           method="post">
         <table>
-            <tr th:each="product: ${allproducts}" class="product-info">
+            <tr th:each="tmpproduct: *{products}" class="product-info">
                 <td id="item-image-td">
-                    <img class="product-image" th:src="${product.img}" alt="product image"/>
+                    <img class="product-image" th:src="${tmpproduct.img}" alt="product image"/>
                 </td>
                 <td id="item-data-td">
                     <div class="listing-right-column pl-xs-2">
-                        <h2 th:text="${product.name}" style="text-align: center"></h2>
+                        <h2 th:text="${tmpproduct.name}" style="text-align: center"></h2>
                         <hr/>
-                        <h4 th:text="${product.description}"></h4>
+                        <h4 th:text="${tmpproduct.description}"></h4>
                         <hr/>
-                        <h3 th:text="${product.price}"></h3>
+                        <h3 th:text="${tmpproduct.price}"></h3>
                         <select th:type="number"></select>
                         <button type="submit" value="Add to Cart">Add to Cart</button>
                     </div>
