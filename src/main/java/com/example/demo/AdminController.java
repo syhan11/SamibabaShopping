@@ -35,12 +35,13 @@ public class AdminController {
     @Autowired
     OrderHistoryRepository orderHistoryRepository;
 
-    // cancel=1; standby=2; ordered=3; shipped=4; cancelAdmin=5
+    // cancel=1; standby=2; ordered=3; shipped=4; wish = 5; cancelAdmin=6
     static int ORDCANCEL = 1;
     static int ORDSTANDBY = 2;
     static int ORDORDERED = 3;
     static int ORDSHIPPED = 4;
-    static int ORDADMCANCEL = 5;
+    static int ORDWISH = 5;
+    static int ORDADMCANCEL = 6;
 
 
 
@@ -84,12 +85,9 @@ public class AdminController {
         }
     }
 
-    @GetMapping("/listopenorders")
+    @RequestMapping("/listopenorders")
     public String listOpenOrders(Model model) {
-//        model.addAttribute("newprod", new Product());
-//        model.addAttribute("allcategories", categoryRepository.findAll());
-//        model.addAttribute("allopenorders", orderHistoryRepository.);
-
+        model.addAttribute("allopenorders", orderHistoryRepository.findAllByStatus(ORDORDERED));
         return "listopenorders";
     }
 
@@ -105,6 +103,10 @@ public class AdminController {
 //    }
 
 
+    @RequestMapping("/sendemail")
+    public String sendEmail(){
+        return "sendemail";
+    }
 
     @RequestMapping("/adminorder")
     public String adminOrder(Model model) {

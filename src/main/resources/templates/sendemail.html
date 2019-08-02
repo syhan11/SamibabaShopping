@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>AllOpenOrders</title>
+</head>
+<body class="listproducts-background">
+
+<div class="category-jumbotron jumbotron-fluid">
+    <h1 class="display-4"></h1>
+    <p class="lead"><h2 style="text-align: center">Send Confirmation Email</h2></p>
+</div>
+
+
+<!--Send e-mail from apbootcamp2019@gmail.com  /java2019   :-->
+<form action="mailto:sueyoung.6311@gmail.com" method="post" enctype="text/plain">
+    Name:<br>
+    <input type="text" name="name"><br>
+    E-mail:<br>
+    <input type="text" name="mail"><br>
+    Comment: Testing!!!!<br>
+    <input type="text" name="comment" size="50"><br><br>
+    <input type="submit" value="Send">
+    <input type="reset" value="Reset">
+</form>
+
+</body>
+</html>
+
+
+
+
+
+<div th:replace="basicfrag :: footerFrag"></div>
+<div th:replace="basicfrag :: scriptFrag"></div>
+</body>
+</html>

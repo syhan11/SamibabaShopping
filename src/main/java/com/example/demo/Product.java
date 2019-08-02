@@ -40,6 +40,7 @@ public class Product {
     private Category category;
 
 
+
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, optional = true)
     private OrderHistory orderhistory;

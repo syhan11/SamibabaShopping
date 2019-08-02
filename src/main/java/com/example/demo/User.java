@@ -64,7 +64,7 @@ public class User {
     @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
     private Collection<Product> products;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL,
+    @OneToOne(mappedBy = "orduser", cascade = CascadeType.ALL,
               fetch = FetchType.LAZY, optional = true)
     private OrderHistory orderhistory;
 

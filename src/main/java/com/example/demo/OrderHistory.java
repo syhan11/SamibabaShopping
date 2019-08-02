@@ -13,13 +13,10 @@ public class OrderHistory {
     @Column(name="order_id")
     private String orderId;
 
-//    @Column(name="user_id")
-//    private long userId;
-
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orduser_id")
-    private User user;
+    private User orduser;
+
 
 //    @Column(name="product_id")
 //    private long productId;
@@ -27,11 +24,12 @@ public class OrderHistory {
     @JoinTable(name = "product_id")
     private Product product;
 
+
     @Column(name="qty")
     private int qty;
 
     @Column(name="status")
-    private int status;   // cancel=1; standby=2; ordered=3; shipped=4; cancelAdmin=5;
+    private int status;   // cancel=1; standby=2; ordered=3; shipped=4; wish = 5; cancelAdmin=6
 
     public OrderHistory() {
     }
@@ -55,12 +53,12 @@ public class OrderHistory {
         this.orderId = orderId;
     }
 
-    public User getUser() {
-        return user;
+    public User getOrduser() {
+        return orduser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setOrduser(User orduser) {
+        this.orduser = orduser;
     }
 
     public int getQty() {

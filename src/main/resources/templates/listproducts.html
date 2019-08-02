@@ -19,8 +19,9 @@
     <form class="item-iterator" style="align-items: center;"
           action="#"
           th:action="@{addtocart}"
-          th:object="${orderhist}"
+          th:object="${category}"
           method="post">
+
     <table>
         <tr th:each="product:${category.getProducts()}">
             <td id="item-image-td">
@@ -39,9 +40,6 @@
             </td>
         </tr>
     </table>
-
-
-
 
     </form>
 </div>
