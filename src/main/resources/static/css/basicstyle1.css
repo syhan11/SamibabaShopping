@@ -73,12 +73,8 @@ button:disabled {
     height: auto;
 }
 
-#item-image-td{
-    margin-right: 20px;
-}
-
 #item-data-td{
-    padding-left: 40px;
+    padding-left: 20px;
 }
 
 .listproducts-background{
@@ -268,4 +264,3 @@ box-shadow: 5px 5px 30px 7px rgba(0,0,0,0.25), -5px -5px 30px 7px rgba(0,0,0,0.2
   transition: 0.4s;
 }
 */
-
