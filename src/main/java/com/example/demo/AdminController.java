@@ -35,6 +35,13 @@ public class AdminController {
     @Autowired
     OrderHistoryRepository orderHistoryRepository;
 
+    // cancel=1; standby=2; ordered=3; shipped=4; cancelAdmin=5
+    static int ORDCANCEL = 1;
+    static int ORDSTANDBY = 2;
+    static int ORDORDERED = 3;
+    static int ORDSHIPPED = 4;
+    static int ORDADMCANCEL = 5;
+
 
 
     @GetMapping("/addcategory")
@@ -76,6 +83,26 @@ public class AdminController {
             return "redirect:/";
         }
     }
+
+    @GetMapping("/listopenorders")
+    public String listOpenOrders(Model model) {
+//        model.addAttribute("newprod", new Product());
+//        model.addAttribute("allcategories", categoryRepository.findAll());
+//        model.addAttribute("allopenorders", orderHistoryRepository.);
+
+        return "listopenorders";
+    }
+
+//    @PostMapping("/processproduct")
+//    public String processProduct(@Valid @ModelAttribute("newprod") Product newprod, BindingResult result, Model model) {
+//
+//        if (result.hasErrors())
+//            return "/addproduct";
+//        else {
+//            productRepository.save(newprod);
+//            return "redirect:/";
+//        }
+//    }
 
 
 

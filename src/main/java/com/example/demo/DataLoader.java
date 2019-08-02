@@ -47,10 +47,10 @@ public class DataLoader implements CommandLineRunner{
         user.setRoles(Arrays.asList(userRole));
         userRepository.save(user);
 
-        user = new User("sueyoung.6311@gmail.com", "password", "Sue",
+        User tuser = new User("sueyoung.6311@gmail.com", "password", "Sue",
                 "Han", true, "sue");
-        user.setRoles(Arrays.asList(userRole));
-        userRepository.save(user);
+        tuser.setRoles(Arrays.asList(userRole));
+        userRepository.save(tuser);
 
         user = new User("admin@admin.com", "password", "Admin",
                 "User", true, "admin");
@@ -75,10 +75,10 @@ public class DataLoader implements CommandLineRunner{
         tempproduct.setImg ("https://images-na.ssl-images-amazon.com/images/I/514axA2lwpL.jpg");
         productRepository.save (tempproduct);
 
-        tempproduct = new Product("Java Fundamentals", "Learn the fundamentals of Java programming within 24 hours",20.99, 6);
-        tempproduct.setCategory (tempcategory);
-        tempproduct.setImg ("https://images-na.ssl-images-amazon.com/images/I/514axA2lwpL.jpg");
-        productRepository.save(tempproduct);
+        Product tempproduct2 = new Product("Java Fundamentals", "Learn the fundamentals of Java programming within 24 hours",20.99, 6);
+        tempproduct2.setCategory (tempcategory);
+        tempproduct2.setImg ("https://images-na.ssl-images-amazon.com/images/I/514axA2lwpL.jpg");
+        productRepository.save(tempproduct2);
 
 
         // new category
@@ -102,28 +102,28 @@ public class DataLoader implements CommandLineRunner{
         // create test order history: open status for user 3
         OrderHistory tmp = new OrderHistory();
         tmp.setOrderId("testing001");
-        tmp.setProductId(123);
+        tmp.setProduct(tempproduct);
         tmp.setQty(99);
-        tmp.setStatus(1);
-        tmp.setUserId(3);
+        tmp.setStatus(3);
+        tmp.setUser(tuser);
         orderHistoryRepository.save(tmp);
 
         // create test order history: non-open status for user 3
         tmp = new OrderHistory();
         tmp.setOrderId("testing002");
-        tmp.setProductId(321);
+        tmp.setProduct(tempproduct2);
         tmp.setQty(11);
         tmp.setStatus(2);
-        tmp.setUserId(3);
+        tmp.setUser(tuser);
         orderHistoryRepository.save(tmp);
 
         // create test order history: open status for user 4
         tmp = new OrderHistory();
         tmp.setOrderId("testing003");
-        tmp.setProductId(987);
+        tmp.setProduct(tempproduct2);
         tmp.setQty(1);
-        tmp.setStatus(1);
-        tmp.setUserId(4);
+        tmp.setStatus(3);
+        tmp.setUser(user);
         orderHistoryRepository.save(tmp);
 
 

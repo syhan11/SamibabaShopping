@@ -13,17 +13,25 @@ public class OrderHistory {
     @Column(name="order_id")
     private String orderId;
 
-    @Column(name="user_id")
-    private long userId;
+//    @Column(name="user_id")
+//    private long userId;
 
-    @Column(name="product_id")
-    private long productId;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "orduser_id")
+    private User user;
+
+//    @Column(name="product_id")
+//    private long productId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     @Column(name="qty")
     private int qty;
 
     @Column(name="status")
-    private int status;   // cancel; standby; ordered; shipped; cancelAdmin;
+    private int status;   // cancel=1; standby=2; ordered=3; shipped=4; cancelAdmin=5;
 
     public OrderHistory() {
     }
@@ -47,20 +55,12 @@ public class OrderHistory {
         this.orderId = orderId;
     }
 
-    public long getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
-
-    public long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(long productId) {
-        this.productId = productId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getQty() {
@@ -77,5 +77,13 @@ public class OrderHistory {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }

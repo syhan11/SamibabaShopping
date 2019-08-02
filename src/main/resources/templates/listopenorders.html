@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>AllOpenOrders</title>
+</head>
+<body class="listproducts-background">
+
+<div class="category-jumbotron jumbotron-fluid">
+    <h1 class="display-4"></h1>
+    <p class="lead"><h2 style="text-align: center">All Open Orders</h2></p>
+</div>
+
+
+<!--This html is expecting list of all open orders for Admin to process-->
+<!--It will display each open order in a table row-->
+<!--where Admin will "package" each order and send a confirmation email to the user-->
+
+
+
+
+<div class="item-container">
+    <form class="item-iterator" style="align-items: center;"
+          action="#"
+          th:action="@{sendemail}"
+          th:object="${orderhist}"
+          method="post">
+        <table>
+            <tr th:each="openorder: ${allopenorders}" class="product-info">
+                <td id="item-image-td">
+                    <!--<img class="product-image" th:src="${product.img}" alt="product image"/>-->
+                    <img class="product-image" th:src="" alt="product image"/>
+
+                </td>
+                <td id="item-data-td">
+                    <div class="listing-right-column pl-xs-2">
+                        <h2 th:text="${product.name}" style="text-align: center"></h2>
+                        <hr/>
+                        <h4 th:text="${product.description}"></h4>
+                        <hr/>
+                        <h3 th:text="${product.price}"></h3>
+                        <select th:type="number"></select>
+                        <button type="submit" value="Send Confirm Email">Send Confirm Email</button>
+                    </div>
+                </td>
+            </tr>
+            <br/>
+        </table>
+    </form>
+</div>
+
+
+<div th:replace="basicfrag :: footerFrag"></div>
+<div th:replace="basicfrag :: scriptFrag"></div>
+</body>
+</html>

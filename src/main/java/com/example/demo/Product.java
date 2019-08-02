@@ -39,6 +39,12 @@ public class Product {
     @JoinColumn(name="category_id")
     private Category category;
 
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY, optional = true)
+    private OrderHistory orderhistory;
+
+
+
     public Product() {
     }
 
@@ -119,5 +125,13 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public OrderHistory getOrderhistory() {
+        return orderhistory;
+    }
+
+    public void setOrderhistory(OrderHistory orderhistory) {
+        this.orderhistory = orderhistory;
     }
 }

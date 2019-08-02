@@ -62,14 +62,14 @@ public class ProductController {
 
 
         /*This block of code will check the quantity available of the product and return an error if the requested amount to order is greater*/
-        long j = orderhist.getProductId();
-
-        if (orderhist.getQty() > productRepository.findById (j).get().getQty ())
-
-            return "listproducts";
-        else {
-            orderHistoryRepository.save (orderhist);
-        }
+//        Product prod = orderhist.getProduct();
+//
+//        if (orderhist.getQty() > prod.getQty ())
+//
+//            return "listproducts";
+//        else {
+//            orderHistoryRepository.save (orderhist);
+//        }
         return "listproducts";
     }
 

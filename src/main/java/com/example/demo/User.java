@@ -64,6 +64,11 @@ public class User {
     @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
     private Collection<Product> products;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL,
+              fetch = FetchType.LAZY, optional = true)
+    private OrderHistory orderhistory;
+
+
     public User() {
     }
 
@@ -209,5 +214,13 @@ public class User {
          }
 
         return found;
+    }
+
+    public OrderHistory getOrderhistory() {
+        return orderhistory;
+    }
+
+    public void setOrderhistory(OrderHistory orderhistory) {
+        this.orderhistory = orderhistory;
     }
 }

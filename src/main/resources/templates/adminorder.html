@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <div th:insert="basicfrag :: headerFrag"></div>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/adminstyle.css}">
+    <title>AdminOrder</title>
+</head>
+
+<body>
+<div th:insert="basicfrag :: navFrag"></div>
+
+
+<div class="admincontain">
+    <h3>Admin Process Order</h3>
+    <form class="productform"
+          th:action="@{/processorder/{id}"
+          th:object="${newprod}"
+          method="post">
+        <input th:field="*{id}" type="hidden">
+        <div><label>Name:<br>
+            <input th:field="*{name}" type="text" placeholder="Enter product's name"></label></div><br/>
+        <div><label>Description:<br>
+            <input th:field="*{description}"
+                   textarea rows="4" cols="50"
+                   placeholder="Enter product's description">
+            <span th:if="${#fields.hasErrors('description')}"
+                  th:errors="*{description}"></span><br/>
+        </label></div><br/>
+
+        <div><label>Price:<br>
+            <input th:field="*{price}" type="text">
+            <span th:if="${#fields.hasErrors('price')}"
+                  th:errors="*{price}"></span><br/>
+        </label>
+        </div><br/>
+
+        <div><label>Quantiy:<br>
+            <input th:field="*{qty}" type="number"></label></div><br/>
+
+        <div><lable>Image:<br>
+            <input th:field="*{img}" type="text"
+                   placeholder="Enter url of an image">
+            <span th:if="${#fields.hasErrors('img')}"
+                  th:errors="*{img}"></span><br/>
+            <br/>
+            <!--<input th:field="*{img}" type="file"-->
+            <!--accept="file_extension|image/*"></lable>-->
+        </div><br/>
+
+        <div><label>Category:<br>
+            <select th:field="*{category}" multiple>
+                <option th:each="item:${allcategories}"
+                        th:text="${item.title}"
+                        th:value="${item.id}" size="50">
+                </option>
+            </select>
+
+        </label></div>
+        <br/>
+        <input type="submit" value="Submit">
+        <input type="reset" value="Reset">
+    </form>
+
+</div>
+
+
+<div th:insert="basicfrag :: scriptFrag"></div>
+</body>
+</html>
