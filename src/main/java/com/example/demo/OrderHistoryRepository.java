@@ -9,5 +9,6 @@ public interface OrderHistoryRepository extends CrudRepository<OrderHistory, Lon
     ArrayList<OrderHistory> findAllByStatus(int status);
     Long countByOrduserEqualsAndStatusEquals(User tmpuser, int status);
 
-    OrderHistory findByUserEqualsAndStatusEquals(User user, int status);
+    //OrderHistory findByUserEqualsAndStatusEquals(User user, int status);
+    OrderHistory findAllByOrduserEqualsAndStatusEquals(User user, int status);
 }

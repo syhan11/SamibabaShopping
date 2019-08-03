@@ -46,11 +46,8 @@ public class ProductController {
         Category category = categoryRepository.findById(id).get();
         model.addAttribute("category", category);
 
-
-
-//        //This populates a Model object with all the products to be displayed to the user.
-//        model.addAttribute ( "allproducts", category.getProducts ());
-
+        //This populates a Model object with all the products to be displayed to the user.
+        //model.addAttribute ( "allproducts", category.getProducts ());
 
 
         //model.addAttribute ("orderhist", new OrderHistory());
@@ -64,16 +61,16 @@ public class ProductController {
 
 
         /*This block of code will check the quantity available of the product and return an error if the requested amount to order is greater*/
-//        Product prod = orderhist.getProduct();
-//
-//        if (orderhist.getQty() > prod.getQty ())
-//
-//            return "listproducts";
-//        else {
-//            orderHistoryRepository.save (orderhist);
-//        }
-//        return "listproducts";
-        return "/";
+        Product prod = orderhist.getOrdproduct();
+
+        if (orderhist.getQty() > prod.getQty ())
+
+            return "listproducts";
+        else {
+            orderHistoryRepository.save (orderhist);
+        }
+        return "listproducts";
+
     }
 
 

@@ -41,7 +41,7 @@ public class Product {
 
 
 
-    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL,
+    @OneToOne(mappedBy = "ordproduct", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, optional = true)
     private OrderHistory orderhistory;
 
