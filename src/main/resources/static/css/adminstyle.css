@@ -8,3 +8,28 @@
     min-height: 100%;
     padding: 150px;
 }
+
+.admintable {
+    font-family: arial, sans-serif;
+    font-size: larger;
+    border-collapse: collapse;
+    width: 100%;
+    padding: 15px;
+    background-color: aliceblue;
+}
+
+.adminth {
+    border: 1px solid aliceblue;
+    text-align: center;
+    height: 25px;
+}
+
+.admintd {
+    border: 1px solid aliceblue;
+    text-align: center;
+    padding: 5px;
+}
+
+.admintr:nth-child(even) {
+    background-color: aliceblue;
+}

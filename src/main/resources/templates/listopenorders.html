@@ -22,26 +22,38 @@
 
 <div class="item-container">
 
-        <table class="item-iterator">
+        <table class="admintable">
             <tr th:each="openorder: ${allopenorders}" class="product-info">
-                <td id="item-user-td">
+                <td class="admintd" style="width: 30%">
                     <div class="listing-right-column pl-xs-2">
                         <h2 th:text="${openorder.getOrduser().getFirstName() + ' '
                                        + openorder.getOrduser().getLastName()}"></h2>
                         <h3 th:text="${'Email: ' + openorder.getOrduser().getEmail()}" ></h3>
                     </div>
                 </td>
-                <td id="item-image-td" style="width: 25%; align-content: center">
+                <td class="admintd" style="width:25%">
                     <img style="width: 50px; alignment: center" class="product-image" th:src="${openorder.getOrdproduct().img}" alt="product image"/>
                 </td>
-                <td id="item-data-td">
+                <td class="admintd">
                     <div class="listing-right-column pl-xs-2">
-                        <h2 th:text="${'Product Name: ' + openorder.getOrdproduct().name}" style="text-align: center"></h2>
-                        <hr/>
+                        <h3 th:text="${'Order Id: ' + openorder.getOrderId()}" style="text-align: center"></h3>
+                        <h3 th:text="${'Product Name: ' + openorder.getOrdproduct().name}" style="text-align: center"></h3>
+                        <br/>
                         <h3 th:text="${'Price:' + openorder.getOrdproduct().price}"></h3>
                         <h3 th:text="${'Ordered Qty:' + openorder.getQty()}"></h3>
 
-                        <a class="btn btn-default" th:href="@{/sendemail/{id}(id=${openorder.getOrderId()})}">Send Confirm Email</a>
+                    </div>
+                </td>
+                <td class="admintd">
+                    <div class="btn-group" role="group" aria-label="...">
+
+<!--                        <button type="button" class="btn btn-default" style="padding: 5px">-->
+<!--                            <span class="glyphicon glyphicon-search"></span>-->
+<!--                            <a th:href="@{/detailorder/{id}(id=${openorder.getOrderId()})}">Detail</a></button>-->
+
+                        <button type="button" class="btn btn-default" style="padding: 5px">
+                            <span class="glyphicon glyphicon-edit"></span>
+                            <a th:href="@{/processorder/{id}(id=${openorder.getOrderId()})}">Send Out</a></button>
 
                     </div>
                 </td>

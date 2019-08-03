@@ -46,42 +46,34 @@
                     </div>
                 </li>
 
-
-
-                <!--<li class="nav-item">-->
-                    <!--<a class="nav-link" href="/viewcart">-->
-                        <!--Cart-->
-                        <!--<span th:if="${nocartitems}">-->
-                            <!--<p class="badge badge-light" th:text="*{nocartitems}"></p>-->
-                        <!--</span></a>-->
-                <!--</li>-->
-
                 <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
                     <a class="nav-link" href="/listopenorders">Process Order</a>
                 </li>
 
                 <li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Category
-                    </a>
-                    <div class="nav-item dropdown-menu" aria-labelledby="navbarDropdown">
+<!--                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"-->
+<!--                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                        Category-->
+<!--                    </a>-->
+<!--                    <div class="nav-item dropdown-menu" aria-labelledby="navbarDropdown">-->
 
-                        <a class="dropdown-item" href="/showcategory">Show All Categories</a>
-                        <a class="dropdown-item" href="/addcategory">Add Category</a>
-                    </div>
+<!--                        <a class="dropdown-item" href="/showcategory">Show All Categories</a>-->
+<!--                        <a class="dropdown-item" href="/addcategory">Add Category</a>-->
+<!--                    </div>-->
+                    <a class="nav-link" href="/addcategory">Add Category</a>
                 </li>
 
                 <li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Product
-                    </a>
-                    <div class="nav-item dropdown-menu" aria-labelledby="navbarDropdown">
+<!--                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"-->
+<!--                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                        Product-->
+<!--                    </a>-->
+                    <a class="nav-link" href="/addproduct">Product</a>
+<!--                    <div class="nav-item dropdown-menu" aria-labelledby="navbarDropdown">-->
 
-                        <a class="dropdown-item" href="/showproducts">Show All Products</a>
-                        <a class="dropdown-item" href="/addproduct">Add Product</a>
-                    </div>
+<!--                        <a class="dropdown-item" href="/showproducts">Show All Products</a>-->
+<!--                        <a class="dropdown-item" href="/addproduct">Add Product</a>-->
+<!--                    </div>-->
 
                 </li>
 

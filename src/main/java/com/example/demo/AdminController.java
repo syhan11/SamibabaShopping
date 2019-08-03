@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -91,17 +88,25 @@ public class AdminController {
         return "listopenorders";
     }
 
-//    @PostMapping("/processproduct")
-//    public String processProduct(@Valid @ModelAttribute("newprod") Product newprod, BindingResult result, Model model) {
-//
-//        if (result.hasErrors())
-//            return "/addproduct";
-//        else {
-//            productRepository.save(newprod);
-//            return "redirect:/";
-//        }
-//    }
+    @RequestMapping("/processorder/{ordid}")
+    public String processOrder(@PathVariable("ordid") String ordid, Model model) {
+        OrderHistory crntorder = orderHistoryRepository.findByOrderId(ordid);
+            crntorder.setStatus(ORDSHIPPED);
+            orderHistoryRepository.save(crntorder);
 
+            // need to call a method to send out an email
+            return "redirect:/";
+
+    }
+
+    @RequestMapping("/detailorder/{ordid}")
+    public String detailOrder(@PathVariable("ordid") String ordid, Model model) {
+        OrderHistory crntorder = orderHistoryRepository.findByOrderId(ordid);
+
+        // need to call a method to send out an email
+        return "redirect:/";
+
+    }
 
     @RequestMapping("/sendemail")
     public String sendEmail(){
