@@ -31,6 +31,10 @@ public class OrderHistory {
     public OrderHistory() {
     }
 
+    public OrderHistory(User orduser) {
+        this.orduser = orduser;
+    }
+
     public long getId() {
         return id;
     }

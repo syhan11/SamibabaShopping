@@ -11,14 +11,26 @@
     text-align: center;
 }
 
-.bodyhomepage {
-    background: no-repeat center center fixed url("https://backgroundcheckall.com/wp-content/uploads/2018/10/blue-sky-background-images-1.jpg");
-    background-size: cover;
 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
+/***********************************HOMEPAGE-START***********************************************/
+
+
+.home-body{
+    background-color: lightgray;
 }
+
+.home-page-jumbotron{
+    background-image: url("https://res.cloudinary.com/dgmyjncc8/image/upload/v1564776913/gbrr9fjzj1bo6y3zocyl.jpg") !important;
+    font-family: 'Rubik Mono One', sans-serif;
+    height: 300px;
+}
+
+#dark{
+    color: snow;
+}
+
+
+/**************************************HOMEPAGE-END***************************************************/
 
 .no-click-button {
     pointer-events: none;
