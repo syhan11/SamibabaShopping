@@ -33,6 +33,7 @@
 <div class="cards-list">
     <div th:each="category : ${categories}">
         <div class="card 1">
+            <a th:href="@{/listproducts/{id}(id=${category.getId()})}"></a>
             <div class="card_image"> <img th:src="${category.img}"/> </div>
             <div class="card_title title-white">
                 <h2><b th:inline="text">[[${category.title}]]</b></h2>

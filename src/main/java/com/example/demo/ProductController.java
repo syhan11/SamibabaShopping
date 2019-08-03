@@ -50,7 +50,7 @@ public class ProductController {
         //model.addAttribute ( "allproducts", category.getProducts ());
 
 
-        //model.addAttribute ("orderhist", new OrderHistory());
+        model.addAttribute ("orderhist", new OrderHistory());
         return "listproducts";          /*Will change names later*/
     }
 
