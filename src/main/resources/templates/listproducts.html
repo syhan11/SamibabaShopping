@@ -24,7 +24,7 @@
           method="post">
 
         <table>
-            <tr th:each="product : ${category.getProducts()}">
+            <tr class="eachproduct" th:each="product : ${category.getProducts()}">
                 <td id="item-image-td">
                     <img class="product-image" th:src="${product.img}" alt="product-img"/>
                 </td>

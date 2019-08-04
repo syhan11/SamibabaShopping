@@ -103,7 +103,7 @@ public class DataLoader implements CommandLineRunner{
         OrderHistory tmp = new OrderHistory();
         tmp.setOrderId("testing001");
         tmp.setOrdproduct(tempproduct);
-        tmp.setQty(99);
+        tmp.setQty(1);
         tmp.setStatus(2);
         tmp.setOrduser(tuser);
         orderHistoryRepository.save(tmp);
@@ -112,7 +112,7 @@ public class DataLoader implements CommandLineRunner{
         tmp = new OrderHistory();
         tmp.setOrderId("testing002");
         tmp.setOrdproduct(tempproduct2);
-        tmp.setQty(11);
+        tmp.setQty(4);
         tmp.setStatus(3);
         tmp.setOrduser(tuser);
         orderHistoryRepository.save(tmp);
@@ -121,7 +121,7 @@ public class DataLoader implements CommandLineRunner{
         tmp = new OrderHistory();
         tmp.setOrderId("testing003");
         tmp.setOrdproduct(tempproduct2);
-        tmp.setQty(1);
+        tmp.setQty(2);
         tmp.setStatus(3);
         tmp.setOrduser(user);
         orderHistoryRepository.save(tmp);
