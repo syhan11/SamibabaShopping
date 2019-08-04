@@ -132,6 +132,11 @@ public class AdminController {
             orderHistoryRepository.save(crntorder);
 
             // need to call a method to send out an email
+
+        Email testemail = new Email();
+        testemail.sendEmail();
+
+
             return "redirect:/";
 
     }
