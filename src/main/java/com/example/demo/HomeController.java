@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -53,7 +54,7 @@ public class HomeController {
      * after login has been validated, it will come here
      */
     @RequestMapping("/")
-    public String homepage(Model model) {
+    public String homepage(Model model, User user) {
         model.addAttribute("categories", categoryRepository.findAll());
 
         /*

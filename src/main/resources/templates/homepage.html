@@ -15,7 +15,7 @@
 <div class="container">
     <div class="home-page-jumbotron jumbotron">
 
-        <h1 id="dark">SamiBaba</h1>
+        <h1 id="website-name">SamiBaba</h1>
         <h2>A fresh approach to shopping.</h2>
         <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
     </div>
@@ -23,7 +23,7 @@
     <div class="cards-list">
         <div th:each="category : ${categories}">
             <div class="card 1">
-                <a th:href="@{/listproducts/{id}(id=${category.getId()})}"></a>
+                <a href="#" th:href="@{/listproducts/{id}(id=${category.id})}"></a>
                 <div class="card_image"><img th:src="${category.img}"/></div>
                 <div class="card_title title-white">
                     <h2><b th:inline="text">[[${category.title}]]</b></h2>

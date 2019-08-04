@@ -25,12 +25,25 @@
     height: 300px;
 }
 
-#dark{
-    color: snow;
+#website-name{
+    color: black;
+    color-interpolation-filters: linearRGB;
 }
 
 
 /**************************************HOMEPAGE-END***************************************************/
+
+
+/*********************************NAVIGATION BAR START************************************************/
+
+#category-items{
+    text-decoration: none;
+    color: black;
+    padding-left: 8px
+
+}
+
+/*********************************NAVIGATION BAR END**************************************************/
 
 .no-click-button {
     pointer-events: none;
@@ -92,6 +105,11 @@ button:disabled {
 #item-data-td{
     padding-left: 40px;
 }
+
+.eachproduct{
+    margin-top: 20px;
+}
+
 
 .listproducts-background{
     background-image: url("https://www.belfontedairy.com/wp-content/uploads/2017/03/light-blue-background-wallpaper-1.jpg");

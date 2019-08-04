@@ -41,6 +41,8 @@ public class ProductController {
      */
     @RequestMapping("/listproducts/{id}")
     public String showProducts(@PathVariable("id") long id, Model model){
+        model.addAttribute("categories", categoryRepository.findAll());
+
 
         //This statement instantiates a category object based on the id of the category chosen.
         Category category = categoryRepository.findById(id).get();
@@ -80,7 +82,19 @@ public class ProductController {
 //        }
     }
 
+    @RequestMapping("/viewcart/{username}")
+    public String viewcart(Model model){
+        model.addAttribute("categories", categoryRepository.findAll());
 
+        User current = userService.getUser();
+
+        model.addAttribute("orders", orderHistoryRepository.findAllByOrduserEqualsAndStatusEquals(current,3));
+
+
+
+
+        return "viewcart";
+    }
 
 
 

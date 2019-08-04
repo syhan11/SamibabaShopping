@@ -33,6 +33,25 @@
                     <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
 
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Category
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a id="category-items" href="#" th:each="item : ${categories}">[[${item.title}]]</a><br/></a>
+                    </div>
+                </li>
+
+
+
+                <!--<li class="nav-item">-->
+                    <!--<a class="nav-link" href="/viewcart">-->
+                        <!--Cart-->
+                        <!--<span th:if="${nocartitems}">-->
+                            <!--<p class="badge badge-light" th:text="*{nocartitems}"></p>-->
+                        <!--</span></a>-->
+                <!--</li>-->
+
                 <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
                     <a class="nav-link" href="/listopenorders">Process Order</a>
                 </li>
@@ -54,6 +73,15 @@
                 </li>
 
                 <a class="navbar-brand" href="#" style="position:fixed; left:40%;">Welcome <span sec:authentication="name"></span></a>
+
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" href="#" th:href="@{'/viewcart/'+${#authentication.name}}">
+                        Cart
+                        <span th:if="${nocartitems}">
+                            <p class="badge badge-light" th:text="*{nocartitems}"></p>
+                        </span></a>
+                </li>
+
             </ul>
         </div>
         <a class="nav-link" href="/listopenorders" style="color: white" sec:authorize="hasAuthority('ADMIN')">

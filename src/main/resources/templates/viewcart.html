@@ -1,10 +1,94 @@
 <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+    <div th:insert="basicfrag :: headerFrag"></div>
+</head>
+<body class="listproductsincart-background">
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+<div th:insert="basicfrag :: navFrag"></div>
 
+<div class="viewcart-container">
+    <table>
+        <tr>
+            <td class="item-in-cart-list">
+                <div class="item-iterator" id="cart-item" th:each="order : ${orders}">
+                    <img class="order-img" src="#" th:src="${order.img}">
+                </div>
+
+
+                <div class="scroll-bar"></div>
+            </td>
+            <td>
+            </td>
+        </tr>
+
+
+    </table>
+
+
+
+
+
+
+
+
+
+<!--    <table>-->
+<!--        <tr class="eachproduct" th:each="product : ${category.getProducts()}">-->
+<!--            <td id="item-image-td">-->
+<!--                <img class="product-image" th:src="${product.img}" alt="product-img"/>-->
+<!--            </td>-->
+<!--            <td id="item-data-td">-->
+<!--                <div class="listing-right-column pl-xs-2">-->
+<!--                    <h2 th:text="${product.name}" style="text-align: center"></h2>-->
+<!--                    <hr/>-->
+<!--                    <h4 th:text="${product.description}"></h4>-->
+<!--                    <hr/>-->
+<!--                    <h3 th:text="${product.price}"></h3>-->
+<!--                    <p>-->
+<!--                        <input type="hidden" th:value="*{setStatus(3)}">-->
+<!--                        <label>Quantity-->
+<!--                            <select th:field="*{qty}">-->
+<!--                                <option th:each="i : ${#numbers.sequence(0, product.qty)}" th:value="${i}" th:text="${i}"></option>-->
+<!--                            </select>-->
+<!--                        </label><br/>-->
+<!--                        <button type="submit" value="Add to Cart">Add to Cart</button>-->
+<!--                    </p>-->
+<!--                </div>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+</body>
+</html>
+
+
+<div th:replace="basicfrag :: footerFrag"></div>
+<div th:replace="basicfrag :: scriptFrag"></div>
 </body>
 </html>
