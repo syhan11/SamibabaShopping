@@ -1,101 +1,66 @@
 package com.example.demo;
+/*
+ * Java program to send email
+ * Need to include below dependency in pom.xml
+ * 		<dependency>
+ * 			<groupId>org.springframework.boot</groupId>
+ * 			<artifactId>spring-boot-starter-mail</artifactId>
+ * 		</dependency>
+ */
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
+import java.util.*;
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.activation.*;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.util.Properties;
+
 
 public class Email {
-        private String recipient;
-        private String from;
-        private String host;
-        private String subject;
-        private String message;
 
+    public  void sendEmail(String recipient, String orderno)
+    {
+        // email ID of Recipient.
+        //String recipient = "sueyoung.6311@gmail.com";
 
-    public Email() {
-    }
+        // email ID of Sender.
+        final String sender = "apbootcamp2019@gmail.com";
 
-    public String getRecipient() {
-        return recipient;
-    }
+        // using host as localhost
+        String host = "127.0.0.1";
 
-    public void setRecipient(String recipient) {
-        this.recipient = recipient;
-    }
-
-    public String getFrom() {
-        return from;
-    }
-
-    public void setFrom(String from) {
-        this.from = from;
-    }
-
-    public String getHost() {
-        return host;
-    }
-
-    public void setHost(String host) {
-        this.host = host;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public void sendEmail() {
-
-
-
-        // Get system properties
+        // Getting system properties
         Properties properties = System.getProperties();
-        properties.setProperty("mail.smtp.host", "localhost");
-//        properties.setProperty("mail.smtp.port", "9000");
-        properties.setProperty("mail.user", "apbootcamp2019@gmail.com");
-        properties.setProperty("mail.password", "java2019");
 
-        // Get the default Session object.
+        // Setting up mail server
+        properties.setProperty("mail.smtp.host", host);
+
+        // creating session object to get properties
         Session session = Session.getDefaultInstance(properties);
 
-        try {
-            // Create a default MimeMessage object.
+        try
+        {
+            // MimeMessage object.
             MimeMessage message = new MimeMessage(session);
 
-            // Set From: header field of the header.
-            try {
-                message.setFrom(new InternetAddress("apbootcamp2019@gmail.com"));
-            } catch (MessagingException e) {
-                e.printStackTrace();
-            }
+            // Set From Field: adding senders email to from field.
+            message.setFrom(new InternetAddress(sender));
 
-            // Set To: header field of the header.
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress("sueyoung.6311@gmail.com"));
+            // Set To Field: adding recipient's email to from field.
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
 
-            // Set Subject & text
-            message.setSubject("This is the Subject Line!");
-            message.setText("This is actual message");
-            message.setDescription("This is description");
+            // Set Subject: subject of the email
+            message.setSubject("Order number " + orderno);
 
-            // Send message
+            // set body of the email.
+            message.setText("Your order" + orderno + " has been shipped.\nThank you for shopping with us.");
+
+            // Send email.
             Transport.send(message);
-            System.out.println("Sent message successfully....");
-        } catch (MessagingException mex) {
+            System.out.println("Mail successfully sent");
+        }
+        catch (MessagingException mex)
+        {
             mex.printStackTrace();
         }
     }

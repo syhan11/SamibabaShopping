@@ -133,11 +133,11 @@ public class AdminController {
 
             // need to call a method to send out an email
 
-        Email testemail = new Email();
-        testemail.sendEmail();
+        Email email = new Email();
+        email.sendEmail("sueyoung.6311@gmail.com", "test order");
 
 
-            return "redirect:/";
+        return "redirect:/listopenorders";
 
     }
 
