@@ -22,6 +22,9 @@
 
 <div class="admincontain" style="alignment: center; align-content: center; padding: 7px">
     <table class="admintable" style="padding: 5px">
+        <tr>
+            <h3 style="text-align: center" th:text="${#lists.size(allopenorders)==0}?'No more open orders'"></h3>
+        </tr>
         <tr class="admintr" th:each="openorder: ${allopenorders}"
             style="border: 1px solid darkgray; alignment: center; padding-left: 10px; padding-right: 10px">
             <td class="admintd" style="width: 30%; padding: 10px">
@@ -48,14 +51,9 @@
                 </div>
             </td>
             <td class="admintd"  style="padding: 5px">
-                <!--                <button type="button" class="btn btn-default" style="padding: 5px">-->
-                <!--                    <span class="glyphicon glyphicon-search"></span>-->
-                <!--                    <a th:href="@{/detailorder/{id}(id=${openorder.getOrderId()})}">Detail</a></button>-->
-
-                <button type="button" class="btn btn-default">
-                    <span class="glyphicon glyphicon-edit"></span>
+                <button type="button" class="btn btn-default" style="width:100px; height:100px">
+                    <span class="glyphicon glyphicon-gift"></span>
                     <a th:href="@{/processorder/{id}(id=${openorder.getOrderId()})}">Send Out</a></button>
-
             </td>
         </tr>
         <br/>
