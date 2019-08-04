@@ -48,6 +48,31 @@ public class AdminController {
         model.addAttribute("user", userService.getUser());
         model.addAttribute("allcats", categoryRepository.findAll());
 
+        /*
+         * FOR ADMIN
+         *     number of items on the cart menu is the total number of all OPEN orders
+         * FOR OTHERS (like USER)
+         *     number of items on the cart menu is the total number of user's OPEN orders
+         *
+         * number of items on the cart menu needs to be passed as 'nocartitems' to html
+         *
+         */
+        User current = userService.getUser();
+        Long userid;
+
+        if (current != null) {
+            userid = current.getId();
+            String name = current.getUsername();
+
+            if (current.hasAuthority("ADMIN")) {
+                model.addAttribute("nocartitems", orderHistoryRepository.countByStatusEquals(ORDORDERED));
+            }
+            else {
+                User tmpuser = userRepository.findByUsername(name);
+                model.addAttribute("nocartitems",orderHistoryRepository.countByOrduserEqualsAndStatusEquals(tmpuser, ORDSTANDBY));
+            }
+        }
+
         return "addcategory";
     }
 
@@ -68,6 +93,11 @@ public class AdminController {
         model.addAttribute("newprod", new Product());
         model.addAttribute("allcategories", categoryRepository.findAll());
 
+        /*
+         * FOR ADMIN - number of items on the cart menu is the total number of all OPEN orders
+         */
+        model.addAttribute("nocartitems", orderHistoryRepository.countByStatusEquals(ORDORDERED));
+
         return "addproduct";
     }
 
@@ -82,9 +112,16 @@ public class AdminController {
         }
     }
 
+
     @RequestMapping("/listopenorders")
     public String listOpenOrders(Model model) {
         model.addAttribute("allopenorders", orderHistoryRepository.findAllByStatus(ORDORDERED));
+
+        /*
+         * FOR ADMIN - number of items on the cart menu is the total number of all OPEN orders
+         */
+        model.addAttribute("nocartitems", orderHistoryRepository.countByStatusEquals(ORDORDERED));
+
         return "listopenorders";
     }
 
@@ -113,6 +150,7 @@ public class AdminController {
         return "sendemail";
     }
 
+    /******
     @RequestMapping("/adminorder")
     public String adminOrder(Model model) {
 
@@ -123,7 +161,7 @@ public class AdminController {
 
         return "adminorder";
     }
-
+*************/
 
 
 }

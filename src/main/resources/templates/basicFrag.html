@@ -54,24 +54,27 @@
                 </li>
 
                 <a class="navbar-brand" href="#" style="position:fixed; left:40%;">Welcome <span sec:authentication="name"></span></a>
-
-                <li class="nav-item" >
-                    <a class="nav-link" href="#">
-                        Cart
-                        <span th:if="${nocartitems}">
-                            <p class="badge badge-light" th:text="*{nocartitems}"></p>
-                        </span></a>
-                </li>
             </ul>
-
-
-            <form action="#" th:action="@{/search}" class="form-inline my-2 my-lg-0 ml-auto" style="float: right;">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
         </div>
+        <a class="nav-link" href="/listopenorders" style="color: white" sec:authorize="hasAuthority('ADMIN')">
+            Cart
+            <span class="glyphicon glyphicon-shopping-cart"></span>
+            <span th:if="${nocartitems}">
+                <p class="badge badge-light" th:text="*{nocartitems}"></p>
+            </span>
+        </a>
 
-        <button class="navbar-toggler no-click-button" type="button" ></button>
+        <a class="nav-link" href="#" style="color: white" sec:authorize="isAuthenticated() && !hasAuthority('ADMIN')">
+            Cart
+            <span class="glyphicon glyphicon-shopping-cart"></span>
+            <span th:if="${nocartitems}">
+                <p class="badge badge-light" th:text="*{nocartitems}"></p>
+            </span>
+        </a>
+        <form action="#" th:action="@{/search}" class="form-inline my-2 my-lg-0 ml-auto" style="float: right;">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
     </nav>
 </th:block>
 

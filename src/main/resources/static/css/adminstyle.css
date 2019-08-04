@@ -7,29 +7,34 @@
     width: 100%;
     min-height: 100%;
     padding: 150px;
+    background-image: url("https://res.cloudinary.com/dpvaq7u3d/image/upload/v1564854258/hzktq8uc9zovh7atkg0x.jpg");
+    background: no-repeat;
 }
 
 .admintable {
     font-family: arial, sans-serif;
     font-size: larger;
-    border-collapse: collapse;
+    /*border-collapse: collapse;*/
     width: 100%;
     padding: 15px;
     background-color: aliceblue;
 }
 
-.adminth {
-    border: 1px solid aliceblue;
-    text-align: center;
-    height: 25px;
+.admintr:nth-child(even) {
+    /*background-color: aliceblue;*/
+    background-color: burlywood;
 }
 
 .admintd {
-    border: 1px solid aliceblue;
-    text-align: center;
+    border: 5px solid aliceblue;
+    text-align: left;
     padding: 5px;
+    alignment: left;
+    border: solid red;
 }
 
-.admintr:nth-child(even) {
-    background-color: aliceblue;
+.adminproduct-image {
+    width: 50px;
+    alignment: center;
+    padding: 5px;
 }
