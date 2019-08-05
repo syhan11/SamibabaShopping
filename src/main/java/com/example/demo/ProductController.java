@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 /*
  * This Controller will deal with all templates related to displaying product information
@@ -37,6 +38,14 @@ public class ProductController {
     @Autowired
     OrderHistoryRepository orderHistoryRepository;
 
+    // cancel=1; standby=2; ordered=3; shipped=4; wish = 5; cancelAdmin=6
+    static int ORDCANCEL = 1;
+    static int ORDSTANDBY = 2;
+    static int ORDORDERED = 3;
+    static int ORDSHIPPED = 4;
+    static int ORDWISH = 5;
+    static int ORDADMCANCEL = 6;
+
 
     /*
      * This page will display a list of the products under a user-chosen category
@@ -47,12 +56,6 @@ public class ProductController {
 
         User user = userService.getUser();
 
-        SimpleDateFormat date = new SimpleDateFormat("MMddyyyy");
-
-        String dateString = date.format( new Date() );
-
-        model.addAttribute("date", date);
-
         //This statement instantiates a category object based on the id of the category chosen.
         Category category = categoryRepository.findById(id).get();
         model.addAttribute("category", category);
@@ -61,6 +64,8 @@ public class ProductController {
         //model.addAttribute ( "allproducts", category.getProducts ());
 
         model.addAttribute ("orderhist", new OrderHistory(userService.getUser()));
+
+        model.addAttribute("nocartitems", orderHistoryRepository.countByStatusEquals(ORDORDERED));
 
         return "listproducts";          /*Will change names later*/
     }
@@ -76,9 +81,16 @@ public class ProductController {
 
         String dateString = date.format( new Date() );
 
-        model.addAttribute("date", date);
+        model.addAttribute("date", dateString);
+
+        Random rnd = new Random(1000);
+        int rndNum = (int)(Math.random() * 999) + 100;
+        String orderid = dateString+String.valueOf(rndNum);
+
+        orderhist.setOrderId(orderid);
 
         orderHistoryRepository.save(orderhist);
+
 
 
         return "redirect:/";
@@ -102,6 +114,14 @@ public class ProductController {
         User current = userService.getUser();
 
         model.addAttribute("orders", orderHistoryRepository.findAllByOrduserEqualsAndStatusEquals(current,3));
+
+
+        model.addAttribute("allopenorders", orderHistoryRepository.findAllByStatus(ORDORDERED));
+
+        /*
+         * FOR ADMIN - number of items on the cart menu is the total number of all OPEN orders
+         */
+        model.addAttribute("nocartitems", orderHistoryRepository.countByStatusEquals(ORDORDERED));
 
 
 

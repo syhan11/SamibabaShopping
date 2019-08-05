@@ -35,11 +35,13 @@
 
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navDropdown" role="button" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
                         Category
                     </a>
                     <div class="dropdown-menu" id="dropdown-category-list" aria-labelledby="navbarDropdown">
-                            <a id="category-items" href="#" th:each="item : ${categories}" th:href="@{/listproducts/{id}(id=${item.id})}">[[${item.title}]]<br/></a>
+                        <a id="category-items" href="#" th:each="item : ${categories}"
+                           th:href="@{/listproducts/{id}(id=${item.id})}">[[${item.title}]]<br/></a>
                     </div>
                 </li>
 
@@ -60,15 +62,8 @@
                     <a class="nav-link" href="/logout">Logout</a>
                 </li>
 
-                <a class="navbar-brand" href="#" style="position:fixed; left:40%;">Welcome <span sec:authentication="name"></span></a>
-
-                <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" href="#" th:href="@{'/viewcart/'+${#authentication.name}}">
-                        Cart
-                        <span th:if="${nocartitems}">
-                            <p class="badge badge-light" th:text="*{nocartitems}"></p>
-                        </span></a>
-                </li>
+                <a class="navbar-brand" href="#" style="position:fixed; left:40%;">Welcome <span
+                        sec:authentication="name"></span></a>
 
             </ul>
         </div>
