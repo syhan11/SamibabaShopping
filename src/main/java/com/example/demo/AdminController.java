@@ -134,7 +134,9 @@ public class AdminController {
             // need to call a method to send out an email
 
         Email email = new Email();
-        email.sendEmail("sueyoung.6311@gmail.com", "test order");
+        email.sendEmail(crntorder.getOrduser().getEmail(), crntorder.getOrderId());
+
+        //email.sendEmail("sueyoung.6311@gmail.com", "test order");
 
 
         return "redirect:/listopenorders";
@@ -152,7 +154,7 @@ public class AdminController {
 
     @RequestMapping("/sendemail")
     public String sendEmail(){
-        return "sendemail";
+        return "search";
     }
 
     /******
