@@ -36,7 +36,6 @@
                         <hr/>
                         <h3 th:text="${product.price}"></h3>
                         <p>
-                            <input type="hidden" th:value="*{setStatus(3)}">
                             <label>Quantity
                                 <select th:field="*{qty}">
                                     <option th:each="i : ${#numbers.sequence(1, product.qty)}" th:value="${i}"

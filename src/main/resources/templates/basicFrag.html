@@ -75,7 +75,7 @@
             </span>
         </a>
 
-        <a class="nav-link" href="#" style="color: white" sec:authorize="isAuthenticated() && !hasAuthority('ADMIN')">
+        <a class="nav-link" href="#" th:href="@{/viewcart/{username}(username=${#authentication.getName()})}" style="color: white" sec:authorize="isAuthenticated() && !hasAuthority('ADMIN')">
             Cart
             <span class="glyphicon glyphicon-shopping-cart"></span>
             <span th:if="${nocartitems}">

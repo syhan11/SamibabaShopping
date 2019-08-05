@@ -88,6 +88,8 @@ public class ProductController {
         String orderid = dateString+String.valueOf(rndNum);
 
         orderhist.setOrderId(orderid);
+        orderhist.setStatus(3);
+
 
         orderHistoryRepository.save(orderhist);
 
@@ -113,10 +115,7 @@ public class ProductController {
 
         User current = userService.getUser();
 
-        model.addAttribute("orders", orderHistoryRepository.findAllByOrduserEqualsAndStatusEquals(current,3));
-
-
-        model.addAttribute("allopenorders", orderHistoryRepository.findAllByStatus(ORDORDERED));
+        model.addAttribute("myorders", orderHistoryRepository.findAllByOrduserEqualsAndStatusEquals(current, 3));
 
         /*
          * FOR ADMIN - number of items on the cart menu is the total number of all OPEN orders

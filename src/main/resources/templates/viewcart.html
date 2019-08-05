@@ -21,37 +21,37 @@
 <div class="admincontain" style="alignment: center; align-content: center; padding: 7px">
     <table class="admintable" style="padding: 5px">
         <tr>
-            <h3 style="text-align: center" th:text="${#lists.size(allopenorders)==0}?'No more open orders'"></h3>
+            <h3 style="text-align: center" th:text="${#lists.size(myorders)==0}?'No more open orders'"></h3>
         </tr>
-        <tr class="admintr" th:each="openorder: ${allopenorders}"
+        <tr class="admintr" th:each="openorder: ${myorders}"
             style="border: 1px solid darkgray; alignment: center; padding-left: 10px; padding-right: 10px">
             <td class="admintd" style="width: 30%; padding: 10px">
-                <h3 th:text="${openorder.getOrderId()}">Oder No: </h3>
-                <h3 th:text="${openorder.getOrduser().getFirstName() + ' '
-                              + openorder.getOrduser().getLastName()}"></h3>
-                <h3 th:text="${'Email: ' + openorder.getOrduser().getEmail()}"></h3>
+                <h3 th:text="${myorders.getOrderId()}">Oder No: </h3>
+                <h3 th:text="${myorders.getOrduser().getFirstName() + ' '
+                              + myorders.getOrduser().getLastName()}"></h3>
+                <h3 th:text="${'Email: ' + myorders.getOrduser().getEmail()}"></h3>
             </td>
             <td class="admintd">
                 <div class="row" style="padding: 10px">
                     <div class="col-3" style="alignment: center">
                         <img class="adminproduct-image"
                              style="padding: 15px; width: 100%"
-                             th:src="${openorder.getOrdproduct().img}" alt="product image"/>
+                             th:src="${myorders.getOrdproduct().img}" alt="product image"/>
                     </div>
 
                     <div class="col-9">
-                        <h5 th:text="${'Order Id: ' + openorder.getOrderId()}"></h5>
-                        <h5 th:text="${'Product Name: ' + openorder.getOrdproduct().name}"></h5>
+                        <h5 th:text="${'Order Id: ' + myorders.getOrderId()}"></h5>
+                        <h5 th:text="${'Product Name: ' + myorders.getOrdproduct().name}"></h5>
                         <br/>
-                        <h5 th:text="${'Price:' + openorder.getOrdproduct().price}"></h5>
-                        <h5 th:text="${'Ordered Qty:' + openorder.getQty()}"></h5>
+                        <h5 th:text="${'Price:' + myorders.getOrdproduct().price}"></h5>
+                        <h5 th:text="${'Ordered Qty:' + myorders.getQty()}"></h5>
                     </div>
                 </div>
             </td>
             <td class="admintd"  style="padding: 5px">
                 <button type="button" class="btn btn-default" style="width:100px; height:100px">
                     <span class="glyphicon glyphicon-gift"></span>
-                    <a th:href="@{/processorder/{id}(id=${openorder.getOrderId()})}">Send Out</a></button>
+                    <a th:href="@{/processorder/{id}(id=${myorders.getOrderId()})}">Send Out</a></button>
             </td>
         </tr>
         <br/>
