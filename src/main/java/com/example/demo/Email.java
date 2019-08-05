@@ -8,6 +8,8 @@ package com.example.demo;
  * 		</dependency>
  */
 
+import org.springframework.stereotype.Service;
+
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -15,7 +17,7 @@ import javax.activation.*;
 import javax.mail.Session;
 import javax.mail.Transport;
 
-
+@Service
 public class Email {
 
     public  void sendEmail(String recipient, String orderno)
@@ -27,7 +29,8 @@ public class Email {
         final String sender = "apbootcamp2019@gmail.com";
 
         // using host as localhost
-        String host = "127.0.0.1";
+        //String host = "127.0.0.1";
+        String host="localhost";
 
         // Getting system properties
         Properties properties = System.getProperties();

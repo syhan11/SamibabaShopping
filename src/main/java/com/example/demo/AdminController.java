@@ -32,6 +32,9 @@ public class AdminController {
     @Autowired
     OrderHistoryRepository orderHistoryRepository;
 
+    @Autowired
+    EmailService emailService;
+
     // cancel=1; standby=2; ordered=3; shipped=4; wish = 5; cancelAdmin=6
     static int ORDCANCEL = 1;
     static int ORDSTANDBY = 2;
@@ -128,15 +131,11 @@ public class AdminController {
     @RequestMapping("/processorder/{ordid}")
     public String processOrder(@PathVariable("ordid") String ordid, Model model) {
         OrderHistory crntorder = orderHistoryRepository.findByOrderId(ordid);
-            crntorder.setStatus(ORDSHIPPED);
-            orderHistoryRepository.save(crntorder);
+        crntorder.setStatus(ORDSHIPPED);
+        orderHistoryRepository.save(crntorder);
 
-            // need to call a method to send out an email
-
-        Email email = new Email();
-        email.sendEmail(crntorder.getOrduser().getEmail(), crntorder.getOrderId());
-
-        //email.sendEmail("sueyoung.6311@gmail.com", "test order");
+        // send out an email
+        emailService.SendSimpleEmail(crntorder.getOrduser().getEmail(), crntorder.getOrderId());
 
 
         return "redirect:/listopenorders";
