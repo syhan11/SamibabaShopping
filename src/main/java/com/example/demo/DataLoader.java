@@ -65,7 +65,7 @@ public class DataLoader implements CommandLineRunner{
 //        Category tempcategory = new Category("Books");
 //        categoryRepository.save(tempcategory);
         Category tempcategory = new Category();
-        tempcategory.setImg("https://res.cloudinary.com/dgmyjncc8/image/upload/v1564604637/codyxktifpfte3f6sbrq.jpg");
+        tempcategory.setImg("https://res.cloudinary.com/dgmyjncc8/image/upload/v1565027620/79578b6a0b2c5bc_qwrvjt.jpg");
         tempcategory.setTitle("Books");
         categoryRepository.save(tempcategory);
 
@@ -101,7 +101,7 @@ public class DataLoader implements CommandLineRunner{
 
         // new category-clothing
         tempcategory = new Category();
-        tempcategory.setImg("https://res.cloudinary.com/dgmyjncc8/image/upload/v1564598654/kvsr95fpwgemhnlm2tg0.jpg");
+        tempcategory.setImg("https://res.cloudinary.com/dgmyjncc8/image/upload/v1565028492/4d7b2607c25d8112bc0ae2fcb6a452b6--girl-style-my-style_r2dfge.jpg");
         tempcategory.setTitle("Clothing");
         categoryRepository.save(tempcategory);
 
@@ -142,7 +142,7 @@ public class DataLoader implements CommandLineRunner{
 
         // new category - home appliances
         tempcategory = new Category();
-        tempcategory.setImg("https://res.cloudinary.com/dgmyjncc8/image/upload/v1564767781/images_kidqfz.jpg");
+        tempcategory.setImg("https://res.cloudinary.com/dgmyjncc8/image/upload/v1565028693/0c13ca21c3fc589224a0a614d7d397c1_zepg37.jpg");
         tempcategory.setTitle("Home Appliances ");
         categoryRepository.save(tempcategory);
 
@@ -187,7 +187,7 @@ public class DataLoader implements CommandLineRunner{
 
         // new category - electronic devices
         tempcategory = new Category();
-        tempcategory.setImg("https://res.cloudinary.com/dgmyjncc8/image/upload/v1564671180/zeswg50joazsfqvpz8ul.jpg");
+        tempcategory.setImg("https://res.cloudinary.com/dgmyjncc8/image/upload/v1565028858/bg1_thlwhk.jpg");
         tempcategory.setTitle("Electronic Devices");
         categoryRepository.save(tempcategory);
 
