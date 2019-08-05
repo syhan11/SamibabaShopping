@@ -38,8 +38,8 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Category
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a id="category-items" href="#" th:each="item : ${categories}">[[${item.title}]]</a><br/></a>
+                    <div class="dropdown-menu" id="dropdown-category-list" aria-labelledby="navbarDropdown">
+                            <a id="category-items" href="#" th:each="item : ${categories}" th:href="@{/listproducts/{id}(id=${item.id})}">[[${item.title}]]<br/></a>
                     </div>
                 </li>
 

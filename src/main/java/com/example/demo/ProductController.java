@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /*
  * This Controller will deal with all templates related to displaying product information
@@ -43,6 +45,13 @@ public class ProductController {
     public String showProducts(@PathVariable("id") long id, Model model){
         model.addAttribute("categories", categoryRepository.findAll());
 
+        User user = userService.getUser();
+
+        SimpleDateFormat date = new SimpleDateFormat("MMddyyyy");
+
+        String dateString = date.format( new Date() );
+
+        model.addAttribute("date", date);
 
         //This statement instantiates a category object based on the id of the category chosen.
         Category category = categoryRepository.findById(id).get();
@@ -53,8 +62,6 @@ public class ProductController {
 
         model.addAttribute ("orderhist", new OrderHistory(userService.getUser()));
 
-        model.addAttribute ("orderhist", new OrderHistory());
-
         return "listproducts";          /*Will change names later*/
     }
 
@@ -63,7 +70,13 @@ public class ProductController {
     @PostMapping("/addtocart")
     public String additemtocart(Model model, @ModelAttribute("orderhist") OrderHistory orderhist){
 
+        User user = userService.getUser();
 
+        SimpleDateFormat date = new SimpleDateFormat("MMddyyyy");
+
+        String dateString = date.format( new Date() );
+
+        model.addAttribute("date", date);
 
         orderHistoryRepository.save(orderhist);
 
