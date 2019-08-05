@@ -20,15 +20,40 @@
 <div class="viewcart-container">
     <table>
         <tr>
-            <td class="item-in-cart-list">
+            <td class="item-in-cart-list col-4">
                 <div class="item-iterator" id="cart-item" th:each="order : ${orders}">
-                    <img class="order-img" src="#" th:src="${order.img}">
+                    <p th:text="${order.ordproduct.description}"></p>
                 </div>
 
 
                 <div class="scroll-bar"></div>
             </td>
-            <td>
+            <td class="order-total col-6">
+                <div class="order-total-container" th:object="${orders}">
+                    <table>
+                        <tr>
+                            <td>
+                                <div id="shipper-info">
+                                    <h2>SamiBaba.com, Inc </h2>
+                                    <h5>12 Summit Ave, Suite 311</h5>
+                                    <h5>Gaithersburg, MD 20877-2039</h5>
+                                    <h5>301-XXX-7151</h5>
+                                    <h5>www.SamiBaba.com</h5>
+                                </div>
+                            </td>
+                            <td>
+                                <h3>Sales Order:</p></h3>
+                                <h3>Customer Id:</h3>
+                            </td>
+                        <tr id="order-title-id">Sales Order ([[${order.id}]])</tr>
+                        </tr>
+                            <td>
+                                <div id="user-brief-info"></div>
+                            </td>
+                    </table>
+                    <div id="user-deliver-info"></div>
+                    <div id="tobe-delivered"></div>
+                </div>
             </td>
         </tr>
 
@@ -36,51 +61,28 @@
     </table>
 
 
-
-
-
-
-
-
-
-<!--    <table>-->
-<!--        <tr class="eachproduct" th:each="product : ${category.getProducts()}">-->
-<!--            <td id="item-image-td">-->
-<!--                <img class="product-image" th:src="${product.img}" alt="product-img"/>-->
-<!--            </td>-->
-<!--            <td id="item-data-td">-->
-<!--                <div class="listing-right-column pl-xs-2">-->
-<!--                    <h2 th:text="${product.name}" style="text-align: center"></h2>-->
-<!--                    <hr/>-->
-<!--                    <h4 th:text="${product.description}"></h4>-->
-<!--                    <hr/>-->
-<!--                    <h3 th:text="${product.price}"></h3>-->
-<!--                    <p>-->
-<!--                        <input type="hidden" th:value="*{setStatus(3)}">-->
-<!--                        <label>Quantity-->
-<!--                            <select th:field="*{qty}">-->
-<!--                                <option th:each="i : ${#numbers.sequence(0, product.qty)}" th:value="${i}" th:text="${i}"></option>-->
-<!--                            </select>-->
-<!--                        </label><br/>-->
-<!--                        <button type="submit" value="Add to Cart">Add to Cart</button>-->
-<!--                    </p>-->
-<!--                </div>-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <!--    <table>-->
+    <!--        <tr class="eachproduct" th:each="product : ${category.getProducts()}">-->
+    <!--            <td id="item-image-td">-->
+    <!--                <img class="product-image" th:src="${product.img}" alt="product-img"/>-->
+    <!--            </td>-->
+    <!--            <td id="item-data-td">-->
+    <!--                <div class="listing-right-column pl-xs-2">-->
+    <!--                    <h2 th:text="${product.name}" style="text-align: center"></h2>-->
+    <!--                    <hr/>-->
+    <!--                    <h4 th:text="${product.description}"></h4>-->
+    <!--                    <hr/>-->
+    <!--                    <h3 th:text="${product.price}"></h3>-->
+    <!--                    <p>-->
+    <!--                        <input type="hidden" th:value="*{setStatus(3)}">-->
+    <!--                        <label>Quantity-->
+    <!--                            <select th:field="*{qty}">-->
+    <!--                                <option th:each="i : ${#numbers.sequence(0, product.qty)}" th:value="${i}" th:text="${i}"></option>-->
+    <!--                            </select>-->
+    <!--                        </label><br/>-->
+    <!--                        <button type="submit" value="Add to Cart">Add to Cart</button>-->
+    <!--                    </p>-->
+    <!--                </div>-->
 
 
 </div>

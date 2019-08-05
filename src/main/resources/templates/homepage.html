@@ -11,6 +11,7 @@
 
 <div th:insert="basicfrag :: navFrag"></div>
 
+<!--<div class="" th:text="${#dates.format(#dates.createNow(), 'MMMddyyyy')+((Math.random()*10) + 1)}"></div>-->
 
 <div class="container">
     <div class="home-page-jumbotron jumbotron">
@@ -22,15 +23,15 @@
 
     <div class="cards-list">
         <div th:each="category : ${categories}">
-            <div class="card 1">
-                <a href="#" th:href="@{/listproducts/{id}(id=${category.id})}"></a>
-                <div class="card_image"><img th:src="${category.img}"/></div>
-                <div class="card_title title-white">
-                    <h2><b th:inline="text">[[${category.title}]]</b></h2>
+            <a id="category-card-home" href="#" th:href="@{/listproducts/{id}(id=${category.id})}">
+                <div class="card 1">
+                    <div class="card_image"><img th:src="${category.img}"/></div>
+                    <div class="card_title title-white">
+                        <h2><b th:inline="text">[[${category.title}]]</b></h2>
+                    </div>
                 </div>
-            </div>
-
         </div>
+        </a>
     </div>
 </div>
 
