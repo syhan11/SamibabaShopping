@@ -17,75 +17,81 @@
 <body>
 <div th:insert="basicfrag :: navFrag"></div>
 
-<div class="viewcart-container">
-    <table>
+
+<div class="admincontain" style="alignment: center; align-content: center; padding: 7px">
+    <table class="admintable" style="padding: 5px">
         <tr>
-            <td class="item-in-cart-list col-4">
-                <div class="item-iterator" id="cart-item" th:each="order : ${orders}">
-                    <p th:text="${order.ordproduct.description}"></p>
-                </div>
-
-
-                <div class="scroll-bar"></div>
+            <h3 style="text-align: center" th:text="${#lists.size(allopenorders)==0}?'No more open orders'"></h3>
+        </tr>
+        <tr class="admintr" th:each="openorder: ${allopenorders}"
+            style="border: 1px solid darkgray; alignment: center; padding-left: 10px; padding-right: 10px">
+            <td class="admintd" style="width: 30%; padding: 10px">
+                <h3 th:text="${openorder.getOrderId()}">Oder No: </h3>
+                <h3 th:text="${openorder.getOrduser().getFirstName() + ' '
+                              + openorder.getOrduser().getLastName()}"></h3>
+                <h3 th:text="${'Email: ' + openorder.getOrduser().getEmail()}"></h3>
             </td>
-            <td class="order-total col-6">
-                <div class="order-total-container" th:object="${orders}">
-                    <table>
-                        <tr>
-                            <td>
-                                <div id="shipper-info">
-                                    <h2>SamiBaba.com, Inc </h2>
-                                    <h5>12 Summit Ave, Suite 311</h5>
-                                    <h5>Gaithersburg, MD 20877-2039</h5>
-                                    <h5>301-XXX-7151</h5>
-                                    <h5>www.SamiBaba.com</h5>
-                                </div>
-                            </td>
-                            <td>
-                                <h3>Sales Order:</p></h3>
-                                <h3>Customer Id:</h3>
-                            </td>
-                        <tr id="order-title-id">Sales Order ([[${order.id}]])</tr>
-                        </tr>
-                            <td>
-                                <div id="user-brief-info"></div>
-                            </td>
-                    </table>
-                    <div id="user-deliver-info"></div>
-                    <div id="tobe-delivered"></div>
+            <td class="admintd">
+                <div class="row" style="padding: 10px">
+                    <div class="col-3" style="alignment: center">
+                        <img class="adminproduct-image"
+                             style="padding: 15px; width: 100%"
+                             th:src="${openorder.getOrdproduct().img}" alt="product image"/>
+                    </div>
+
+                    <div class="col-9">
+                        <h5 th:text="${'Order Id: ' + openorder.getOrderId()}"></h5>
+                        <h5 th:text="${'Product Name: ' + openorder.getOrdproduct().name}"></h5>
+                        <br/>
+                        <h5 th:text="${'Price:' + openorder.getOrdproduct().price}"></h5>
+                        <h5 th:text="${'Ordered Qty:' + openorder.getQty()}"></h5>
+                    </div>
                 </div>
+            </td>
+            <td class="admintd"  style="padding: 5px">
+                <button type="button" class="btn btn-default" style="width:100px; height:100px">
+                    <span class="glyphicon glyphicon-gift"></span>
+                    <a th:href="@{/processorder/{id}(id=${openorder.getOrderId()})}">Send Out</a></button>
             </td>
         </tr>
-
-
+        <br/>
     </table>
 
-
-    <!--    <table>-->
-    <!--        <tr class="eachproduct" th:each="product : ${category.getProducts()}">-->
-    <!--            <td id="item-image-td">-->
-    <!--                <img class="product-image" th:src="${product.img}" alt="product-img"/>-->
-    <!--            </td>-->
-    <!--            <td id="item-data-td">-->
-    <!--                <div class="listing-right-column pl-xs-2">-->
-    <!--                    <h2 th:text="${product.name}" style="text-align: center"></h2>-->
-    <!--                    <hr/>-->
-    <!--                    <h4 th:text="${product.description}"></h4>-->
-    <!--                    <hr/>-->
-    <!--                    <h3 th:text="${product.price}"></h3>-->
-    <!--                    <p>-->
-    <!--                        <input type="hidden" th:value="*{setStatus(3)}">-->
-    <!--                        <label>Quantity-->
-    <!--                            <select th:field="*{qty}">-->
-    <!--                                <option th:each="i : ${#numbers.sequence(0, product.qty)}" th:value="${i}" th:text="${i}"></option>-->
-    <!--                            </select>-->
-    <!--                        </label><br/>-->
-    <!--                        <button type="submit" value="Add to Cart">Add to Cart</button>-->
-    <!--                    </p>-->
-    <!--                </div>-->
-
-
 </div>
+
+
+
+
+
+
+
+
+
+
+
+<!--    <table>-->
+<!--        <tr class="eachproduct" th:each="product : ${category.getProducts()}">-->
+<!--            <td id="item-image-td">-->
+<!--                <img class="product-image" th:src="${product.img}" alt="product-img"/>-->
+<!--            </td>-->
+<!--            <td id="item-data-td">-->
+<!--                <div class="listing-right-column pl-xs-2">-->
+<!--                    <h2 th:text="${product.name}" style="text-align: center"></h2>-->
+<!--                    <hr/>-->
+<!--                    <h4 th:text="${product.description}"></h4>-->
+<!--                    <hr/>-->
+<!--                    <h3 th:text="${product.price}"></h3>-->
+<!--                    <p>-->
+<!--                        <input type="hidden" th:value="*{setStatus(3)}">-->
+<!--                        <label>Quantity-->
+<!--                            <select th:field="*{qty}">-->
+<!--                                <option th:each="i : ${#numbers.sequence(0, product.qty)}" th:value="${i}" th:text="${i}"></option>-->
+<!--                            </select>-->
+<!--                        </label><br/>-->
+<!--                        <button type="submit" value="Add to Cart">Add to Cart</button>-->
+<!--                    </p>-->
+<!--                </div>-->
+
 </body>
 </html>
 
