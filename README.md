@@ -23,3 +23,5 @@
 "Sites charges shipping on every order but offer free shipping for orders > $50.00."
 
 "Navbar allows for search of items in the store and search by words entered"
+ 
+"Heroku Link: https://shielded-dusk-77950.herokuapp.com/" 
