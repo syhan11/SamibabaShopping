@@ -228,17 +228,17 @@ public class DataLoader implements CommandLineRunner{
 
 
 
-        // create test order history: non-open status for user 3
+        // create test order history: standby status for user 3
         // cancel=1; standby=2; ordered=3; shipped=4; wish = 5; cancelAdmin=6
         OrderHistory tmp = new OrderHistory();
         tmp.setOrderId("testing001");
         tmp.setOrdproduct(tempproduct1);
         tmp.setQty(1);
-        tmp.setStatus(3);
+        tmp.setStatus(2);
         tmp.setOrduser(user3);
         orderHistoryRepository.save(tmp);
 
-        // create test order history: open status for user 3
+        // create test order history: ordered status for user 3
         tmp = new OrderHistory();
         tmp.setOrderId("testing002");
         tmp.setOrdproduct(tempproduct2);
@@ -247,7 +247,7 @@ public class DataLoader implements CommandLineRunner{
         tmp.setOrduser(user3);
         orderHistoryRepository.save(tmp);
 
-        // create test order history: open status for user 1
+        // create test order history: ordered status for user 1
         tmp = new OrderHistory();
         tmp.setOrderId("testing003");
         tmp.setOrdproduct(tempproduct3);
@@ -260,7 +260,7 @@ public class DataLoader implements CommandLineRunner{
         tmp.setOrderId("testing004");
         tmp.setOrdproduct(tempproduct2);
         tmp.setQty(2);
-        tmp.setStatus(4);
+        tmp.setStatus(2);   // standby status
         tmp.setOrduser(user1);
         orderHistoryRepository.save(tmp);
 
@@ -269,7 +269,7 @@ public class DataLoader implements CommandLineRunner{
         tmp.setOrderId("testing005");
         tmp.setOrdproduct(tempproduct4);
         tmp.setQty(2);
-        tmp.setStatus(5);  // wish list
+        tmp.setStatus(5);  // wish status
         tmp.setOrduser(user1);
         orderHistoryRepository.save(tmp);
 
@@ -278,7 +278,7 @@ public class DataLoader implements CommandLineRunner{
         tmp.setOrderId("testing006");
         tmp.setOrdproduct(tempproduct4);
         tmp.setQty(2);
-        tmp.setStatus(3);
+        tmp.setStatus(3);   // ordered status
         tmp.setOrduser(user2);
         orderHistoryRepository.save(tmp);
 
@@ -286,7 +286,7 @@ public class DataLoader implements CommandLineRunner{
         tmp.setOrderId("testing007");
         tmp.setOrdproduct(tempproduct3);
         tmp.setQty(2);
-        tmp.setStatus(5);
+        tmp.setStatus(5);   // wish status
         tmp.setOrduser(user2);
         orderHistoryRepository.save(tmp);
 

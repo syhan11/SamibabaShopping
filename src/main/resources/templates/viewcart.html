@@ -23,7 +23,7 @@
         <tr class="admintr" th:each=" myorder: ${myorders}"
             style="border: 1px solid darkgray; alignment: center; padding-left: 10px; padding-right: 10px">
             <td class="admintd" style="width: 30%; padding: 10px">
-                <h3 th:text="${myorder}">Order No: </h3>
+
                 <h3 th:text="${myorder.getOrduser().getFirstName() + ' '
                               + myorder.getOrduser().getLastName()}"></h3>
                 <h3 th:text="${'Email: ' + myorders.getOrduser().getEmail()}"></h3>
@@ -47,7 +47,7 @@
             </td>
             <td class="admintd"  style="padding: 5px" sec:authorize="isAuthenticated() && !hasAuthority('ADMIN')">
                 <button type="button" class="btn btn-default" style="width:100px; height:100px">
-                    <span class="glyphicon glyphicon-gift"></span>
+                    <span class="glyphicon glyphicon-tags"></span>
                     <a th:href="@{/processorder/{id}(id=${myorder.getOrderId()})}">Submit Order</a></button>
             </td>
         </tr>
