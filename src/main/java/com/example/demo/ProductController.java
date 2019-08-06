@@ -83,30 +83,33 @@ public class ProductController {
 
         model.addAttribute("date", dateString);
 
-        Random rnd = new Random(1000);
-        int rndNum = (int)(Math.random() * 999) + 100;
+        int rndNum = (int)(Math.random() * 999) + 99;
         String orderid = dateString+String.valueOf(rndNum);
 
         orderhist.setOrderId(orderid);
-        orderhist.setStatus(3);
 
 
-        orderHistoryRepository.save(orderhist);
+        /*
+        if (existing open orders){
+            save orderhist with same orderid number as open orders
+        }
+        else {
 
+        }
+        */
 
+        if (orderHistoryRepository.countByOrduserEqualsAndStatusEquals(user, 3) != 0){
+
+            OrderHistory tempOH = orderHistoryRepository.findByOrduserEqualsAndStatusEquals(user,3);
+
+            orderhist.setOrderId(tempOH.getOrderId());
+
+            orderHistoryRepository.save(orderhist);
+        } else {
+            orderHistoryRepository.save(orderhist);
+        }
 
         return "redirect:/";
-
-        //This block of code is no longer needed since the list of products show the current quantity available.
-        /*This block of code will check the quantity available of the product and return an error if the requested amount to order is greater*/
-//        Product prod = orderhist.getOrdproduct();
-
-//        if (orderhist.getQty() > prod.getQty ())
-//
-//            return "listproducts";
-//        else {
-//            orderHistoryRepository.save (orderhist);
-//        }
     }
 
     @RequestMapping("/viewcart/{username}")

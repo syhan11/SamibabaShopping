@@ -77,7 +77,7 @@ public class HomeController {
             }
         }
 
-        model.addAttribute("nocartitems", orderHistoryRepository.countByStatusEquals(ORDORDERED));
+//        model.addAttribute("nocartitems", orderHistoryRepository.countByStatusEquals(ORDORDERED));
         return "homepage";
     }
 
