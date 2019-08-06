@@ -128,7 +128,7 @@ public class AdminController {
         return "listopenorders";
     }
 
-    @RequestMapping("/processorder/{ordid}")
+    @RequestMapping("/packageorder/{ordid}")
     public String processOrder(@PathVariable("ordid") String ordid, Model model) {
         OrderHistory crntorder = orderHistoryRepository.findByOrderId(ordid);
         crntorder.setStatus(ORDSHIPPED);
