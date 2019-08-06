@@ -65,6 +65,7 @@ public class HomeController {
         if (current != null) {
             userid = current.getId();
             String name = current.getUsername();
+            String empty; //Just to get rid of ugly wavy warning because it is a duplicate
 
             if (current.hasAuthority("ADMIN")) {
                 model.addAttribute("nocartitems", orderHistoryRepository.countByStatusEquals(ORDORDERED));

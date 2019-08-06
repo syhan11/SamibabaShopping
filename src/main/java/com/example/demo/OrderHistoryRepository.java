@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import org.hibernate.criterion.Order;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -14,8 +15,13 @@ public interface OrderHistoryRepository extends CrudRepository<OrderHistory, Lon
     OrderHistory findByOrderId(String orderid);
     OrderHistory findAllByOrduserEqualsAndStatusEquals(User user, int status);
     OrderHistory findByOrduserEqualsAndStatusEquals(User user, int status);
+    OrderHistory findAllByOrduserEqualsAndOrderIdGreaterThan(User user, int number);
+
+    ArrayList<OrderHistory> findAllByOrduserEqualsAndStatusEqualsAndQtyGreaterThan(User user, int status, int gt);
 
     int countByOrduserEqualsAndOrderIdNotContaining(User user, String string);
 
     int findByOrduserEqualsAndOrderIdIsNotContaining(User user, String string);
+
+
 }

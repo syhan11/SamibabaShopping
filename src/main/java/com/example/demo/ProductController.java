@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
@@ -88,13 +90,15 @@ public class ProductController {
 
         orderhist.setOrderId(orderid);
 
-        orderhist.setStatus(3);
+        orderhist.setStatus(2);
 
-        if ((orderHistoryRepository.countByOrduserEqualsAndStatusEquals(user, 3) != 0) && (orderHistoryRepository.countByOrduserEqualsAndOrderIdNotContaining(user, "test") != 0)){
+        orderhist.setOrduser(user);
 
-            OrderHistory tempOH = orderHistoryRepository.findByOrduserEqualsAndStatusEquals(user,3);
 
-            orderhist.setOrderId(tempOH.getOrderId());
+        //Tried to get the same orderid for multiple items
+        if ((orderHistoryRepository.countByOrduserEqualsAndStatusEquals(user, 2) != 0) && (orderHistoryRepository.countByOrduserEqualsAndOrderIdNotContaining(user, "test") != 0)){
+
+
 
             orderHistoryRepository.save(orderhist);
 
@@ -121,11 +125,24 @@ public class ProductController {
 
 
 
-
         return "viewcart";
     }
 
 
+    @RequestMapping("/processorder/{id}")
+    public String processorder(Model model, @PathVariable long id){
+
+        User current = userService.getUser();
+
+        model.addAttribute("product", productRepository.findById(orderHistoryRepository.findByOrduserEqualsAndStatusEquals(current, 2).getOrdproduct().getId()));
+
+        model.addAttribute("order", orderHistoryRepository.findAllByOrduserEqualsAndStatusEquals(current, 2));
+
+
+
+
+        return "redirect:/";
+    }
 
 
 

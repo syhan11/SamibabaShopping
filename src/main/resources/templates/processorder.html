@@ -8,6 +8,37 @@
 <body>
 <h2>Send e-mail to someone@example.com:</h2>
 
+<form>
+    <table>
+        <tr>
+            <td>
+                <h2 class="Order-Confirmation-id" th:text="order.getOrderid()"></h2>
+            </td>
+            <td>
+                <h3 class="Order-Confirmation-numitems" th:text="order.getQty()"></h3>
+            </td>
+            <td>
+                <h3 class="Order-SubTotal" th:text="${order.getQty()*(product.getPrice()}"></h3>
+            </td>
+            <td>
+                <h4 class="Order-tax" th:text="((product.getPrice())*.06)"></h4>
+            </td>
+            <td>
+                <h5 th:if="product.getPrice()>50.00">You qualify for free shipping!</h5>
+                <h5 th:unless="product.getPrice<50.00">Shipping Fee: $10.00</h5>
+            </td>
+            <td th:if="product.getPrice()>50.00">
+                <h3 th:text="${(product.getPrice())+(product.getPrice()*0.06)}"></h3>
+            </td>
+            <td th:unless="product.getPrice<50.00">
+                <h3 th:text="${(product.getPrice())+(product.getPrice()*0.06)+(10.00)}"></h3>
+            </td>
+            <div th:value="${order.setStatus(3)}">
+        </tr>
+    </table>
+</form>
+
+
 <form action="mailto:someone@example.com" method="post" enctype="text/plain">
     Name:<br>
     <input type="text" name="name"><br>
