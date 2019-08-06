@@ -13,5 +13,5 @@ public interface OrderHistoryRepository extends CrudRepository<OrderHistory, Lon
 
     OrderHistory findByOrderId(String orderid);
     OrderHistory findAllByOrduserEqualsAndStatusEquals(User user, int status);
-
+    OrderHistory findByOrduserEqualsAndStatusEquals(User user, int status);
 }
