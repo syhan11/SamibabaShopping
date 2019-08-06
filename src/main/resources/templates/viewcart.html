@@ -20,35 +20,35 @@
 
 <div class="admincontain" style="alignment: center; align-content: center; padding: 7px">
     <table class="admintable" style="padding: 5px">
-        <tr class="admintr" th:each=" myorder: ${myorders}"
+        <tr class="admintr" th:each=" item: ${myorders}"
             style="border: 1px solid darkgray; alignment: center; padding-left: 10px; padding-right: 10px">
             <td class="admintd" style="width: 30%; padding: 10px">
 
-                <h3 th:text="${myorder.getOrduser().getFirstName() + ' '
-                              + myorder.getOrduser().getLastName()}"></h3>
-                <h3 th:text="${'Email: ' + myorders.getOrduser().getEmail()}"></h3>
+                <h3 th:text="${item.getOrduser().getFirstName() + ' '
+                              + item.getOrduser().getLastName()}"></h3>
+                <h3 th:text="${item.getOrduser().getEmail()}"></h3>
             </td>
             <td class="admintd">
                 <div class="row" style="padding: 10px">
-                    <div class="col-3" style="alignment: center">
-                        <img class="adminproduct-image"
-                             style="padding: 15px; width: 100%"
-                             th:src="${myorder.getOrdProduct().getImg()}" alt="product image"/>
-                    </div>
+                    <!--<div class="col-3" style="alignment: center">-->
+                        <!--<img class="adminproduct-image"-->
+                             <!--style="padding: 15px; width: 100%"-->
+                             <!--th:src="${item.getOrdProduct().getImg()}" alt="product image"/>-->
+                    <!--</div>-->
 
                     <div class="col-9">
-                        <h5 th:text="${'Order Id: ' + myorder.getOrderId()}"></h5>
-                        <h5 th:text="${'Product Name: ' + myorder.getOrdproduct().name}"></h5>
+                        <h5 th:text="${'Order Id: ' + item.getOrderId()}"></h5>
+                        <!--<h5 th:text="${'Product Name: ' + item.getOrdproduct().name}"></h5>-->
                         <br/>
-                        <h5 th:text="${'Price:' + myorder.getOrdproduct().price}"></h5>
-                        <h5 th:text="${'Ordered Qty:' + myorder.getQty()}"></h5>
+                        <!--<h5 th:text="${'Price:' + item.getOrdproduct().price}"></h5>-->
+                        <h5 th:text="${'Ordered Qty:' + item.getQty()}"></h5>
                     </div>
                 </div>
             </td>
             <td class="admintd"  style="padding: 5px" sec:authorize="isAuthenticated() && !hasAuthority('ADMIN')">
                 <button type="button" class="btn btn-default" style="width:100px; height:100px">
                     <span class="glyphicon glyphicon-tags"></span>
-                    <a th:href="@{/processorder/{id}(id=${myorder.getOrderId()})}">Submit Order</a></button>
+                    <a th:href="@{/processorder/{id}(id=${item.getOrderId()})}">Submit Order</a></button>
             </td>
         </tr>
         <br/>
@@ -88,7 +88,7 @@
 </html>
 
 
-<div th:replace="basicfrag :: footerFrag"></div>
+<div th:replace="basicfrag :: importFooter"></div>
 <div th:replace="basicfrag :: scriptFrag"></div>
 </body>
 </html>

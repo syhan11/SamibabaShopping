@@ -116,12 +116,29 @@ public class ProductController {
 
         User current = userService.getUser();
 
-        model.addAttribute("myorders", orderHistoryRepository.findAllByOrduserEqualsAndStatusEquals(current, 2));
+//        model.addAttribute("myorders", orderHistoryRepository.findAllByOrduserEqualsAndStatusEquals(current, ORDSTANDBY));
 
         /*
-         * FOR ADMIN - number of items on the cart menu is the total number of all OPEN orders
+         * FOR USER, NOT ADMIN - need work
          */
-        model.addAttribute("nocartitems", orderHistoryRepository.countByStatusEquals(ORDORDERED));
+        //model.addAttribute("nocartitems", orderHistoryRepository.countByStatusEquals(ORDORDERED));
+//        model.addAttribute("nocartitems", orderHistoryRepository.countByOrduserEqualsAndStatusEquals(current, ORDSTANDBY));
+
+        ArrayList<OrderHistory> temp = orderHistoryRepository.findAllByOrduser(current);
+        ArrayList<OrderHistory> searchresult = new ArrayList<OrderHistory>();
+
+// only unique products
+        for (OrderHistory element : temp) {
+
+
+            if ((element.getStatus() == ORDSTANDBY) && (element.getId() != 0)) {
+
+                searchresult.add(element);
+            }
+        }
+        model.addAttribute("myorders", searchresult);
+        model.addAttribute("nocartitems",searchresult.size());
+
 
 
 
@@ -130,14 +147,17 @@ public class ProductController {
 
 
     @RequestMapping("/processorder/{id}")
-    public String processorder(Model model, @PathVariable long id){
+    public String processorder(Model model, @PathVariable String xid){
 
         User current = userService.getUser();
 
-        model.addAttribute("product", productRepository.findById(orderHistoryRepository.findByOrduserEqualsAndStatusEquals(current, 2).getOrdproduct().getId()));
+ //       model.addAttribute("product", productRepository.findById(orderHistoryRepository.findByOrduserEqualsAndStatusEquals(current, 2).getOrdproduct().getId()));
 
         model.addAttribute("order", orderHistoryRepository.findAllByOrduserEqualsAndStatusEquals(current, 2));
 
+        OrderHistory tmp = orderHistoryRepository.findByOrderId(xid);
+
+        model.addAttribute("product", tmp.getOrdproduct());
 
 
 

@@ -13,9 +13,10 @@ public interface OrderHistoryRepository extends CrudRepository<OrderHistory, Lon
     Long countByOrduserEqualsAndStatusEquals(User tmpuser, int status);
 
     OrderHistory findByOrderId(String orderid);
-    OrderHistory findAllByOrduserEqualsAndStatusEquals(User user, int status);
-    OrderHistory findByOrduserEqualsAndStatusEquals(User user, int status);
-    OrderHistory findAllByOrduserEqualsAndOrderIdGreaterThan(User user, int number);
+    ArrayList<OrderHistory> findAllByOrduserEqualsAndStatusEquals(User user, int status);
+    ArrayList<OrderHistory> findByOrduserEqualsAndStatusEquals(User user, int status);
+    ArrayList<OrderHistory> findAllByOrduserEqualsAndOrderIdGreaterThan(User user, int number);
+
 
     ArrayList<OrderHistory> findAllByOrduserEqualsAndStatusEqualsAndQtyGreaterThan(User user, int status, int gt);
 
@@ -24,4 +25,7 @@ public interface OrderHistoryRepository extends CrudRepository<OrderHistory, Lon
     int findByOrduserEqualsAndOrderIdIsNotContaining(User user, String string);
 
 
+
+    ArrayList<OrderHistory> findAllByOrduser(User user);
+    ArrayList<OrderHistory> findAllByOrduserAndStatusEquals(User user, int status);
 }
