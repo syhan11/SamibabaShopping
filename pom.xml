@@ -60,7 +60,7 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postresql</artifactId>
-			<version>9.4-1201-jdbc4</version>
+			<scope>runtime</scope>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity4 -->
 		<dependency>
