@@ -9,7 +9,7 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
 
 
     ArrayList<Product> findAllByNameContainingIgnoreCase(Product product);
-
+    ArrayList<Product>findAllByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(String searchstring, String str2);
 
 
     Iterable<Product> findAllByCategory(String category);

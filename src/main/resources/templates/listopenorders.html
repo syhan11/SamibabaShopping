@@ -28,7 +28,7 @@
         <tr class="admintr" th:each="openorder: ${allopenorders}"
             style="border: 1px solid darkgray; alignment: center; padding-left: 10px; padding-right: 10px">
             <td class="admintd" style="width: 30%; padding: 10px">
-                <h3 th:text="${openorder.getOrderId()}">Oder No: </h3>
+
                 <h3 th:text="${openorder.getOrduser().getFirstName() + ' '
                               + openorder.getOrduser().getLastName()}"></h3>
                 <h3 th:text="${'Email: ' + openorder.getOrduser().getEmail()}"></h3>

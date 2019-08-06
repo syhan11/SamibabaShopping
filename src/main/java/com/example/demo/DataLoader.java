@@ -250,7 +250,7 @@ public class DataLoader implements CommandLineRunner{
         // create test order history: open status for user 1
         tmp = new OrderHistory();
         tmp.setOrderId("testing003");
-        tmp.setOrdproduct(tempproduct2);
+        tmp.setOrdproduct(tempproduct3);
         tmp.setQty(2);
         tmp.setStatus(3);
         tmp.setOrduser(user1);
@@ -258,16 +258,16 @@ public class DataLoader implements CommandLineRunner{
 
         tmp = new OrderHistory();
         tmp.setOrderId("testing004");
-        tmp.setOrdproduct(tempproduct1);
+        tmp.setOrdproduct(tempproduct2);
         tmp.setQty(2);
-        tmp.setStatus(3);
+        tmp.setStatus(4);
         tmp.setOrduser(user1);
         orderHistoryRepository.save(tmp);
 
 
         tmp = new OrderHistory();
         tmp.setOrderId("testing005");
-        tmp.setOrdproduct(tempproduct3);
+        tmp.setOrdproduct(tempproduct4);
         tmp.setQty(2);
         tmp.setStatus(5);  // wish list
         tmp.setOrduser(user1);
@@ -275,15 +275,15 @@ public class DataLoader implements CommandLineRunner{
 
         // create test order history: open status for user 2
         tmp = new OrderHistory();
-        tmp.setOrderId("testing004");
-        tmp.setOrdproduct(tempproduct3);
+        tmp.setOrderId("testing006");
+        tmp.setOrdproduct(tempproduct4);
         tmp.setQty(2);
         tmp.setStatus(3);
         tmp.setOrduser(user2);
         orderHistoryRepository.save(tmp);
 
         tmp = new OrderHistory();
-        tmp.setOrderId("testing004");
+        tmp.setOrderId("testing007");
         tmp.setOrdproduct(tempproduct3);
         tmp.setQty(2);
         tmp.setStatus(5);
