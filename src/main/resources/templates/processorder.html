@@ -33,22 +33,14 @@
             <td th:unless="product.getPrice<50.00">
                 <h3 th:text="${(product.getPrice())+(product.getPrice()*0.06)+(10.00)}"></h3>
             </td>
-            <div th:value="${order.setStatus(3)}">
+            <div th:value="${order.setStatus(3)}"></div>
         </tr>
+        <form action="mailto:someone@example.com" method="post" enctype="text/plain">
     </table>
 </form>
 
 
-<form action="mailto:someone@example.com" method="post" enctype="text/plain">
-    Name:<br>
-    <input type="text" name="name"><br>
-    E-mail:<br>
-    <input type="text" name="mail"><br>
-    Comment:<br>
-    <input type="text" name="comment" size="150"><br><br>
-    <input type="submit" value="Send">
-    <input type="reset" value="Reset">
-</form>
 
 </body>
+</form>
 </html>

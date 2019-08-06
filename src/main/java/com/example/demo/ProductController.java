@@ -116,7 +116,7 @@ public class ProductController {
 
         User current = userService.getUser();
 
-        model.addAttribute("myorders", orderHistoryRepository.findAllByOrduserEqualsAndStatusEquals(current, 3));
+        model.addAttribute("myorders", orderHistoryRepository.findAllByOrduserEqualsAndStatusEquals(current, 2));
 
         /*
          * FOR ADMIN - number of items on the cart menu is the total number of all OPEN orders
