@@ -88,23 +88,17 @@ public class ProductController {
 
         orderhist.setOrderId(orderid);
 
+        orderhist.setStatus(3);
 
-        /*
-        if (existing open orders){
-            save orderhist with same orderid number as open orders
-        }
-        else {
-
-        }
-        */
-
-        if (orderHistoryRepository.countByOrduserEqualsAndStatusEquals(user, 3) != 0){
+        if ((orderHistoryRepository.countByOrduserEqualsAndStatusEquals(user, 3) != 0) && (orderHistoryRepository.countByOrduserEqualsAndOrderIdNotContaining(user, "test") != 0)){
 
             OrderHistory tempOH = orderHistoryRepository.findByOrduserEqualsAndStatusEquals(user,3);
 
             orderhist.setOrderId(tempOH.getOrderId());
 
             orderHistoryRepository.save(orderhist);
+
+            return "redirect:/";
         } else {
             orderHistoryRepository.save(orderhist);
         }
