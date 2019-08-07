@@ -112,7 +112,7 @@ public class ProductController {
 
     @RequestMapping("/viewcart/{username}")
     public String viewcart(Model model){
-        model.addAttribute("categories", categoryRepository.findAll());
+//        model.addAttribute("categories", categoryRepository.findAll());
 
         User current = userService.getUser();
 
@@ -124,10 +124,12 @@ public class ProductController {
         //model.addAttribute("nocartitems", orderHistoryRepository.countByStatusEquals(ORDORDERED));
 //        model.addAttribute("nocartitems", orderHistoryRepository.countByOrduserEqualsAndStatusEquals(current, ORDSTANDBY));
 
-        ArrayList<OrderHistory> temp = orderHistoryRepository.findAllByOrduser(current);
+  //      ArrayList<OrderHistory> temp = orderHistoryRepository.findAllByOrduser(current);
+        ArrayList<OrderHistory> temp = orderHistoryRepository.findAllByStatus(ORDSTANDBY);
         ArrayList<OrderHistory> searchresult = new ArrayList<OrderHistory>();
 
 // only unique products
+/****
         for (OrderHistory element : temp) {
 
 
@@ -138,11 +140,19 @@ public class ProductController {
         }
         model.addAttribute("myorders", searchresult);
         model.addAttribute("nocartitems",searchresult.size());
+****/
+
+        model.addAttribute("allopenorders", orderHistoryRepository.findAllByStatus(ORDSTANDBY));
+
+        /*
+         * FOR ADMIN - number of items on the cart menu is the total number of all OPEN orders
+         */
+        model.addAttribute("nocartitems", orderHistoryRepository.countByStatusEquals(ORDSTANDBY));
+
+        return "listopenorders";
 
 
-
-
-        return "viewcart";
+//        return "viewcart";
     }
 
 

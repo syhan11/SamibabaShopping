@@ -12,7 +12,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>ViewCart</title>
 </head>
 <body>
 <div th:insert="basicfrag :: navFrag"></div>
@@ -20,6 +20,9 @@
 
 <div class="admincontain" style="alignment: center; align-content: center; padding: 7px">
     <table class="admintable" style="padding: 5px">
+        <tr>
+            <h3 style="text-align: center" th:text="${#lists.size(myorders)==0}?'No items in the cart'"></h3>
+        </tr>
         <tr class="admintr" th:each=" item: ${myorders}"
             style="border: 1px solid darkgray; alignment: center; padding-left: 10px; padding-right: 10px">
             <td class="admintd" style="width: 30%; padding: 10px">
@@ -30,17 +33,17 @@
             </td>
             <td class="admintd">
                 <div class="row" style="padding: 10px">
-                    <!--<div class="col-3" style="alignment: center">-->
-                        <!--<img class="adminproduct-image"-->
-                             <!--style="padding: 15px; width: 100%"-->
-                             <!--th:src="${item.getOrdProduct().getImg()}" alt="product image"/>-->
-                    <!--</div>-->
+                    <div class="col-3" style="alignment: center">
+                        <img class="adminproduct-image"
+                             style="padding: 15px; width: 100%"
+                             th:src="${item.getOrdProduct().getImg()}" alt="product image"/>
+                    </div>
 
                     <div class="col-9">
                         <h5 th:text="${'Order Id: ' + item.getOrderId()}"></h5>
-                        <!--<h5 th:text="${'Product Name: ' + item.getOrdproduct().name}"></h5>-->
+                        <h5 th:text="${'Product Name: ' + item.getOrdproduct().name}"></h5>
                         <br/>
-                        <!--<h5 th:text="${'Price:' + item.getOrdproduct().price}"></h5>-->
+                        <h5 th:text="${'Price:' + item.getOrdproduct().price}"></h5>
                         <h5 th:text="${'Ordered Qty:' + item.getQty()}"></h5>
                     </div>
                 </div>
@@ -55,34 +58,6 @@
     </table>
 
 </div>
-
-
-
-
-
-
-<!--    <table>-->
-<!--        <tr class="eachproduct" th:each="product : ${category.getProducts()}">-->
-<!--            <td id="item-image-td">-->
-<!--                <img class="product-image" th:src="${product.img}" alt="product-img"/>-->
-<!--            </td>-->
-<!--            <td id="item-data-td">-->
-<!--                <div class="listing-right-column pl-xs-2">-->
-<!--                    <h2 th:text="${product.name}" style="text-align: center"></h2>-->
-<!--                    <hr/>-->
-<!--                    <h4 th:text="${product.description}"></h4>-->
-<!--                    <hr/>-->
-<!--                    <h3 th:text="${product.price}"></h3>-->
-<!--                    <p>-->
-<!--                        <input type="hidden" th:value="*{setStatus(3)}">-->
-<!--                        <label>Quantity-->
-<!--                            <select th:field="*{qty}">-->
-<!--                                <option th:each="i : ${#numbers.sequence(0, product.qty)}" th:value="${i}" th:text="${i}"></option>-->
-<!--                            </select>-->
-<!--                        </label><br/>-->
-<!--                        <button type="submit" value="Add to Cart">Add to Cart</button>-->
-<!--                    </p>-->
-<!--                </div>-->
 
 </body>
 </html>
