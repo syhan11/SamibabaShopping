@@ -2,7 +2,7 @@ package com.example.demo;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.Collection;
+import java.util.Set;
 
 @Entity
 public class Product {
@@ -28,42 +28,24 @@ public class Product {
     @Size(max=255)
     private String img;
 
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(joinColumns = @JoinColumn(name="user_id"),
-            inverseJoinColumns = @JoinColumn(name="product_id"))
-    private Collection<User> users;
-
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="category_id")
     private Category category;
 
-
-
-    @OneToOne(mappedBy = "ordproduct", cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY, optional = true)
-    private OrderHistory orderhistory;
-
-
+    @ManyToMany(mappedBy = "products")
+    private Set<OrderHistory> orders;
 
     public Product() {
+        this.orders = null;
     }
-
-    /*
-    * Added by: Jacob. Creating an overloading constructor to create a Product object within the dataloader
-    **/
 
     public Product(String name, String description, double price, int qty) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.qty = qty;
+        this.orders = null;
     }
-
-    /*End of addition from Jacob
-    * */
-
 
     public long getId() {
         return id;
@@ -113,12 +95,12 @@ public class Product {
         this.img = img;
     }
 
-    public Collection<User> getUsers() {
-        return users;
+    public Set<OrderHistory> getOrders() {
+        return orders;
     }
 
-    public void setUsers(Collection<User> users) {
-        this.users = users;
+    public void setOrders(Set<OrderHistory> orders) {
+        this.orders = orders;
     }
 
     public Category getCategory() {
@@ -127,13 +109,5 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
-    }
-
-    public OrderHistory getOrderhistory() {
-        return orderhistory;
-    }
-
-    public void setOrderhistory(OrderHistory orderhistory) {
-        this.orderhistory = orderhistory;
     }
 }

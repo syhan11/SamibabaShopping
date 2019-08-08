@@ -67,7 +67,8 @@ public class ProductController {
 
         model.addAttribute ("orderhist", new OrderHistory(userService.getUser()));
 
-        model.addAttribute("nocartitems", orderHistoryRepository.countByStatusEquals(ORDORDERED));
+        model.addAttribute("nocartitems",
+                           orderHistoryRepository.countByOrduserEqualsAndStatusEquals(user, ORDSTANDBY));
 
         return "listproducts";          /*Will change names later*/
     }
@@ -89,14 +90,14 @@ public class ProductController {
         String orderid = dateString+String.valueOf(rndNum);
 
         orderhist.setOrderId(orderid);
-
-        orderhist.setStatus(2);
-
+        orderhist.setStatus(ORDSTANDBY);
         orderhist.setOrduser(user);
 
 
         //Tried to get the same orderid for multiple items
-        if ((orderHistoryRepository.countByOrduserEqualsAndStatusEquals(user, 2) != 0) && (orderHistoryRepository.countByOrduserEqualsAndOrderIdNotContaining(user, "test") != 0)){
+        /*********************
+        if ((orderHistoryRepository.countByOrduserEqualsAndStatusEquals(user, ORDSTANDBY) != 0)
+                && (orderHistoryRepository.countByOrduserEqualsAndOrderIdNotContaining(user, "test") != 0)){
 
 
 
@@ -106,6 +107,9 @@ public class ProductController {
         } else {
             orderHistoryRepository.save(orderhist);
         }
+*****************/
+        orderHistoryRepository.save(orderhist);
+
 
         return "redirect:/";
     }
@@ -125,7 +129,7 @@ public class ProductController {
 //        model.addAttribute("nocartitems", orderHistoryRepository.countByOrduserEqualsAndStatusEquals(current, ORDSTANDBY));
 
   //      ArrayList<OrderHistory> temp = orderHistoryRepository.findAllByOrduser(current);
-        ArrayList<OrderHistory> temp = orderHistoryRepository.findAllByStatus(ORDSTANDBY);
+        ArrayList<OrderHistory> temp = orderHistoryRepository.findAllByStatusEquals(ORDSTANDBY);
         ArrayList<OrderHistory> searchresult = new ArrayList<OrderHistory>();
 
 // only unique products
@@ -142,7 +146,7 @@ public class ProductController {
         model.addAttribute("nocartitems",searchresult.size());
 ****/
 
-        model.addAttribute("allopenorders", orderHistoryRepository.findAllByStatus(ORDSTANDBY));
+        model.addAttribute("allopenorders", orderHistoryRepository.findAllByStatusEquals(ORDSTANDBY));
 
         /*
          * FOR ADMIN - number of items on the cart menu is the total number of all OPEN orders
@@ -157,17 +161,18 @@ public class ProductController {
 
 
     @RequestMapping("/processorder/{id}")
-    public String processorder(Model model, @PathVariable String xid){
+    public String processorder(Model model, @PathVariable String id){
 
         User current = userService.getUser();
 
  //       model.addAttribute("product", productRepository.findById(orderHistoryRepository.findByOrduserEqualsAndStatusEquals(current, 2).getOrdproduct().getId()));
 
-        model.addAttribute("order", orderHistoryRepository.findAllByOrduserEqualsAndStatusEquals(current, 2));
+        model.addAttribute("order", orderHistoryRepository.findAllByOrduserEqualsAndStatusEquals(current, ORDSTANDBY));
 
-        OrderHistory tmp = orderHistoryRepository.findByOrderId(xid);
+        OrderHistory tmp = orderHistoryRepository.findByOrderIdEquals(id);
 
-        model.addAttribute("product", tmp.getOrdproduct());
+        if (tmp != null)
+            model.addAttribute("product", tmp.getProducts());
 
 
 

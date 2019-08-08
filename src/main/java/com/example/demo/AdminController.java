@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 
 /*
  * This AdminController deals with admin's functionalities
@@ -72,7 +73,8 @@ public class AdminController {
             }
             else {
                 User tmpuser = userRepository.findByUsername(name);
-                model.addAttribute("nocartitems",orderHistoryRepository.countByOrduserEqualsAndStatusEquals(tmpuser, ORDSTANDBY));
+                model.addAttribute("nocartitems",
+                                   orderHistoryRepository.countByOrduserEqualsAndStatusEquals(tmpuser, ORDSTANDBY));
             }
         }
 
@@ -118,24 +120,34 @@ public class AdminController {
 
     @RequestMapping("/listopenorders")
     public String listOpenOrders(Model model) {
-        model.addAttribute("allopenorders", orderHistoryRepository.findAllByStatus(ORDORDERED));
-
         /*
          * FOR ADMIN - number of items on the cart menu is the total number of all OPEN orders
          */
+        /************* TESTING DB
         model.addAttribute("nocartitems", orderHistoryRepository.countByStatusEquals(ORDORDERED));
-
+        model.addAttribute("allopenorders", orderHistoryRepository.findAllByStatusEquals(ORDORDERED));
+****** TESTING DB ******/
         return "listopenorders";
     }
 
     @RequestMapping("/packageorder/{ordid}")
     public String processOrder(@PathVariable("ordid") String ordid, Model model) {
-        OrderHistory crntorder = orderHistoryRepository.findByOrderId(ordid);
-        crntorder.setStatus(ORDSHIPPED);
-        orderHistoryRepository.save(crntorder);
+
+
+        ArrayList<OrderHistory> allorders = orderHistoryRepository.findAllByOrderIdEquals(ordid);
+        for (OrderHistory crntorder : allorders) {
+            // calculate total sum of the order
+
+            // for all products on this order, set status to ORDSHIPPED
+            crntorder.setStatus(ORDSHIPPED);
+            orderHistoryRepository.save(crntorder);
+        }
 
         // send out an email
-        emailService.SendSimpleEmail(crntorder.getOrduser().getEmail(), crntorder.getOrderId());
+        OrderHistory tmporder = orderHistoryRepository.findByOrderIdEquals(ordid);
+
+
+        emailService.SendSimpleEmail(tmporder.getOrduser().getEmail(), tmporder.getOrderId());
 
 
         return "redirect:/listopenorders";
@@ -144,30 +156,11 @@ public class AdminController {
 
     @RequestMapping("/detailorder/{ordid}")
     public String detailOrder(@PathVariable("ordid") String ordid, Model model) {
-        OrderHistory crntorder = orderHistoryRepository.findByOrderId(ordid);
+        OrderHistory crntorder = orderHistoryRepository.findByOrderIdEquals(ordid);
 
         // need to call a method to send out an email
         return "redirect:/";
 
     }
-
-    @RequestMapping("/sendemail")
-    public String sendEmail(){
-        return "search";
-    }
-
-    /******
-    @RequestMapping("/adminorder")
-    public String adminOrder(Model model) {
-
-        //pass currently logged-in user information to index.html
-        User crntuser = userService.getUser();
-        if (crntuser != null)
-            model.addAttribute("crntuser", crntuser);
-
-        return "adminorder";
-    }
-*************/
-
 
 }

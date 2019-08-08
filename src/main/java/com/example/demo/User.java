@@ -61,13 +61,8 @@ public class User {
                inverseJoinColumns = @JoinColumn(name="role_id"))
     private Collection<Role> roles;
 
-    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
-    private Collection<Product> products;
-
-    @OneToOne(mappedBy = "orduser", cascade = CascadeType.ALL,
-              fetch = FetchType.LAZY, optional = true)
-    private OrderHistory orderhistory;
-
+    @OneToMany(mappedBy = "orduser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public Set<OrderHistory> orderhistory;
 
     public User() {
     }
@@ -89,7 +84,7 @@ public class User {
         this.setState(null);
         this.setZipcode(0);
         this.roles = null;
-        this.products = null;
+        this.orderhistory = null;
     }
 
     public long getId() {
@@ -195,12 +190,12 @@ public class User {
         this.zipcode = zipcode;
     }
 
-    public Collection<Product> getProducts() {
-        return products;
+    public Set<OrderHistory> getOrderhistory() {
+        return orderhistory;
     }
 
-    public void setProducts(Collection<Product> products) {
-        this.products = products;
+    public void setOrderhistory(Set<OrderHistory> orderhistory) {
+        this.orderhistory = orderhistory;
     }
 
     public boolean hasAuthority(String privilage) {
@@ -216,11 +211,5 @@ public class User {
         return found;
     }
 
-    public OrderHistory getOrderhistory() {
-        return orderhistory;
-    }
 
-    public void setOrderhistory(OrderHistory orderhistory) {
-        this.orderhistory = orderhistory;
-    }
 }

@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Component
 public class DataLoader implements CommandLineRunner{
@@ -28,6 +31,14 @@ public class DataLoader implements CommandLineRunner{
 
     @Autowired
     private OrderHistoryRepository orderHistoryRepository;
+
+    // cancel=1; standby=2; ordered=3; shipped=4; wish = 5; cancelAdmin=6
+    static int ORDCANCEL = 1;
+    static int ORDSTANDBY = 2;
+    static int ORDORDERED = 3;
+    static int ORDSHIPPED = 4;
+    static int ORDWISH = 5;
+    static int ORDADMCANCEL = 6;
 
     @Override
     public void run(String... strings) throws Exception {
@@ -70,6 +81,7 @@ public class DataLoader implements CommandLineRunner{
         categoryRepository.save(tempcategory);
 
         // products for Books categroy
+        long catid = tempcategory.getId();
         Product tempproduct1 = new Product("HTML and CSS: Design and Build Websites", "Learn the fundamentals of HTML5 within 24 hours", 25.67, 10);
         tempproduct1.setCategory(tempcategory);
         tempproduct1.setImg ("https://m.media-amazon.com/images/I/41p7u2kJACL._AC_UL654_SEARCH212385_FMwebp_QL65_.jpg");
@@ -104,6 +116,7 @@ public class DataLoader implements CommandLineRunner{
         tempcategory.setImg("https://res.cloudinary.com/dgmyjncc8/image/upload/v1565028492/4d7b2607c25d8112bc0ae2fcb6a452b6--girl-style-my-style_r2dfge.jpg");
         tempcategory.setTitle("Clothing");
         categoryRepository.save(tempcategory);
+        catid = tempcategory.getId();
 
         Product tempproduct2 = new Product("Black Faux Leather Jacket",
                 "Robert Downey Jr Iron Man Tony Stark Superhero Stylish Black Faux Leather Jacket",
@@ -145,6 +158,7 @@ public class DataLoader implements CommandLineRunner{
         tempcategory.setImg("https://res.cloudinary.com/dgmyjncc8/image/upload/v1565028693/0c13ca21c3fc589224a0a614d7d397c1_zepg37.jpg");
         tempcategory.setTitle("Home Appliances ");
         categoryRepository.save(tempcategory);
+        catid = tempcategory.getId();
 
 
         Product tempproduct3 = new Product("Home/Office PowerPort strip with long 6ft Cord for Smartphone Tablets Home Appliances",
@@ -190,6 +204,7 @@ public class DataLoader implements CommandLineRunner{
         tempcategory.setImg("https://res.cloudinary.com/dgmyjncc8/image/upload/v1565028858/bg1_thlwhk.jpg");
         tempcategory.setTitle("Electronic Devices");
         categoryRepository.save(tempcategory);
+        catid = tempcategory.getId();
 
         Product tempproduct4 = new Product("Mini Projector",
                 "Supported resolution:1920*1080 with projector distance 1.5m-5m.",
@@ -226,69 +241,83 @@ public class DataLoader implements CommandLineRunner{
         tempproduct4.setImg ("https://m.media-amazon.com/images/I/7139JCwm85L._AC_UL654_SEARCH212385_FMwebp_QL65_.jpg");
         productRepository.save(tempproduct4);
 
-
-
         // create test order history: standby status for user 3
         // cancel=1; standby=2; ordered=3; shipped=4; wish = 5; cancelAdmin=6
+
         OrderHistory tmp = new OrderHistory();
-        tmp.setOrderId("testing001");
-        tmp.setOrdproduct(tempproduct1);
-        tmp.setQty(1);
-        tmp.setStatus(2);
+        tmp.setOrderId("08022019001");
         tmp.setOrduser(user3);
+        Set<Product> products = new HashSet<Product>();
+        products.add(tempproduct1);
+        tmp.setProducts(products);
+        tmp.setQty(1);
+        tmp.setStatus(ORDSTANDBY);
         orderHistoryRepository.save(tmp);
 
         // create test order history: ordered status for user 3
+
         tmp = new OrderHistory();
-        tmp.setOrderId("testing002");
-        tmp.setOrdproduct(tempproduct2);
-        tmp.setQty(4);
-        tmp.setStatus(3);
+        tmp.setOrderId("08022019001");
+        products = new HashSet<Product>();
+        products.add(tempproduct2);
+        tmp.setProducts(products);
+        tmp.setQty(1);
+        tmp.setStatus(ORDORDERED);
         tmp.setOrduser(user3);
         orderHistoryRepository.save(tmp);
 
         // create test order history: ordered status for user 1
         tmp = new OrderHistory();
         tmp.setOrderId("testing003");
-        tmp.setOrdproduct(tempproduct3);
+        products = new HashSet<Product>();
+        products.add(tempproduct3);
+        tmp.setProducts(products);
         tmp.setQty(2);
-        tmp.setStatus(3);
-        tmp.setOrduser(user1);
+        tmp.setStatus(ORDORDERED);
+        tmp.setOrduser(user3);
         orderHistoryRepository.save(tmp);
 
         tmp = new OrderHistory();
         tmp.setOrderId("testing004");
-        tmp.setOrdproduct(tempproduct2);
+        products = new HashSet<Product>();
+        products.add(tempproduct3);
+        tmp.setProducts(products);
         tmp.setQty(2);
-        tmp.setStatus(2);   // standby status
+        tmp.setStatus(ORDSTANDBY);   // standby status
         tmp.setOrduser(user1);
         orderHistoryRepository.save(tmp);
 
-
         tmp = new OrderHistory();
         tmp.setOrderId("testing005");
-        tmp.setOrdproduct(tempproduct4);
+        products = new HashSet<Product>();
+        products.add(tempproduct4);
+        tmp.setProducts(products);
         tmp.setQty(2);
-        tmp.setStatus(5);  // wish status
+        tmp.setStatus(ORDWISH);  // wish status
         tmp.setOrduser(user1);
         orderHistoryRepository.save(tmp);
 
         // create test order history: open status for user 2
         tmp = new OrderHistory();
         tmp.setOrderId("testing006");
-        tmp.setOrdproduct(tempproduct4);
+        products = new HashSet<Product>();
+        products.add(tempproduct1);
+        tmp.setProducts(products);
         tmp.setQty(2);
-        tmp.setStatus(3);   // ordered status
+        tmp.setStatus(ORDORDERED);
         tmp.setOrduser(user2);
         orderHistoryRepository.save(tmp);
 
         tmp = new OrderHistory();
         tmp.setOrderId("testing007");
-        tmp.setOrdproduct(tempproduct3);
+        products = new HashSet<Product>();
+        products.add(tempproduct2);
+        tmp.setProducts(products);
         tmp.setQty(2);
-        tmp.setStatus(5);   // wish status
+        tmp.setStatus(ORDWISH);
         tmp.setOrduser(user2);
         orderHistoryRepository.save(tmp);
+
 
 
     }

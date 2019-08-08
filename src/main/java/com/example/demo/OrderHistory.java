@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class OrderHistory {
@@ -8,18 +9,15 @@ public class OrderHistory {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    //Testing a different generated type - Jacob
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="order_id")
     private String orderId;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinTable(name = "orduser_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="orduser_id")
     private User orduser;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinTable(name = "product_id")
-    private Product ordproduct;
+    @ManyToMany
+    private Set<Product> products;
 
 
     @Column(name="qty")
@@ -29,10 +27,12 @@ public class OrderHistory {
     private int status;   // cancel=1; standby=2; ordered=3; shipped=4; wish = 5; cancelAdmin=6
 
     public OrderHistory() {
+        this.products = null;
     }
 
     public OrderHistory(User orduser) {
         this.orduser = orduser;
+        this.products = null;
     }
 
     public long getId() {
@@ -59,12 +59,12 @@ public class OrderHistory {
         this.orduser = orduser;
     }
 
-    public Product getOrdproduct() {
-        return ordproduct;
+    public Set<Product> getProducts() {
+        return products;
     }
 
-    public void setOrdproduct(Product ordproduct) {
-        this.ordproduct = ordproduct;
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 
     public int getQty() {
