@@ -17,41 +17,47 @@
 <body>
 <div th:insert="basicfrag :: navFrag"></div>
 
-
 <div class="admincontain" style="alignment: center; align-content: center; padding: 7px">
-    <table class="admintable" style="padding: 5px">
-        <tr>
+    <div class="row">
+        <div class="col_6">
             <h3 style="text-align: center" th:text="${#lists.size(myorders)==0}?'No items in the cart'"></h3>
-        </tr>
-        <tr class="admintr" th:each=" item: ${myorders}"
+                <span th:if="${#lists.size(myorders)>0}">
+                    <h4 th:text="${'Order Id: ' + myorders[0].getOrderId()}"></h4><br/>
+                    <button type="button" class="btn btn-default"
+                            style="height:70px">
+                        <span class="glyphicon glyphicon-tags"></span>
+                        <a th:href="@{/checkoutorder/{id}(id=${myorders[0].getOrderId()})}">Check Out</a>
+                    </button>
+                </span>
+            </h3>
+        </div>
+        <div class="col_6">
+            <h3 th:text="${'Subtotal:' + subtotal}"></h3>
+            <h3 th:text="${'Tax (MD 5%): ' + tax}"></h3>
+            <h3 th:text="${'Delivery Charge: ' + delivery}"></h3>
+            <hr/>
+            <h2 th:text="${'Total: ' + total}"></h2>
+        </div>
+    </div>
+
+    <table class="admintable" style="padding: 5px">
+        <tr class="admintr" th:each="item: ${myorders}"
             style="border: 1px solid darkgray; alignment: center; padding-left: 10px; padding-right: 10px">
-            <td class="admintd" style="width: 30%; padding: 10px">
-
-                <h3 th:text="${item.getOrduser().getFirstName() + ' '
-                              + item.getOrduser().getLastName()}"></h3>
-                <h3 th:text="${item.getOrduser().getEmail()}"></h3>
-            </td>
             <td class="admintd">
-                <div class="row" style="padding: 10px">
-                    <div class="col-3" style="alignment: center">
-                        <img class="adminproduct-image"
-                             style="padding: 15px; width: 100%"
-                             th:src="${item.getOrdProduct().getImg()}" alt="product image"/>
-                    </div>
-
-                    <div class="col-9">
-                        <h5 th:text="${'Order Id: ' + item.getOrderId()}"></h5>
-                        <h5 th:text="${'Product Name: ' + item.getOrdproduct().name}"></h5>
-                        <br/>
-                        <h5 th:text="${'Price:' + item.getOrdproduct().price}"></h5>
-                        <h5 th:text="${'Ordered Qty:' + item.getQty()}"></h5>
-                    </div>
+                <div class="col-3" style="alignment: center">
+                    <img class="adminproduct-image"
+                         style="padding: 15px; width: 100%"
+                         th:src="${item.getOrdprod().getImg()}" alt="product image"/>
                 </div>
             </td>
-            <td class="admintd"  style="padding: 5px" sec:authorize="isAuthenticated() && !hasAuthority('ADMIN')">
-                <button type="button" class="btn btn-default" style="width:100px; height:100px">
-                    <span class="glyphicon glyphicon-tags"></span>
-                    <a th:href="@{/processorder/{id}(id=${item.getOrderId()})}">Submit Order</a></button>
+            <td>
+                <div class="col-9">
+                    <h5 th:text="${'Product Name: ' + item.getOrdprod().getName()}"></h5>
+                    <br/>
+                    <h5 th:text="${'Price:' + item.getOrdprod().getPrice()}"></h5>
+                    <h5 th:text="${'Ordered Qty:' + item.getQty()}"></h5>
+                </div>
+
             </td>
         </tr>
         <br/>

@@ -32,11 +32,15 @@ public class Product {
     @JoinColumn(name="category_id")
     private Category category;
 
-    @ManyToMany(mappedBy = "products")
-    private Set<OrderHistory> orders;
+//    @ManyToMany(mappedBy = "products")
+//    private Set<OrderHistory> orders;
+
+    @OneToMany(mappedBy = "ordprod", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public Set<OrderHistory> orders;
+
+
 
     public Product() {
-        this.orders = null;
     }
 
     public Product(String name, String description, double price, int qty) {

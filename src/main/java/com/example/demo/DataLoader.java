@@ -245,11 +245,9 @@ public class DataLoader implements CommandLineRunner{
         // cancel=1; standby=2; ordered=3; shipped=4; wish = 5; cancelAdmin=6
 
         OrderHistory tmp = new OrderHistory();
-        tmp.setOrderId("08022019001");
+        tmp.setOrderId("testing001");
         tmp.setOrduser(user3);
-        Set<Product> products = new HashSet<Product>();
-        products.add(tempproduct1);
-        tmp.setProducts(products);
+        tmp.setOrdprod(tempproduct1);
         tmp.setQty(1);
         tmp.setStatus(ORDSTANDBY);
         orderHistoryRepository.save(tmp);
@@ -257,31 +255,27 @@ public class DataLoader implements CommandLineRunner{
         // create test order history: ordered status for user 3
 
         tmp = new OrderHistory();
-        tmp.setOrderId("08022019001");
-        products = new HashSet<Product>();
-        products.add(tempproduct2);
-        tmp.setProducts(products);
-        tmp.setQty(1);
+        tmp.setOrderId("testing002");
+        tmp.setOrdprod(tempproduct2);
+        tmp.setQty(2);
         tmp.setStatus(ORDORDERED);
         tmp.setOrduser(user3);
+        tmp.setOrddate("08092019");
         orderHistoryRepository.save(tmp);
 
         // create test order history: ordered status for user 1
         tmp = new OrderHistory();
         tmp.setOrderId("testing003");
-        products = new HashSet<Product>();
-        products.add(tempproduct3);
-        tmp.setProducts(products);
+        tmp.setOrdprod(tempproduct3);
         tmp.setQty(2);
         tmp.setStatus(ORDORDERED);
         tmp.setOrduser(user3);
+        tmp.setOrddate("07172019");
         orderHistoryRepository.save(tmp);
 
         tmp = new OrderHistory();
         tmp.setOrderId("testing004");
-        products = new HashSet<Product>();
-        products.add(tempproduct3);
-        tmp.setProducts(products);
+        tmp.setOrdprod(tempproduct3);
         tmp.setQty(2);
         tmp.setStatus(ORDSTANDBY);   // standby status
         tmp.setOrduser(user1);
@@ -289,9 +283,7 @@ public class DataLoader implements CommandLineRunner{
 
         tmp = new OrderHistory();
         tmp.setOrderId("testing005");
-        products = new HashSet<Product>();
-        products.add(tempproduct4);
-        tmp.setProducts(products);
+        tmp.setOrdprod(tempproduct4);
         tmp.setQty(2);
         tmp.setStatus(ORDWISH);  // wish status
         tmp.setOrduser(user1);
@@ -300,19 +292,16 @@ public class DataLoader implements CommandLineRunner{
         // create test order history: open status for user 2
         tmp = new OrderHistory();
         tmp.setOrderId("testing006");
-        products = new HashSet<Product>();
-        products.add(tempproduct1);
-        tmp.setProducts(products);
+        tmp.setOrdprod(tempproduct1);
         tmp.setQty(2);
         tmp.setStatus(ORDORDERED);
         tmp.setOrduser(user2);
+        tmp.setOrddate("08072019");
         orderHistoryRepository.save(tmp);
 
         tmp = new OrderHistory();
         tmp.setOrderId("testing007");
-        products = new HashSet<Product>();
-        products.add(tempproduct2);
-        tmp.setProducts(products);
+        tmp.setOrdprod(tempproduct2);
         tmp.setQty(2);
         tmp.setStatus(ORDWISH);
         tmp.setOrduser(user2);

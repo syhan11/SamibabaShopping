@@ -123,16 +123,17 @@ public class AdminController {
         /*
          * FOR ADMIN - number of items on the cart menu is the total number of all OPEN orders
          */
-        /************* TESTING DB
+
         model.addAttribute("nocartitems", orderHistoryRepository.countByStatusEquals(ORDORDERED));
-        model.addAttribute("allopenorders", orderHistoryRepository.findAllByStatusEquals(ORDORDERED));
-****** TESTING DB ******/
+        model.addAttribute("allopenorders", orderHistoryRepository.findAllByStatusEqualsOrderByOrderId(ORDORDERED));
+
         return "listopenorders";
     }
 
     @RequestMapping("/packageorder/{ordid}")
     public String processOrder(@PathVariable("ordid") String ordid, Model model) {
-
+        String orderNo = "not available";
+        String orderEmail = null;
 
         ArrayList<OrderHistory> allorders = orderHistoryRepository.findAllByOrderIdEquals(ordid);
         for (OrderHistory crntorder : allorders) {
@@ -141,13 +142,15 @@ public class AdminController {
             // for all products on this order, set status to ORDSHIPPED
             crntorder.setStatus(ORDSHIPPED);
             orderHistoryRepository.save(crntorder);
+
+            if (orderEmail == null) {
+                orderNo = crntorder.getOrderId();
+                orderEmail = crntorder.getOrduser().getEmail();
+            }
         }
 
         // send out an email
-        OrderHistory tmporder = orderHistoryRepository.findByOrderIdEquals(ordid);
-
-
-        emailService.SendSimpleEmail(tmporder.getOrduser().getEmail(), tmporder.getOrderId());
+        emailService.SendSimpleEmail(orderEmail, orderNo);
 
 
         return "redirect:/listopenorders";

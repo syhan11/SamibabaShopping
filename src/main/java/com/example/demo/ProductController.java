@@ -11,9 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Random;
+import java.util.*;
 
 /*
  * This Controller will deal with all templates related to displaying product information
@@ -47,7 +45,9 @@ public class ProductController {
     static int ORDSHIPPED = 4;
     static int ORDWISH = 5;
     static int ORDADMCANCEL = 6;
-
+    static double MDTAX = 0.05;
+    static double DELIVERYCHRG = 9.00;
+    static double DELIVERYMIN = 50.00;
 
     /*
      * This page will display a list of the products under a user-chosen category
@@ -75,40 +75,49 @@ public class ProductController {
 
 
     //This PostMapping method will allow the user to add an item to their cart. Jacob
-    @PostMapping("/addtocart")
-    public String additemtocart(Model model, @ModelAttribute("orderhist") OrderHistory orderhist){
+    @RequestMapping("/addtocart/{pid}")
+    public String additemtocart(Model model,
+                                @PathVariable("pid") long pid,
+                                @ModelAttribute("orderhist") OrderHistory orderhist){
 
         User user = userService.getUser();
 
-        SimpleDateFormat date = new SimpleDateFormat("MMddyyyy");
 
-        String dateString = date.format( new Date() );
+        /*
+         1. if there isn't any open order
+            then create an order history
+            else find the first open order
+         2. append selected product to the currently opened order
+         3. save the order
+         */
 
-        model.addAttribute("date", dateString);
+        ArrayList<OrderHistory> tmporderList = orderHistoryRepository.findAllByOrduserEqualsAndStatusEqualsOrderByOrderId(user, ORDSTANDBY);
+        OrderHistory currOrd = new OrderHistory();
+        String orderid;
 
-        int rndNum = (int)(Math.random() * 999) + 99;
-        String orderid = dateString+String.valueOf(rndNum);
-
-        orderhist.setOrderId(orderid);
-        orderhist.setStatus(ORDSTANDBY);
-        orderhist.setOrduser(user);
-
-
-        //Tried to get the same orderid for multiple items
-        /*********************
-        if ((orderHistoryRepository.countByOrduserEqualsAndStatusEquals(user, ORDSTANDBY) != 0)
-                && (orderHistoryRepository.countByOrduserEqualsAndOrderIdNotContaining(user, "test") != 0)){
-
-
-
-            orderHistoryRepository.save(orderhist);
-
-            return "redirect:/";
-        } else {
-            orderHistoryRepository.save(orderhist);
+        if (tmporderList.size() == 0) {
+            // new order
+            SimpleDateFormat date = new SimpleDateFormat("MMddyyyy");
+            String dateString = date.format( new Date() );
+            int rndNum = (int)(Math.random() * 999) + 99;
+            orderid = dateString+String.valueOf(rndNum);
         }
-*****************/
-        orderHistoryRepository.save(orderhist);
+        else {
+                orderid = tmporderList.get(0).getOrderId();
+        }
+
+        currOrd.setOrderId(orderid);
+        currOrd.setStatus(ORDSTANDBY);
+        currOrd.setOrduser(user);
+
+        Product currProd = productRepository.findById(pid);
+        currOrd.setOrderId(orderid);
+        currOrd.setStatus(ORDSTANDBY);
+        currOrd.setOrduser(user);
+        currOrd.setQty(orderhist.getQty());
+        currOrd.setOrdprod(currProd);
+
+        orderHistoryRepository.save(currOrd);
 
 
         return "redirect:/";
@@ -116,11 +125,27 @@ public class ProductController {
 
     @RequestMapping("/viewcart/{username}")
     public String viewcart(Model model){
-//        model.addAttribute("categories", categoryRepository.findAll());
-
         User current = userService.getUser();
+        ArrayList<OrderHistory> myorders = orderHistoryRepository.findAllByOrduserEqualsAndStatusEqualsOrderByOrderId(current, ORDSTANDBY);
+        model.addAttribute("myorders", myorders);
+        double tax = 0.0, delivery = 0.0, subtotal = 0.0;
 
-//        model.addAttribute("myorders", orderHistoryRepository.findAllByOrduserEqualsAndStatusEquals(current, ORDSTANDBY));
+        for (OrderHistory oneord : myorders) {
+            subtotal = subtotal + (oneord.getQty() * oneord.getOrdprod().getPrice());
+        }
+
+        tax = subtotal * MDTAX;
+        if (subtotal >= DELIVERYMIN)
+            delivery = 0.0;
+        else
+            delivery = DELIVERYCHRG;
+String taxstr = String.format("%.2f", tax);
+
+
+        model.addAttribute("tax", String.format("%.2f", tax));
+        model.addAttribute("delivery", String.format("%.2f", delivery));
+        model.addAttribute("subtotal", String.format("%.2f", subtotal));
+        model.addAttribute("total", String.format("%.2f", subtotal+tax+delivery));
 
         /*
          * FOR USER, NOT ADMIN - need work
@@ -128,35 +153,8 @@ public class ProductController {
         //model.addAttribute("nocartitems", orderHistoryRepository.countByStatusEquals(ORDORDERED));
 //        model.addAttribute("nocartitems", orderHistoryRepository.countByOrduserEqualsAndStatusEquals(current, ORDSTANDBY));
 
-  //      ArrayList<OrderHistory> temp = orderHistoryRepository.findAllByOrduser(current);
-        ArrayList<OrderHistory> temp = orderHistoryRepository.findAllByStatusEquals(ORDSTANDBY);
-        ArrayList<OrderHistory> searchresult = new ArrayList<OrderHistory>();
 
-// only unique products
-/****
-        for (OrderHistory element : temp) {
-
-
-            if ((element.getStatus() == ORDSTANDBY) && (element.getId() != 0)) {
-
-                searchresult.add(element);
-            }
-        }
-        model.addAttribute("myorders", searchresult);
-        model.addAttribute("nocartitems",searchresult.size());
-****/
-
-        model.addAttribute("allopenorders", orderHistoryRepository.findAllByStatusEquals(ORDSTANDBY));
-
-        /*
-         * FOR ADMIN - number of items on the cart menu is the total number of all OPEN orders
-         */
-        model.addAttribute("nocartitems", orderHistoryRepository.countByStatusEquals(ORDSTANDBY));
-
-        return "listopenorders";
-
-
-//        return "viewcart";
+        return "viewcart";
     }
 
 
@@ -167,18 +165,23 @@ public class ProductController {
 
  //       model.addAttribute("product", productRepository.findById(orderHistoryRepository.findByOrduserEqualsAndStatusEquals(current, 2).getOrdproduct().getId()));
 
-        model.addAttribute("order", orderHistoryRepository.findAllByOrduserEqualsAndStatusEquals(current, ORDSTANDBY));
+        model.addAttribute("order", orderHistoryRepository.findAllByOrduserEqualsAndStatusEqualsOrderByOrderId(current, ORDSTANDBY));
 
-        OrderHistory tmp = orderHistoryRepository.findByOrderIdEquals(id);
+//        OrderHistory tmp = orderHistoryRepository.findByOrderIdEquals(id);
 
-        if (tmp != null)
-            model.addAttribute("product", tmp.getProducts());
+//
+//        if (tmp != null)
+//            model.addAttribute("product", tmp.getProducts());
 
 
 
         return "redirect:/";
     }
 
+    @RequestMapping("/checkoutorder/{id}")
+    public String checkOutOrder(Model model, @PathVariable String id) {
 
+        return "checkout";
+    }
 
-}
+    }

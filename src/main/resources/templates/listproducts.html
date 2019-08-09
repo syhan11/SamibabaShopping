@@ -17,11 +17,15 @@
 
 
 <div class="item-container">
-    <form class="item-iterator" style="align-items: center;"
-          action="#"
-          th:action="@{/addtocart}"
-          th:object="${orderhist}"
-          method="post">
+<!--    <form class="item-iterator" style="align-items: center;"-->
+<!--          action="#"-->
+<!--          th:action="@{/addtocart}"-->
+<!--          th:object="${orderhist}"-->
+<!--          method="post">-->
+        <form class="item-iterator" style="align-items: center;"
+              action="#"
+              th:object="${orderhist}"
+              method="post">
 
         <table>
             <tr class="eachproduct" th:each="product : ${category.getProducts()}">
@@ -30,11 +34,11 @@
                 </td>
                 <td id="item-data-td">
                     <div class="listing-right-column pl-xs-2">
-                        <h2 th:text="${product.name}" style="text-align: center"></h2>
+                        <h2 th:text="${product.getName()}" style="text-align: center"></h2>
                         <hr/>
-                        <h4 th:text="${product.description}"></h4>
+                        <h4 th:text="${product.getDescription()}"></h4>
                         <hr/>
-                        <h3 th:text="${product.price}"></h3>
+                        <h3 th:text="${product.getPrice()}"></h3>
                         <p>
                             <label>Quantity
                                 <select th:field="*{qty}">
@@ -42,7 +46,9 @@
                                             th:text="${i}"></option>
                                 </select>
                             </label><br/>
-                            <button type="submit" value="Add to Cart">Add to Cart</button>
+                            <button type="button" class="btn btn-default" style="width:100px; height:100px">
+                            <span class="glyphicon glyphicon-cart"></span>
+                            <a th:href="@{/addtocart/{pid}(pid=${product.getId()})}">Add to Cart</a></button>
                         </p>
                     </div>
                 </td>

@@ -12,10 +12,13 @@ public interface OrderHistoryRepository extends CrudRepository<OrderHistory, Lon
     Long countByOrduserEqualsAndStatusEquals(User userid, int status);
 
     ArrayList<OrderHistory> findAllByStatusEquals(int status);
-    ArrayList<OrderHistory> findAllByOrduserEqualsAndStatusEquals(User user, int status);
+    ArrayList<OrderHistory> findAllByStatusEqualsOrderByOrderId(int status);
+    ArrayList<OrderHistory> findAllByOrduserEqualsAndStatusEqualsOrderByOrderId(User user, int status);
 
     ArrayList<OrderHistory> findAllByOrderIdEquals(String orderid);
     OrderHistory findByOrderIdEquals(String orderid);
+
+    ArrayList<OrderHistory> findAllByOrderIdEqualsAndStatusEquals(long id, int status);
 
 
 }
