@@ -64,6 +64,9 @@ public class User {
     @OneToMany(mappedBy = "orduser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public Set<OrderHistory> orderhistory;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public Set<Card> cards;
+
     public User() {
     }
 
@@ -83,8 +86,9 @@ public class User {
         this.setCity(null);
         this.setState(null);
         this.setZipcode(0);
-        this.roles = null;
-        this.orderhistory = null;
+        this.setRoles(null);
+        this.setOrderhistory(null);
+        this.setCards(null);
     }
 
     public long getId() {
@@ -211,5 +215,11 @@ public class User {
         return found;
     }
 
+    public Set<Card> getCards() {
+        return cards;
+    }
 
+    public void setCards(Set<Card> cards) {
+        this.cards = cards;
+    }
 }

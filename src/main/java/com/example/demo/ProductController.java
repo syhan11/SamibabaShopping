@@ -4,6 +4,7 @@ import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +39,9 @@ public class ProductController {
     @Autowired
     OrderHistoryRepository orderHistoryRepository;
 
+    @Autowired
+    CardRepository cardRepository;
+
     // cancel=1; standby=2; ordered=3; shipped=4; wish = 5; cancelAdmin=6
     static int ORDCANCEL = 1;
     static int ORDSTANDBY = 2;
@@ -45,8 +49,8 @@ public class ProductController {
     static int ORDSHIPPED = 4;
     static int ORDWISH = 5;
     static int ORDADMCANCEL = 6;
-    static double MDTAX = 0.05;
-    static double DELIVERYCHRG = 9.00;
+    static double MDTAX = 0.06;
+    static double DELIVERYCHRG = 10.00;
     static double DELIVERYMIN = 50.00;
 
     /*
@@ -139,7 +143,7 @@ public class ProductController {
             delivery = 0.0;
         else
             delivery = DELIVERYCHRG;
-String taxstr = String.format("%.2f", tax);
+//String taxstr = String.format("%.2f", tax);
 
 
         model.addAttribute("tax", String.format("%.2f", tax));
@@ -180,8 +184,41 @@ String taxstr = String.format("%.2f", tax);
 
     @RequestMapping("/checkoutorder/{id}")
     public String checkOutOrder(Model model, @PathVariable String id) {
+        ArrayList<OrderHistory> orders = orderHistoryRepository.findAllByOrderIdEquals(id);
+
+        /******
+        Set <Card> usercards = order.getOrduser().getCards();
+        Card newcard;
+
+        if (usercards.size() == 0) {
+            newcard = new Card();
+        }
+
+         ******/
+
+
+        model.addAttribute("id", id);
+        model.addAttribute("card", new Card());
+        model.addAttribute("user", orders.get(0).getOrduser());
 
         return "checkout";
     }
 
+
+    @RequestMapping("/payment/{id}")
+    public String payment(Model model, @PathVariable String id,
+                          @Valid Card card, BindingResult result){
+        if (result.hasErrors()) {
+            return "checkout";
+        }
+        OrderHistory curOrd = orderHistoryRepository.findByOrderIdEquals(id);
+        if (curOrd != null) {
+            curOrd.setStatus(ORDORDERED);
+            orderHistoryRepository.save(curOrd);
+            card.setUser(curOrd.getOrduser());
+            cardRepository.save(card);
+        }
+
+        return "redirect:/";
+    }
     }

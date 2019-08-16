@@ -1,10 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Check Out</title>
+    <title>Payment</title>
+    <div th:insert="basicfrag :: headerFrag"></div>
 </head>
 <body>
+<form autocomplete="off" action="#" th:action="@{/payment/{id}(id=${id})}"th:object="${card}"
+      method="post">
+
+    <input th:field="*{id}" type="hidden"/>
+
+    <input type="hidden" th:field="*{user}" th:value="${user}"/>
+
+
+    <div class="form-row">
+        <div class="form-group col-sm-6">
+            <img src="https://www.merchantequip.com/image/?logos=v|m|a&height=32"
+                 alt="Merchant Equipment Store Credit Card Logos">
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="cardNumber">Debit/Credit Card Number</label>
+            <input type="text" class="form-control"
+                   id="cardNumber" placeholder="1234"
+                   th:field="*{cardNumber}">
+            <strong>
+                    <span class="error-message"
+                          th:errors="*{cardNumber}"
+                          th:if="${#fields.hasErrors('cardNumber')}">
+                          Please enter a valid card number
+                    </span>
+            </strong>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-sm-6">
+            <label for="cardFirstName">Cardholder's First Name</label>
+            <input type="text" class="form-control"
+                   id="cardFirstName" placeholder="First Name" th:field="*{firstName}">
+            <strong>
+                    <span class="error-message"
+                          th:errors="*{firstName}"
+                          th:if="${#fields.hasErrors('firstName')}">
+                          Please enter the cardholder's name exactly as it appears on the card.
+                    </span>
+            </strong>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="cardLastName">Carholder's Last Name</label>
+            <input type="text" class="form-control"
+                   id="cardLastName" placeholder="Last Name" th:field="*{lastName}">
+            <strong>
+                    <span class="error-message"
+                          th:errors="*{lastName}"
+                          th:if="${#fields.hasErrors('lastName')}">
+                          Please enter the cardholder's name exactly as it appears on the card.
+                    </span>
+            </strong>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-sm-6">
+            <label for="securityCode">Security Code</label>
+            <input type="text" class="form-control" id="securityCode"
+                   placeholder="999" th:field="*{securityCode}">
+            <strong>
+                    <span class="error-message"
+                          th:errors="*{securityCode}"
+                          th:if="${#fields.hasErrors('securityCode')}">
+                          Please enter a valid card security code.
+                    </span>
+            </strong>
+        </div>
+        <div class="form-group col-sm-4">
+            <label for="expMonth">Expiration month</label>
+            <input type="text" class="form-control"
+                   id="expMonth" placeholder="01" th:field="*{expMonth}">
+            <strong>
+                    <span class="error-message"
+                          th:errors="*{expMonth}"
+                          th:if="${#fields.hasErrors('expMonth')}">
+                          Please choose a valid month.
+                    </span>
+            </strong>
+        </div>
+        <div class="form-group col-sm-2">
+            <label for="expYear">Expiration year</label>
+            <input type="text" class="form-control"
+                   id="expYear" placeholder="2019" th:field="*{expYear}">
+            <strong>
+                    <span class="error-message"
+                          th:errors="*{expYear}"
+                          th:if="${#fields.hasErrors('expYear')}">
+                          Please choose a valid year.
+                    </span>
+            </strong>
+        </div>
+    </div>
+
+    <input type="submit" value="Process the Order" class="btn btn-primary"/>
+
+</form>
 
 </body>
 </html>

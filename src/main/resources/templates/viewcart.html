@@ -8,61 +8,55 @@
 </head>
 <body class="listproductsincart-background">
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>ViewCart</title>
-</head>
-<body>
 <div th:insert="basicfrag :: navFrag"></div>
 
-<div class="admincontain" style="alignment: center; align-content: center; padding: 7px">
+<div class="container admincontain" style="alignment: center; align-content: center; padding: 7px; width:100%">
     <div class="row">
-        <div class="col_6">
-            <h3 style="text-align: center" th:text="${#lists.size(myorders)==0}?'No items in the cart'"></h3>
+        <div class="col-4" style="padding: 1px">
+            <div style="padding: 1px; alignment: right">
+                <h3 style="text-align: center" th:text="${#lists.size(myorders)==0}?'No items in the cart'"></h3>
                 <span th:if="${#lists.size(myorders)>0}">
-                    <h4 th:text="${'Order Id: ' + myorders[0].getOrderId()}"></h4><br/>
+                    <h4 style="alignment: right" th:text="${'Order Id: ' + myorders[0].getOrderId()}"></h4><br/><br/>
                     <button type="button" class="btn btn-default"
                             style="height:70px">
                         <span class="glyphicon glyphicon-tags"></span>
                         <a th:href="@{/checkoutorder/{id}(id=${myorders[0].getOrderId()})}">Check Out</a>
                     </button>
                 </span>
-            </h3>
+                </h3>
+            </div>
+            <div style="padding: 1px; alignment: right">
+                <h3 style="text-align: right" th:text="${'Subtotal:        $' + subtotal}"></h3>
+                <h3 style="text-align: right" th:text="${'Tax (MD 6%):     $' + tax}"></h3>
+                <h3 style="text-align: right" th:text="${'Delivery Charge: $' + delivery}"></h3>
+                <hr/>
+                <h2 style="text-align: right" th:text="${'Total:           $' + total}"></h2>
+            </div>
         </div>
-        <div class="col_6">
-            <h3 th:text="${'Subtotal:' + subtotal}"></h3>
-            <h3 th:text="${'Tax (MD 5%): ' + tax}"></h3>
-            <h3 th:text="${'Delivery Charge: ' + delivery}"></h3>
-            <hr/>
-            <h2 th:text="${'Total: ' + total}"></h2>
+
+        <div class="col-8" style="padding: 1px; width:100%; -ms-grid-column-align: end">
+            <table class="table table-borderless" style="padding: 1px; width:100%">
+                <tbody>
+                <tr class="row" th:each="item: ${myorders}"
+                    style="border: 1px solid darkgray; padding-left: 1px; padding-right: 1px; width:100%">
+                    <td class="col-3" style="alignment: center">
+                        <img class="viewimage"
+                             style="alignment: center; width:100px"
+                             th:src="${item.getOrdprod().getImg()}" alt="product image"/>
+
+                    </td>
+                    <td class="col-9" style="alignment: left; width:100%">
+                        <h5 th:text="${'Product Name: ' + item.getOrdprod().getName()}"></h5>
+                        <br/>
+                        <h5 th:text="${'Price:' + item.getOrdprod().getPrice()}"></h5>
+                        <h5 th:text="${'Ordered Qty:' + item.getQty()}"></h5>
+                    </td>
+                </tr>
+                <br/>
+                </tbody>
+            </table>
         </div>
     </div>
-
-    <table class="admintable" style="padding: 5px">
-        <tr class="admintr" th:each="item: ${myorders}"
-            style="border: 1px solid darkgray; alignment: center; padding-left: 10px; padding-right: 10px">
-            <td class="admintd">
-                <div class="col-3" style="alignment: center">
-                    <img class="adminproduct-image"
-                         style="padding: 15px; width: 100%"
-                         th:src="${item.getOrdprod().getImg()}" alt="product image"/>
-                </div>
-            </td>
-            <td>
-                <div class="col-9">
-                    <h5 th:text="${'Product Name: ' + item.getOrdprod().getName()}"></h5>
-                    <br/>
-                    <h5 th:text="${'Price:' + item.getOrdprod().getPrice()}"></h5>
-                    <h5 th:text="${'Ordered Qty:' + item.getQty()}"></h5>
-                </div>
-
-            </td>
-        </tr>
-        <br/>
-    </table>
-
 </div>
 
 </body>

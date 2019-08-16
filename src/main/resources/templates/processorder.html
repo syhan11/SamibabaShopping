@@ -24,7 +24,7 @@
                 <h4 class="Order-tax" th:text="((product.getPrice())*.06)"></h4>
             </td>
             <td>
-                <h5 th:if="product.getPrice()>50.00">You qualify for free shipping!</h5>
+                <h5 th:if="product.getPrice()>=50.00">You qualify for free shipping!</h5>
                 <h5 th:unless="product.getPrice<50.00">Shipping Fee: $10.00</h5>
             </td>
             <td th:if="product.getPrice()>50.00">
