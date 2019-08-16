@@ -2,12 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="basicfrag :: headerFrag"></div>
-    <meta charset="UTF-8">
     <title>List Products</title>
 </head>
-<div th:replace="basicfrag :: navFrag"></div>
 
 <body class="listproducts-background">
+<div th:replace="basicfrag :: navFrag"></div>
 
 <div class="category-jumbotron jumbotron-fluid">
     <h1 class="display-4"></h1>
@@ -16,49 +15,44 @@
 </div>
 
 
-<div class="item-container">
-<!--    <form class="item-iterator" style="align-items: center;"-->
-<!--          action="#"-->
-<!--          th:action="@{/addtocart}"-->
-<!--          th:object="${orderhist}"-->
-<!--          method="post">-->
-        <form class="item-iterator" style="align-items: center;"
-              action="#"
-              th:object="${orderhist}"
-              method="post">
+<div class="item-container" th:each="product : ${category.getProducts()}">
 
-        <table>
-            <tr class="eachproduct" th:each="product : ${category.getProducts()}">
-                <td id="item-image-td">
-                    <img class="product-image" th:src="${product.img}" alt="product-img"/>
-                </td>
-                <td id="item-data-td">
-                    <div class="listing-right-column pl-xs-2">
-                        <h2 th:text="${product.getName()}" style="text-align: center"></h2>
-                        <hr/>
-                        <h4 th:text="${product.getDescription()}"></h4>
-                        <hr/>
-                        <h3 th:text="${product.getPrice()}"></h3>
-                        <p>
-                            <label>Quantity
-                                <select th:field="*{qty}">
-                                    <option th:each="i : ${#numbers.sequence(1, product.qty)}" th:value="${i}"
-                                            th:text="${i}"></option>
-                                </select>
-                            </label><br/>
-                            <button type="button" class="btn btn-default" style="width:100px; height:100px">
-                            <span class="glyphicon glyphicon-cart"></span>
-                            <a th:href="@{/addtocart/{pid}(pid=${product.getId()})}">Add to Cart</a></button>
-                        </p>
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </form>
+    <div class="row" >
+        <div class="col-4" id="item-image-td">
+            <img class="product-image" th:src="${product.img}" alt="product-img"/>
+        </div>
+        <div class="col-8 listing-right-column pl-xs-2" id="item-data-td">
+            <h2 th:text="${product.getName()}" style="text-align: center"></h2>
+            <h4 th:text="${product.getDescription()}"></h4>
+            <h3 th:text="${product.getPrice()}"></h3>
+            <form style="align-items: center;"
+                  action="#"
+                  th:action="@{/addtocart/{pid}(pid=${product.getId()})}"
+                  method="post">
+                Quantity <input type="number" name="ordqty"/>
+
+                <!--                                <select th:field="*{qty}">-->
+                <!--                                    <option th:each="i : ${#numbers.sequence(1, product.qty)}" th:value="${i}"-->
+                <!--                                            th:text="${i}"></option>-->
+                <!--                                </select>-->
+
+                <button class="glyphicon glyphicon-cart"
+                        type="submit" style="width:110px; height:70px">Add to Cart
+                    </button>
+
+
+
+<!--                                    <input type="submit" value="Submit" />-->
+
+            </form>
+        </div>
+    </div>
+<br/>
+
 </div>
 
 
-<div th:replace="basicfrag :: footerFrag"></div>
+<div th:replace="basicfrag :: importFooter"></div>
 <div th:replace="basicfrag :: scriptFrag"></div>
 </body>
 </html>

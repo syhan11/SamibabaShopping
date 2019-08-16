@@ -1,16 +1,12 @@
 package com.example.demo;
 
-import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -56,7 +52,7 @@ public class ProductController {
     /*
      * This page will display a list of the products under a user-chosen category
      */
-    @RequestMapping("/listproducts/{id}")
+    @GetMapping("/listproducts/{id}")
     public String showProducts(@PathVariable("id") long id, Model model){
         model.addAttribute("categories", categoryRepository.findAll());
 
@@ -80,9 +76,15 @@ public class ProductController {
 
     //This PostMapping method will allow the user to add an item to their cart. Jacob
     @RequestMapping("/addtocart/{pid}")
+    /*****
     public String additemtocart(Model model,
                                 @PathVariable("pid") long pid,
                                 @ModelAttribute("orderhist") OrderHistory orderhist){
+                                *****/
+    public String additemtocart(Model model,
+                                @PathVariable("pid") long pid,
+                                @RequestParam("ordqty") int ordqty){
+
 
         User user = userService.getUser();
 
@@ -118,7 +120,8 @@ public class ProductController {
         currOrd.setOrderId(orderid);
         currOrd.setStatus(ORDSTANDBY);
         currOrd.setOrduser(user);
-        currOrd.setQty(orderhist.getQty());
+        //currOrd.setQty(orderhist.getQty());
+        currOrd.setQty(ordqty);
         currOrd.setOrdprod(currProd);
 
         orderHistoryRepository.save(currOrd);
@@ -134,8 +137,13 @@ public class ProductController {
         model.addAttribute("myorders", myorders);
         double tax = 0.0, delivery = 0.0, subtotal = 0.0;
 
+long tmpqty;
+double tmpprice;
         for (OrderHistory oneord : myorders) {
-            subtotal = subtotal + (oneord.getQty() * oneord.getOrdprod().getPrice());
+            tmpqty = oneord.getQty();
+            tmpprice = oneord.getOrdprod().getPrice();
+            //subtotal = subtotal + (oneord.getQty() * oneord.getOrdprod().getPrice());
+            subtotal = subtotal + (tmpqty * tmpprice);
         }
 
         tax = subtotal * MDTAX;
@@ -201,7 +209,7 @@ public class ProductController {
         model.addAttribute("card", new Card());
         model.addAttribute("user", orders.get(0).getOrduser());
 
-        return "checkout";
+        return "paymentprocess";
     }
 
 
@@ -209,13 +217,17 @@ public class ProductController {
     public String payment(Model model, @PathVariable String id,
                           @Valid Card card, BindingResult result){
         if (result.hasErrors()) {
-            return "checkout";
+            return "paymentprocess";
         }
-        OrderHistory curOrd = orderHistoryRepository.findByOrderIdEquals(id);
-        if (curOrd != null) {
+       ArrayList<OrderHistory> orders = orderHistoryRepository.findAllByOrderIdEquals(id);
+        OrderHistory tmpOrd;
+        for (OrderHistory curOrd : orders) {
             curOrd.setStatus(ORDORDERED);
             orderHistoryRepository.save(curOrd);
-            card.setUser(curOrd.getOrduser());
+        }
+
+        if (orders.size() > 0) {
+            card.setUser(orders.get(0).getOrduser());
             cardRepository.save(card);
         }
 

@@ -29,7 +29,7 @@ public class OrderHistory {
     private Product ordprod;
 
     @Column(name="qty")
-    private int qty;
+    public int qty;
 
     @Column(name="status")
     private int status;   // cancel=1; standby=2; ordered=3; shipped=4; wish = 5; cancelAdmin=6

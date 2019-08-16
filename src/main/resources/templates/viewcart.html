@@ -12,27 +12,6 @@
 
 <div class="container admincontain" style="alignment: center; align-content: center; padding: 7px; width:100%">
     <div class="row">
-        <div class="col-4" style="padding: 1px">
-            <div style="padding: 1px; alignment: right">
-                <h3 style="text-align: center" th:text="${#lists.size(myorders)==0}?'No items in the cart'"></h3>
-                <span th:if="${#lists.size(myorders)>0}">
-                    <h4 style="alignment: right" th:text="${'Order Id: ' + myorders[0].getOrderId()}"></h4><br/><br/>
-                    <button type="button" class="btn btn-default"
-                            style="height:70px">
-                        <span class="glyphicon glyphicon-tags"></span>
-                        <a th:href="@{/checkoutorder/{id}(id=${myorders[0].getOrderId()})}">Check Out</a>
-                    </button>
-                </span>
-                </h3>
-            </div>
-            <div style="padding: 1px; alignment: right">
-                <h3 style="text-align: right" th:text="${'Subtotal:        $' + subtotal}"></h3>
-                <h3 style="text-align: right" th:text="${'Tax (MD 6%):     $' + tax}"></h3>
-                <h3 style="text-align: right" th:text="${'Delivery Charge: $' + delivery}"></h3>
-                <hr/>
-                <h2 style="text-align: right" th:text="${'Total:           $' + total}"></h2>
-            </div>
-        </div>
 
         <div class="col-8" style="padding: 1px; width:100%; -ms-grid-column-align: end">
             <table class="table table-borderless" style="padding: 1px; width:100%">
@@ -56,6 +35,29 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="col-4" style="padding: 1px">
+            <div style="padding: 1px; alignment: right">
+                <h3 style="text-align: center" th:text="${#lists.size(myorders)==0}?'No items in the cart'"></h3>
+                <span th:if="${#lists.size(myorders)>0}">
+                    <h4 style="alignment: right" th:text="${'Order Id: ' + myorders[0].getOrderId()}"></h4><br/><br/>
+                    <button type="button" class="btn btn-default"
+                            style="height:70px">
+                        <span class="glyphicon glyphicon-tags"></span>
+                        <a th:href="@{/checkoutorder/{id}(id=${myorders[0].getOrderId()})}">Check Out</a>
+                    </button>
+                </span>
+                </h3>
+            </div>
+            <div style="padding: 1px; alignment: right">
+                <h3 style="text-align: right" th:text="${'Subtotal:        $' + subtotal}"></h3>
+                <h3 style="text-align: right" th:text="${'Tax (MD 6%):     $' + tax}"></h3>
+                <h3 style="text-align: right" th:text="${'Delivery Charge: $' + delivery}"></h3>
+                <hr/>
+                <h2 style="text-align: right" th:text="${'Total:           $' + total}"></h2>
+            </div>
+        </div>
+
     </div>
 </div>
 
